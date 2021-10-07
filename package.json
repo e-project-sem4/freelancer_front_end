@@ -1,0 +1,20 @@
+{
+    "name": "freelance",
+    "version": "1.0.0",
+    "description": "freelance",
+    "main": "index.js",
+    "dependencies": {
+        "body-parse": "^0.1.0",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.13",
+        "pm2": "^5.1.2"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "author": "",
+    "license": "ISC"
+}
