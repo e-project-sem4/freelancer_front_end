@@ -14,6 +14,12 @@ router.get("/home", (req, res) => {
         res.send(data);
     });
 });
+router.get("/signup", (req, res) => {
+    fs.readFile("./src/signup.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 router.get("/job-list", (req, res) => {
     fs.readFile("./src/job-list.html", "utf-8", (err, data) => {
         res.type("text/html");

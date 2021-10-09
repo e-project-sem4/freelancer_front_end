@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     $('#login').on("click",function() {
         const name = $("#username").val();
