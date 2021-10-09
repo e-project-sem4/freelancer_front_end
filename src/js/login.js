@@ -14,9 +14,7 @@ $(document).ready(function() {
                     location.href = '/home'
                 }
             },
-            // error(e) {
-            //     show_default_popup('Login Fail')
-            // },
+
         });
         event.preventDefault()
     })
