@@ -1,6 +1,15 @@
 const router = require("express").Router();
 const fs = require("fs");
 
+
+
+router.get("/login", (req, res) => {
+    fs.readFile("./src/login.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
 router.get("/about", (req, res) => {
     fs.readFile("./src/about.html", "utf-8", (err, data) => {
         res.type("text/html");
