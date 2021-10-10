@@ -14,16 +14,7 @@ $(document).ready(function() {
             email: email,
             phone: phone,
         };
-         if (username <= 4){
-            alert('Username phải lớn hơn 4 kí tự')
-        }
-        else if (phone < 12){
-            alert('Số điện thoại phải nhỏ hơn 12 kí tự')
-        }
-        else if (password <= 8){
-            alert('Mật khẩu  phải lớn hơn 8 kí tự')
-        }
-        else if (confirm_password != password){
+        if (confirm_password != password){
             alert('Sai mật khẩu xác nhận ')
         }
         else {
