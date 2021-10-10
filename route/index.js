@@ -53,19 +53,6 @@ router.get("/candidate-details", (req, res) => {
         res.send(data);
     });
 });
-router.get("/employer-list", (req, res) => {
-    fs.readFile("./src/employers-list.html", "utf-8", (err, data) => {
-        res.type("text/html");
-        res.send(data);
-    });
-});
-router.get("/employer-details", (req, res) => {
-    fs.readFile("./src", "utf-8", (err, data) => {
-        res.type("text/html");
-        res.send(data);
-    });
-});
-
 router.get("/about", (req, res) => {
     fs.readFile("./src/about.html", "utf-8", (err, data) => {
         res.type("text/html");

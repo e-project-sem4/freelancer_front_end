@@ -2,9 +2,10 @@ $(document).ready(function() {
     $('#login').on("click", function(event) {
         const name = $("#username").val();
         const pass = $("#pass").val();
+        const url = baseUrl + `/api/v1/users/login?username=${name}&password=${pass}`;
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8081/api/v1/users/login?username=${name}&password=${pass}`,
+            url: url,
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function(res) {
