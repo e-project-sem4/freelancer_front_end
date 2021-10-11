@@ -6,7 +6,6 @@ $(document).ready(function() {
         var phone = $("#phone").val();
         var password = $("#password").val();
         var confirm_password = $("#confirm_password").val();
-        debugger;
         const registerForm = {
             username: username,
             password: password,
@@ -14,13 +13,9 @@ $(document).ready(function() {
             email: email,
             phone: phone,
         };
-        if (confirm_password != password){
-            alert('Sai mật khẩu xác nhận ')
-        }
-        else {
             $.ajax({
                 type: 'POST',
-                url: "http://localhost:8081/api/v1/users/register",
+                url: baseUrl + "/api/v1/users/register?",
                 contentType: "application/json",
                 data:JSON.stringify(registerForm),
                 dataType:"JSON",
@@ -34,7 +29,8 @@ $(document).ready(function() {
                     console.log("sai");
                 },
             });
-        }
+
+
     })
 
 })
