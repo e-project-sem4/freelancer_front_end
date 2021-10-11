@@ -2455,7 +2455,7 @@ a.job-list[data-toggle=collapse].collapsed:before {
 
 .error {
   margin: 8px 0px;
-  display: none;
+  /*display: none;*/
   color: #e43f52;
 }
 

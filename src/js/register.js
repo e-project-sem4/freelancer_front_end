@@ -6,6 +6,7 @@ $(document).ready(function() {
         var phone = $("#phone").val();
         var password = $("#password").val();
         var confirm_password = $("#confirm_password").val();
+        const url = baseUrl + `/api/v1/users/register`;
         debugger;
         const registerForm = {
             username: username,
@@ -20,7 +21,7 @@ $(document).ready(function() {
         else {
             $.ajax({
                 type: 'POST',
-                url: "http://localhost:8081/api/v1/users/register",
+                url: url,
                 contentType: "application/json",
                 data:JSON.stringify(registerForm),
                 dataType:"JSON",

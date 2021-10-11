@@ -13,17 +13,18 @@
         <link rel="shortcut icon" href="images/favicon.ico">    
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    
+
         <!--Material Icon -->
         <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
-    
+
         <link rel="stylesheet" type="text/css" href="css/selectize.css" />
-    
+
         <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
-    
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
         <!-- Custom  Css -->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+        <script src="js/jquery.validate.js"></script>
     </head>
 
     <body>
@@ -54,20 +55,37 @@
                                     <div class="text-center">
                                         <h4 class="mb-4">Recover Account</h4>  
                                     </div>
-                                    <form class="login-form">
+                                    <form  id="commentForm" class="login-form">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <p class="text-muted">Please enter your email address. You will receive a link to create a new password via email.</p>
-                                                <div class="form-group position-relative">
-                                                    <label>Email address <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" placeholder="Enter Your Email Address" id="username" name="username" >
-                                                    <input type="text" class="form-control" placeholder="Enter Your Email Address" id="oldPassword" name="oldPassword" >
-                                                    <input type="text" class="form-control" placeholder="Enter Your Email Address" id="newPassword" name="newPassword" >
-                                                </div>
+                                                <p class="text-muted">Please enter your email address and Old password . You will be able to change your password.</p>
+                                                <fieldset class="form-group position-relative">
+
+                                                    <div class="col-md-12">
+                                                        <p class="form-group position-relative">
+                                                            <label>User Name <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" minlength="5"  placeholder="Enter Your User Name" name="username" id="username" required="">
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <p class="form-group position-relative">
+                                                            <label>Password <span class="text-danger">*</span></label>
+                                                            <input type="password" class="form-control" minlength="5" placeholder="Enter Your Password" name="password" id="oldPassword" required="">
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <p class="form-group position-relative">
+                                                            <label>New Password <span class="text-danger">*</span></label>
+                                                            <input type="password" class="form-control"minlength="5" placeholder="Enter Your New Password" name="password" id="newPassword" required="">
+                                                        </p>
+                                                    </div>
+
+                                                </fieldset>
 
                                             </div>
                                             <div class="col-lg-12">
-                                                <button type="submit" id="change" class="btn btn-primary w-100">Send</button>
+                                                <input id="change-pass" class="submit" type="submit" value="Submit">
                                             </div>
                                         </div>
                                     </form>
@@ -79,9 +97,11 @@
             </div>
         </section><!--end section-->
         <!-- Hero End -->
-
+<!--            <script>-->
+<!--                $("#commentForm").validate();-->
+<!--            </script>-->
         <!-- javascript -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+
 <!--        <script src="js/jquery.min.js"></script>-->
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.easing.min.js"></script>
