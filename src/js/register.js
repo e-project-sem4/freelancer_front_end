@@ -16,6 +16,7 @@ $(document).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: baseUrl + "/api/v1/users/register?",
+                url: url,
                 contentType: "application/json",
                 data:JSON.stringify(registerForm),
                 dataType:"JSON",
@@ -29,8 +30,6 @@ $(document).ready(function() {
                     console.log("sai");
                 },
             });
-
-
     })
 
 })

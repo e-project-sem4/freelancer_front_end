@@ -1,9 +1,10 @@
 $(document).ready(function() {
-    $('#change').on("click", function(event) {
+    $('#change-pass').on("click", function(event) {
 
         const name = $("#username").val();
         const pass = $("#oldPassword").val();
         const passNew = $("#newPassword").val();
+
         const url = baseUrl + `/api/v1/users/changepassword`;
         const token=  localStorage.getItem('access-token')
         const param = {
@@ -33,3 +34,12 @@ $(document).ready(function() {
     })
 
 })
+// $(document).ready(function() {
+//     $('#change-pass').on("click", function (e) {
+//         debugger
+//         var isValid = $(e.target).parents('form').isValid;
+//         if (!isValid) {
+//             e.preventDefault(); //prevent the default action
+//         }
+//     });
+// })
