@@ -23,9 +23,10 @@
     <link rel="stylesheet" type="text/css" href="css/selectize.css" />
 
     <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/post-a-job.css" />
     <script src="js/jquery.min.js" > </script>
     <script src="js/header.js" ></script>
 
@@ -98,11 +99,8 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Expected Duration</label>
                                             <div class="form-button">
-                                                <select class="nice-select rounded" id="expected_duration">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
+                                                <select class="duration" onchange="durationSelect()" id="expected_duration">
+                                                   
                                                 </select>
                                             </div>
                                         </div>
@@ -111,11 +109,8 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Complexity</label>
                                             <div class="form-button">
-                                                <select class="nice-select rounded" id="complexity">
-                                                    <option value="1">Web Developer</option>
-                                                    <option value="2">PHP Developer</option>
-                                                    <option value="3">Web Designer</option>
-                                                    <option value="4">Graphic Designer</option>
+                                                <select class="complexity" onchange="complexitySelect()" id="complexity">
+                                                  
                                                 </select>
                                             </div>
                                         </div>
@@ -132,14 +127,9 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Skill</label>
                                             <div class="form-button">
-                                                <select id="multiple-checkboxes" multiple="multiple">
-                                                    <option value="php">PHP</option>
-                                                    <option value="javascript">JavaScript</option>
-                                                    <option value="java">Java</option>
-                                                    <option value="sql">SQL</option>
-                                                    <option value="jquery">Jquery</option>
-                                                    <option value=".net">.Net</option>
-                                                </select>
+                                                <select  class="js-example-basic-multiple skills" name="states[]" multiple="multiple">
+                                                   
+                                                </select>                                               
                                             </div>
                                         </div>
                                     </div>
@@ -153,26 +143,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-12">-->
-<!--                                        <ul class="list-inline mb-0">-->
-<!--                                            <li class="list-inline-item">-->
-<!--                                                <div class="input-group mt-2 mb-2">-->
-<!--                                                    <div class="custom-file">-->
-<!--                                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">-->
-<!--                                                        <label class="custom-file-label rounded"><i class="mdi mdi-cloud-upload mr-1"></i> Upload Files</label>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-
-<!--                                            <li class="list-inline-item">-->
-<!--                                                <h6 class="text-muted mb-0">Upload Images Or Documents.</h6>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
                                 <div class="row">
                                     <div class="col-md-12 mt-2">
                                         <a href="#" class="btn btn-primary" id="post-job">Post a Job</a>
@@ -188,7 +158,7 @@
     <!-- POST A JOB END -->
 
     <!-- subscribe start -->
-    <section class="section bg-light">
+    <!-- <section class="section bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-5">
@@ -212,7 +182,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- subscribe end -->
 
     <!-- footer start -->
@@ -289,27 +259,21 @@
 
     <!-- javascript -->
 <!--    <script src="js/jquery.min.js"></script>-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
-    <script src="js/post-a-job.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 
      selectize js
     <script src="js/selectize.min.js"></script>
-
     <script src="js/jquery.nice-select.min.js"></script>
-
     <script src="js/app.js"></script>
     <script src="js/default.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#multiple-checkboxes').multiselect({
-                includeSelectAllOption: true,
-            });
-        });
-    </script>
+    <script src="js/post-a-job.js"></script>
+ 
 </body>
 <style>
     .btn-group {

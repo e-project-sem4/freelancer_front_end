@@ -9,7 +9,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function(res) {
-                if (res.status == -1) {
+                if (res.status == '-1') {
                     var template = `<div class="alert-login">
                                         <span id="error-content-login">${res.message}</span>
                                     </div>`
@@ -17,14 +17,14 @@ $(document).ready(function() {
                     $('.alert-login').show();
                     return;
                 }
-                if (res.status != -1) {
+                if (res.status != '-1') {
                     localStorage.setItem('access-token', res.message)
                     localStorage.setItem('user-info', JSON.stringify(res.result))
                     location.href = '/home'
                 }
             },
-
         });
+        event.preventDefault()
     })
 
 })
