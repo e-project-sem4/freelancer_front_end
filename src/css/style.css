@@ -2452,7 +2452,12 @@ a.job-list[data-toggle=collapse].collapsed:before {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-
+#limit{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 466px;
+}
 .error {
   margin: 8px 0px;
   /*display: none;*/
