@@ -63,7 +63,6 @@ $(document).ready(function () {
                }
                $('#job-list').html(itemHtml)
            },
-
        });
        event.preventDefault()
    })

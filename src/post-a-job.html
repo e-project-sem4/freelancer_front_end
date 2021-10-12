@@ -35,6 +35,7 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
+
 </head>
 
 <body>
@@ -98,7 +99,7 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Expected Duration</label>
                                             <div class="form-button">
-                                                <select class="nice-select rounded" id="expected_duration">
+                                                <select class="nice-select rounded" id="expected_duration_id">
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -111,7 +112,7 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Complexity</label>
                                             <div class="form-button">
-                                                <select class="nice-select rounded" id="complexity">
+                                                <select class="nice-select rounded" id="complexity_id">
                                                     <option value="1">Web Developer</option>
                                                     <option value="2">PHP Developer</option>
                                                     <option value="3">Web Designer</option>
@@ -132,13 +133,8 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">Job Skill</label>
                                             <div class="form-button">
-                                                <select id="multiple-checkboxes" multiple="multiple">
-                                                    <option value="php">PHP</option>
-                                                    <option value="javascript">JavaScript</option>
-                                                    <option value="java">Java</option>
-                                                    <option value="sql">SQL</option>
-                                                    <option value="jquery">Jquery</option>
-                                                    <option value=".net">.Net</option>
+                                                <select multiple="multiple" class="multiple-checkboxes">
+                                                    <option id="skill_id"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -295,7 +291,6 @@
     <script src="js/post-a-job.js"></script>
 
 
-     selectize js
     <script src="js/selectize.min.js"></script>
 
     <script src="js/jquery.nice-select.min.js"></script>
@@ -305,7 +300,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#multiple-checkboxes').multiselect({
+            $('.multiple-checkboxes').multiselect({
                 includeSelectAllOption: true,
             });
         });

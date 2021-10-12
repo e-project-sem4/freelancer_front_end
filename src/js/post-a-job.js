@@ -1,22 +1,26 @@
 // $(document).ready(function () {
 //     $('#post-job').on("click",function (event){
-//         const url = baseUrl + `/api/v1/job?job_name=${jobName}&expected_duration=${expectedDuration}
-//         &complexity=${complexity}&paymentAmount=${paymentAmount}&description=${description}`;
-//         const jobName = $("#job_name").val();
-//         const expectedDuration = $('#expectedDuration').val();
-//         const complexity = $('#complexity').val();
+//         const url = baseUrl + `/api/v1/job?name=${name}&expected_duration_id=${expected_duration_id}
+//         &complexity_id=${complexity_id}&paymentAmount=${paymentAmount}&description=${description}`;
+//         const name = $("#job_name").val();
+//         const expected_duration_id = $('#expected_duration_id').val();
+//         const complexity_id = $('#complexity_id').val();
 //         const paymentAmount = $('#payment_amount').val();
-//         const job_skill_list = [$('#job_skill').val()];
+//
+//         const job_skill_list = [$('#skill_id').val()];
 //         const otherSkill = job_skill_list.values();
+//
+//
 //         const description = $('#description').val();
-//         const
 //         const jobPostForm ={
-//             jobName: jobName,
-//             expectedDuration: expectedDuration,
-//             complexity: complexity,
-//             paymentAmount: paymentAmount,
-//             job_skill: job_skill,
+//             complexity : complexity_id,
+//             expected_duration_id: expected_duration_id,
 //             description: description,
+//             paymentAmount: paymentAmount,
+//             name:name,
+//             otherSkill : [
+//                 otherSkill
+//             ],
 //         }
 //         $.ajax({
 //             type: 'POST',
@@ -43,11 +47,9 @@
 //     })
 // });
 // $(function getExpectedDuration(){
-//
-//     const expectedDuration = $('#expected_duration').val();
 //     $.ajax({
 //         type: 'GET',
-//         url: baseUrl+"/api/v1/complexity",
+//         url: baseUrl+"/api/v1/durations",
 //         contentType: "application/json; charset=utf-8",
 //         beforeSend: function (xhr) {
 //             xhr.setRequestHeader(
@@ -70,13 +72,10 @@
 // });
 //
 // $(function getComplexity(){
-//
-//     const complexity = $('#complexity').val();
 //     $.ajax({
 //         type: 'GET',
-//         url: url,
+//         url: baseUrl+"/api/v1/expectedDuration",
 //         contentType: "application/json; charset=utf-8",
-//         data:JSON.stringify(jobPostForm),
 //         beforeSend: function (xhr) {
 //             xhr.setRequestHeader(
 //                 "Authorization", token
@@ -85,16 +84,20 @@
 //         dataType: "JSON",
 //         async: false,
 //         success: function (res) {
-//             if(res ){
-//                 location.href="/post-a-job"
-//             }
+//             console.log(res)
+//             // const complexity = res.result;
+//             // let itemComplexity = "";
+//             // let itemTempComplexity = "";
+//             // for(let i = 0; i < complexity.length; i++){
+//             //     itemTempComplexity = <option>${complexity[i].complexityText}</option>
+//             // }
+//             // itemComplexity += itemTempComplexity;
+//             // $('#skill_id').html(itemComplexity)
 //         },
 //         error(){
 //             console.log("sai");
 //         },
 //     });
-//
-//
 // });
 //
 // $(function getJobSkill(){
