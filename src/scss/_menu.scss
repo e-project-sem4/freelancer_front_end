@@ -25,13 +25,13 @@
                 color: $white;
             }
             .submenu {
-                li.active > a{
+                li.active>a {
                     color: $primary;
                 }
             }
         }
     }
-    .has-submenu{
+    .has-submenu {
         position: relative;
         .submenu {
             .submenu-arrow {
@@ -67,13 +67,12 @@
             background-color: $dark;
             display: block;
             margin-bottom: 5px;
-            transition: transform .5s ease;   
+            transition: transform .5s ease;
             &:last-child {
                 margin-bottom: 0;
             }
         }
     }
-    
     //Buy button
     .buy-button {
         float: right;
@@ -103,23 +102,23 @@
         }
     }
     .navbar-toggle {
-        &:hover, 
+        &:hover,
         &:focus,
-        .navigation-menu > li > a:hover, &:focus {
+        .navigation-menu>li>a:hover,
+        &:focus {
             background-color: transparent;
         }
     }
-  
     .navigation-menu {
         list-style: none;
         margin: 0;
         padding: 0;
-        > li {
+        >li {
             float: left;
             display: block;
             position: relative;
             margin: 0 10px;
-            > a {
+            >a {
                 display: block;
                 color: rgba($white, 0.8);
                 font-size: 13px;
@@ -128,7 +127,7 @@
                 letter-spacing: 1px;
                 line-height: 24px;
                 text-transform: uppercase;
-                transition: all 0.5s;    
+                transition: all 0.5s;
                 font-family: $font-family-base;
                 padding-left: 15px;
                 padding-right: 15px;
@@ -168,7 +167,7 @@
         }
         .has-submenu {
             &.active {
-                > a{
+                >a {
                     color: $primary;
                 }
             }
@@ -176,25 +175,24 @@
         .tagline-dark {
             display: none;
         }
-        
         .navigation-menu {
-            > li {
-                > a{
+            >li {
+                >a {
                     color: $dark;
                 }
-                
-                > .menu-arrow {
+                >.menu-arrow {
                     border-color: $dark;
                 }
-                &:hover, &.active {
-                    > a {
+                &:hover,
+                &.active {
+                    >a {
                         color: $primary;
                     }
-                    > .menu-arrow {
+                    >.menu-arrow {
                         border-color: $primary;
                     }
-                } 
-            } 
+                }
+            }
         }
     }
 }
@@ -203,7 +201,8 @@
     background: rgba(30, 30, 30, 0.1);
     font-size: 13px;
     transition: all .5s ease;
-    .email, .phone{
+    .email,
+    .phone {
         display: inline-block;
         vertical-align: top;
         margin-right: 10px;
@@ -247,15 +246,14 @@
             .item {
                 color: $light;
             }
-            &:after{
+            &:after {
                 border-color: $white transparent transparent transparent !important;
             }
             &.dropdown-active {
-                &:after{
+                &:after {
                     border-color: transparent transparent $white transparent !important;
                 }
             }
-            
         }
     }
 }
@@ -268,28 +266,29 @@
     padding: 3px 0;
     line-height: 68px;
 }
+
 @media (min-width: 992px) {
     #topnav {
         .navigation-menu {
             display: flex;
             justify-content: center;
-            > .has-submenu {
-                > .submenu {
-                    > .has-submenu {
-                        > .submenu {
-                            &::before{
+            >.has-submenu {
+                >.submenu {
+                    >.has-submenu {
+                        >.submenu {
+                            &::before {
                                 top: 20px;
                                 margin-left: 11px;
                                 box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.15);
                                 border-color: transparent $white $white transparent;
                             }
                         }
-                    } 
+                    }
                 }
-            } 
-            > li {
+            }
+            >li {
                 .submenu {
-                    > li {
+                    >li {
                         .submenu {
                             left: 106%;
                             top: 0;
@@ -298,22 +297,22 @@
                         }
                     }
                 }
-                > a {
+                >a {
                     padding-top: 25px;
                     padding-bottom: 25px;
                     min-height: 62px;
                 }
                 &:hover {
-                    > .menu-arrow {
+                    >.menu-arrow {
                         border-color: $white;
                     }
                 }
-                &:hover, &.active {
-                    > a {
+                &:hover,
+                &.active {
+                    >a {
                         color: $white;
                     }
-                } 
-                
+                }
                 .submenu {
                     position: absolute;
                     top: 100%;
@@ -367,7 +366,7 @@
                     &.megamenu {
                         white-space: nowrap;
                         width: auto;
-                        > li {
+                        >li {
                             overflow: hidden;
                             width: 180px;
                             display: inline-block;
@@ -385,7 +384,7 @@
                     .submenu {
                         left: auto;
                         right: 0;
-                        > li.has-submenu .submenu {
+                        >li.has-submenu .submenu {
                             left: auto;
                             right: 100%;
                             margin-left: 0;
@@ -394,7 +393,7 @@
                     }
                 }
             }
-        }        
+        }
         .navbar-toggle {
             display: none;
         }
@@ -404,8 +403,8 @@
         &.scroll {
             top: 0;
             .navigation-menu {
-                > li {
-                    > a {
+                >li {
+                    >a {
                         padding-top: 20px;
                         padding-bottom: 20px;
                     }
@@ -414,8 +413,8 @@
         }
         &.scroll-active {
             .navigation-menu {
-                > li {
-                    > a {
+                >li {
+                    >a {
                         padding-top: 25px;
                         padding-bottom: 25px;
                     }
@@ -424,8 +423,8 @@
         }
     }
 }
-  
-  @media (max-width: 991px) {
+
+@media (max-width: 991px) {
     #topnav {
         background-color: $white;
         box-shadow: $shadow;
@@ -433,7 +432,6 @@
         .tagline {
             display: none;
         }
-    
         .tagline-dark {
             display: none;
         }
@@ -451,14 +449,14 @@
         .navigation-menu {
             float: none;
             max-height: 400px;
-            > li {
+            >li {
                 float: none;
-                
-                &:hover, &.active {
-                    > a {
+                &:hover,
+                &.active {
+                    >a {
                         color: $primary;
                     }
-                } 
+                }
                 .submenu {
                     display: none;
                     list-style: none;
@@ -488,12 +486,12 @@
                         }
                     }
                     &.megamenu {
-                        > li {
-                            > ul {
+                        >li {
+                            >ul {
                                 list-style: none;
                                 padding-left: 0;
-                                > li {
-                                    > span {
+                                >li {
+                                    >span {
                                         display: block;
                                         position: relative;
                                         padding: 10px 15px;
@@ -507,7 +505,7 @@
                         }
                     }
                 }
-                > a {
+                >a {
                     color: $dark;
                     padding: 10px 20px;
                     &:after {
@@ -517,9 +515,9 @@
                 }
             }
         }
-        .navigation-menu > li > a:hover,
-        .navigation-menu > li .submenu li a:hover,
-        .navigation-menu > li.has-submenu.open > a {
+        .navigation-menu>li>a:hover,
+        .navigation-menu>li .submenu li a:hover,
+        .navigation-menu>li.has-submenu.open>a {
             color: $primary;
         }
         .menu-extras .menu-item {
@@ -530,7 +528,7 @@
         }
     }
     #topnav {
-        .has-submenu{
+        .has-submenu {
             .submenu {
                 .submenu-arrow {
                     transform: rotate(45deg);
@@ -546,7 +544,6 @@
             }
         }
     }
-
     #navigation {
         position: absolute;
         top: 74px;
@@ -556,8 +553,8 @@
         height: auto;
         padding-bottom: 0;
         overflow: auto;
-        border-top: 1px solid darken($light,2%);
-        border-bottom: 1px solid darken($light,2%);
+        border-top: 1px solid darken($light, 2%);
+        border-bottom: 1px solid darken($light, 2%);
         background-color: $white;
         &.open {
             display: block;
@@ -565,6 +562,7 @@
         }
     }
 }
+
 @media (max-width: 768px) {
     #topnav {
         .navigation-menu {
@@ -573,7 +571,6 @@
                     right: 16px;
                     top: 16px;
                     border-color: $dark;
-                    
                 }
                 &.active {
                     .menu-arrow {
@@ -584,20 +581,21 @@
         }
     }
 }
+
 @media (min-width: 768px) {
     #topnav {
         .navigation-menu {
-            > li{
-                &.has-submenu{
+            >li {
+                &.has-submenu {
                     &:hover {
-                        > .submenu {
+                        >.submenu {
                             visibility: visible;
                             opacity: 1;
                             margin-top: 0;
-                            > li{
-                                &.has-submenu{
+                            >li {
+                                &.has-submenu {
                                     &:hover {
-                                        > .submenu {
+                                        >.submenu {
                                             visibility: visible;
                                             opacity: 1;
                                             margin-left: 0;
@@ -616,7 +614,8 @@
         display: block;
     }
 }
-@media (max-width: 375px){
+
+@media (max-width: 375px) {
     #topnav {
         .buy-button {
             display: none;

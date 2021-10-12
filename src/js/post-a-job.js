@@ -1,129 +1,158 @@
-// $(document).ready(function () {
-//     $('#post-job').on("click",function (event){
-//         const url = baseUrl + `/api/v1/job?name=${name}&expected_duration_id=${expected_duration_id}
-//         &complexity_id=${complexity_id}&paymentAmount=${paymentAmount}&description=${description}`;
-//         const name = $("#job_name").val();
-//         const expected_duration_id = $('#expected_duration_id').val();
-//         const complexity_id = $('#complexity_id').val();
-//         const paymentAmount = $('#payment_amount').val();
-//
-//         const job_skill_list = [$('#skill_id').val()];
-//         const otherSkill = job_skill_list.values();
-//
-//
-//         const description = $('#description').val();
-//         const jobPostForm ={
-//             complexity : complexity_id,
-//             expected_duration_id: expected_duration_id,
-//             description: description,
-//             paymentAmount: paymentAmount,
-//             name:name,
-//             otherSkill : [
-//                 otherSkill
-//             ],
-//         }
-//         $.ajax({
-//             type: 'POST',
-//             url: url,
-//             contentType: "application/json; charset=utf-8",
-//             data:JSON.stringify(jobPostForm),
-//             beforeSend: function (xhr) {
-//                 xhr.setRequestHeader(
-//                     "Authorization", token
-//                 );
-//             },
-//             dataType: "JSON",
-//             async: false,
-//             success: function (res) {
-//                 if(res ){
-//                     location.href="/post-a-job"
-//                 }
-//             },
-//             error(){
-//                 console.log("sai");
-//             },
-//         });
-//         event.preventDefault()
-//     })
-// });
-// $(function getExpectedDuration(){
-//     $.ajax({
-//         type: 'GET',
-//         url: baseUrl+"/api/v1/durations",
-//         contentType: "application/json; charset=utf-8",
-//         beforeSend: function (xhr) {
-//             xhr.setRequestHeader(
-//                 "Authorization", token
-//             );
-//         },
-//         dataType: "JSON",
-//         async: false,
-//         success: function (res) {
-//             if(res ){
-//                 console.log(expectedDuration)
-//             }
-//         },
-//         error(){
-//             console.log("sai");
-//         },
-//     });
-//
-//
-// });
-//
-// $(function getComplexity(){
-//     $.ajax({
-//         type: 'GET',
-//         url: baseUrl+"/api/v1/expectedDuration",
-//         contentType: "application/json; charset=utf-8",
-//         beforeSend: function (xhr) {
-//             xhr.setRequestHeader(
-//                 "Authorization", token
-//             );
-//         },
-//         dataType: "JSON",
-//         async: false,
-//         success: function (res) {
-//             console.log(res)
-//             // const complexity = res.result;
-//             // let itemComplexity = "";
-//             // let itemTempComplexity = "";
-//             // for(let i = 0; i < complexity.length; i++){
-//             //     itemTempComplexity = <option>${complexity[i].complexityText}</option>
-//             // }
-//             // itemComplexity += itemTempComplexity;
-//             // $('#skill_id').html(itemComplexity)
-//         },
-//         error(){
-//             console.log("sai");
-//         },
-//     });
-// });
-//
-// $(function getJobSkill(){
-//
-//     const jobSKill = $('#jobSKill').val();
-//     $.ajax({
-//         type: 'GET',
-//         url: url,
-//         contentType: "application/json; charset=utf-8",
-//         data:JSON.stringify(jobPostForm),
-//         beforeSend: function (xhr) {
-//             xhr.setRequestHeader(
-//                 "Authorization", token
-//             );
-//         },
-//         dataType: "JSON",
-//         async: false,
-//         success: function (res) {
-//             if(res ){
-//                 location.href="/post-a-job"
-//             }
-//         },
-//         error(){
-//             console.log("sai");
-//         },
-//     });
-//
-//
-// });
+$(document).ready(function () {
+  $("#job_name").val("");
+  $("#payment_amount").val("")
+  $(".js-example-basic-multiple").select2({
+    placeholder: "Choose event type",
+  });
+
+  $("#post-job").on("click", function (event) {
+    const jobName = $("#job_name").val();
+    const expectedDuration = $(".duration").val();
+    const complexity = $(".complexity").val();
+    const paymentAmount = $("#payment_amount").val();
+    const otherSkill = $(".js-example-basic-multiple")
+        .select2("val")
+        .map((item) => {
+          return {
+            skill_id: item,
+          };
+        });
+    const description = $("#description").val();
+    const param = {
+      name: jobName,
+      expected_duration_id: expectedDuration,
+      complexity_id: complexity,
+      paymentAmount: paymentAmount,
+      otherSkills: otherSkill,
+      description: description,
+    };
+    $.ajax({
+      type: "POST",
+      url: baseUrl + "/api/v1/job",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(param),
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(
+            "Authorization",
+            String(localStorage.getItem("access-token"))
+        );
+      },
+      dataType: "JSON",
+      async: false,
+      success: function (res) {
+        if (res.status !== "-1")  {
+          location.href="/job-list"
+        }
+      },
+      error() {
+        console.log("sai");
+      },
+    });
+    event.preventDefault();
+  });
+}),jQuery(function() { });
+
+function getExpectedComplexity(e, idx) {
+  $.ajax({
+    type: "GET",
+    url: baseUrl + "/api/v1/complexities",
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+          "Authorization",
+          String(localStorage.getItem("access-token"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      let dropdownListComplexity = res.result;
+      let tempHtml = "";
+      let tempHtmlDropdown = "";
+      if (res) {
+        for (let i = 0; i < dropdownListComplexity.length; i++) {
+          tempHtml = `<option value=${dropdownListComplexity[i].id}>${dropdownListComplexity[i].complexityText}</option>`;
+          tempHtmlDropdown += tempHtml;
+        }
+        $("#complexity").html(tempHtmlDropdown);
+      }
+    },
+    error() {
+      console.log("sai");
+    },
+  });
+}
+
+function complexitySelect() {
+  return (value = $(".complexity").val());
+}
+
+function getExpectedDuration() {
+  $.ajax({
+    type: "GET",
+    url: baseUrl + "/api/v1/durations",
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+          "Authorization",
+          String(localStorage.getItem("access-token"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      let dropdownListDuration = res.result;
+      let tempHtml = "";
+      let tempHtmlDropdown = "";
+      if (res) {
+        for (let i = 0; i < dropdownListDuration.length; i++) {
+          tempHtml = `<option value=${dropdownListDuration[i].id}>${dropdownListDuration[i].durationText}</option>`;
+          tempHtmlDropdown += tempHtml;
+        }
+        $("#expected_duration").html(tempHtmlDropdown);
+      }
+    },
+    error() {
+      console.log("sai");
+    },
+  });
+}
+
+function durationSelect() {
+  return (value = $(".duration").val());
+}
+
+function getJobSkill() {
+  $.ajax({
+    type: "GET",
+    url: baseUrl + "/api/v1/skills",
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+          "Authorization",
+          String(localStorage.getItem("access-token"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      let dropdownListSkill = res.result;
+      let tempHtml = "";
+      let tempHtmlDropdown = "";
+      if (res) {
+        for (let i = 0; i < dropdownListSkill.length; i++) {
+          tempHtml = `<option value=${dropdownListSkill[i].id}>${dropdownListSkill[i].skillName}</option>`;
+          tempHtmlDropdown += tempHtml;
+        }
+        $(".skills").html(tempHtmlDropdown);
+      }
+    },
+    error() {
+      console.log("sai");
+    },
+  });
+}
+
+getExpectedComplexity();
+getExpectedDuration();
+getJobSkill();
