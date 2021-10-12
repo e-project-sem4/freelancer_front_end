@@ -9,7 +9,6 @@ $(document).ready(function() {
                 </div>
                 <a class="link" href="javascript:void(0);onclick=close_default_popup()">
                     <div id="default_message_confirm" class="medium">
-                        Login Fail
                     </div>
                 </a>
             </div>

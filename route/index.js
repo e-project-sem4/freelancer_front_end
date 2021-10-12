@@ -9,6 +9,24 @@ router.get("/login", (req, res) => {
         res.send(data);
     });
 });
+router.get("/test", (req, res) => {
+    fs.readFile("./src/test.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/test", (req, res) => {
+    fs.readFile("./src/test.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/post-a-job", (req, res) => {
+    fs.readFile("./src/post-a-job.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 
 router.get("/about", (req, res) => {
     fs.readFile("./src/about.html", "utf-8", (err, data) => {
