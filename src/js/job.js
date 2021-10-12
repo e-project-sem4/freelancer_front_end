@@ -32,11 +32,11 @@ $(document).ready(function () {
                                                                                               <p  id="limit"  class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
                                                                                         </div>
 
-                                                                                   <div class="list-inline-item mr-3">
+                                                                                   <div style="width: 100%" class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
                                                                                      </div>
 `;
-                    itemTempHtml += `<li class="list-inline-item mr-3">
+                    itemTempHtml += `<div style="width: 100%" class="list-inline-item mr-3">
                                                          <p class="text-break mb-0">
                                                          <i class="mdi mdi-alpha-v mr-2"></i>Skill main:`;
 
@@ -47,12 +47,18 @@ $(document).ready(function () {
                     listSkill = listSkill.substring(0, listSkill.length - 2);
                     itemTempHtml += listSkill;
                     itemTempHtml += `</p>
-                                                    </li>
+                                                    </div>
                                                 </ul>
                                                 
                                             </div>
                                             </div>
-                                        
+                                         <div class="col-lg-3 col-md-3">
+                    <div class="job-list-button-sm text-right">                     
+                        <div class="mt-3">
+                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                        </div>
+                    </div>
+                </div>
                                        
                                     </div>
                                 </div>
@@ -70,7 +76,7 @@ $(document).ready(function () {
     $('#SearchSkillAndComplexity').on("click", function (event) {
         const search = $("#customCheckbox[]").val();
         const url = baseUrl + `/api/v1/job/search/1/10?keysearch=${search}`;
-        const token = localStorage.getItem('access-token')
+        // const token = localStorage.getItem('access-token')
         $.ajax({
             type: 'GET',
             url: url,
@@ -93,16 +99,18 @@ $(document).ready(function () {
                                                </div>                               
                                                    <div class="col-lg-7 col-md-9">
                                                            <div class="job-list-desc">
-                                                                      <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
+                                                                        
+                                                                      <h4 class="mb-2"><a href="#" class="text-dark" >${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">
-                                                                                  <li class="list-inline-item mr-3">
-                                                                                              <p id="limit"  class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
-                                                                                        </li>
+                                                                                  <div style="width: 100%" class="list-inline-item mr-3">
+                                                                                              <p  id="limit"  class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                                        </div>
 
-                                                                                   <li class="list-inline-item mr-3">
+                                                                                   <div style="width: 100%" class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                                                     </li>`;
-                    itemTempHtml += `<li class="list-inline-item mr-3">
+                                                                                     </div>
+`;
+                    itemTempHtml += `<div style="width: 100%" class="list-inline-item mr-3">
                                                          <p class="text-break mb-0">
                                                          <i class="mdi mdi-alpha-v mr-2"></i>Skill main:`;
 
@@ -113,12 +121,18 @@ $(document).ready(function () {
                     listSkill = listSkill.substring(0, listSkill.length - 2);
                     itemTempHtml += listSkill;
                     itemTempHtml += `</p>
-                                                    </li>
+                                                    </div>
                                                 </ul>
                                                 
                                             </div>
                                             </div>
-                                        
+                                         <div class="col-lg-3 col-md-3">
+                    <div class="job-list-button-sm text-right">                     
+                        <div class="mt-3">
+                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                        </div>
+                    </div>
+                </div>
                                        
                                     </div>
                                 </div>
@@ -161,19 +175,19 @@ $(function loadAllJob() {
                 <div class="col-lg-7 col-md-9">
 
                     <div class="job-list-desc">
-                        <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
+                        <h4 id="limit" class="mb-2"><a  href="#" class="text-dark">${jobList[i].name}</a></h4>
                         <ul class="list-inline mb-0">
-                            <li class="list-inline-item mr-3">
+                            <div class="list-inline-item mr-3">
                                 <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description:
                                     ${jobList[i].description}</p>
-                            </li>
+                            </div>
 
-                            <li class="list-inline-item mr-3">
+                            <div class="list-inline-item mr-3">
                                 <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity :
                                     ${jobList[i].complexity.complexityText}</p>
-                            </li>
+                            </div>
                             `;
-                itemTempHtml += `<li class="list-inline-item mr-3">
+                itemTempHtml += `<div class="list-inline-item mr-3">
                             <p class="text-break mb-0">
                                 <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
                 let listSkill = '';
@@ -184,7 +198,7 @@ $(function loadAllJob() {
                 itemTempHtml += listSkill;
                 itemTempHtml += `
                             </p>
-                        </li>
+                        </div>
                         </ul>
                     </div>
                 </div>
