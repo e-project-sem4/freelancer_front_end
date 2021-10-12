@@ -217,7 +217,6 @@ $(function loadAllSkill() {
               // console.log(SkillList[i].skillName)
                 itemHtml += itemTempHtml
             }
-            itemHtml += ` <input type="submit" id="SearchSkillAndComplexity" name="send" class="submitBnt btn btn-primary btn-block" value="Search">`;
             $('#skillsList').html(itemHtml)
             // $('.custom-control-input').is(":checked")(function (){
             //        console.log("checked")
