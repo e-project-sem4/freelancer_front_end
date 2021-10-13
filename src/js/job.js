@@ -3,6 +3,7 @@ $(document).ready(function () {
         const search = $("#exampleInputName1").val();
         const url = baseUrl + `/api/v1/job/search/1/10?keysearch=${search}`;
         const token = localStorage.getItem('access-token')
+
         $.ajax({
             type: 'GET',
             url: url,
@@ -274,4 +275,5 @@ $(function loadAllComplexity() {
             $('#LevelsList').html(itemHtml)
         }
     })
+
 });
