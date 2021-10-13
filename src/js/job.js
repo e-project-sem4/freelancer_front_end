@@ -29,7 +29,7 @@ $(document).ready(function () {
 function loadAllJob(searchKey, page, pageSize) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=0&keySearch=${searchKey}`;
+    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=0&keySearch=${searchKey}&skill`;
   $.ajax({
     type: "GET",
     url: url,
@@ -115,7 +115,7 @@ function loadAllSkill() {
   });
 }
 function loadAllComplexity() {
-  const url = baseUrl + `/api/v1/complexities`;
+  const url = baseUrl + `/api/v1/complexities/search?status=1`;
   $.ajax({
     type: "GET",
     url: url,
