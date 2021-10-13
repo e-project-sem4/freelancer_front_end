@@ -1,22 +1,22 @@
 $(document).ready(function () {
-    $("#job_name").val("");
-    $("#payment_amount").val("")
+  $("#job_name").val("");
+  $("#payment_amount").val("")
   $(".js-example-basic-multiple").select2({
     placeholder: "Choose event type",
   });
-  
+
   $("#post-job").on("click", function (event) {
     const jobName = $("#job_name").val();
     const expectedDuration = $(".duration").val();
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
     const otherSkill = $(".js-example-basic-multiple")
-      .select2("val")
-      .map((item) => {
-        return {
-        skill_id: item,
-        };
-      });
+        .select2("val")
+        .map((item) => {
+          return {
+            skill_id: item,
+          };
+        });
     const description = $("#description").val();
     const param = {
       name: jobName,
@@ -33,8 +33,8 @@ $(document).ready(function () {
       data: JSON.stringify(param),
       beforeSend: function (xhr) {
         xhr.setRequestHeader(
-          "Authorization",
-          String(localStorage.getItem("access-token"))
+            "Authorization",
+            String(localStorage.getItem("access-token"))
         );
       },
       dataType: "JSON",
@@ -59,8 +59,8 @@ function getExpectedComplexity(e, idx) {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-        "Authorization",
-        String(localStorage.getItem("access-token"))
+          "Authorization",
+          String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",
@@ -94,8 +94,8 @@ function getExpectedDuration() {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-        "Authorization",
-        String(localStorage.getItem("access-token"))
+          "Authorization",
+          String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",
@@ -129,8 +129,8 @@ function getJobSkill() {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-        "Authorization",
-        String(localStorage.getItem("access-token"))
+          "Authorization",
+          String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",
