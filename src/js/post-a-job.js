@@ -55,7 +55,7 @@ $(document).ready(function () {
 function getExpectedComplexity(e, idx) {
   $.ajax({
     type: "GET",
-    url: baseUrl + "/api/v1/complexities",
+    url: baseUrl + "/api/v1/complexities/search?status=1",
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
