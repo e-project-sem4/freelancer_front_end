@@ -206,7 +206,7 @@ $(function loadAllJob() {
                 <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">                     
                         <div class="mt-3">
-                            <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                            <button type="button" class="btn btn-sm btn-primary" id="detail-job" onclick="jobDetail(jobList[i].id)">Detail</button>
                         </div>
                     </div>
                 </div>
@@ -252,7 +252,7 @@ $(function loadAllSkill() {
     })
 });
 $(function loadAllComplexity() {
-    const url = baseUrl + `/api/v1/complexities`;
+    const url = baseUrl + `/api/v1/complexities/search`;
     // const token = localStorage.getItem('access-token')
     $.ajax({
         type: 'GET',
@@ -278,3 +278,6 @@ $(function loadAllComplexity() {
     })
 
 });
+function jobDetail(data) {
+    console.log(data)
+}

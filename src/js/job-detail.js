@@ -1,6 +1,5 @@
 $(document).ready(function () {
     const url = baseUrl + `/api/v1/job/1`;
-    debugger;
     $.ajax({
         type: 'GET',
         url: url,
