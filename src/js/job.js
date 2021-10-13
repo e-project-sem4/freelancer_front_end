@@ -252,7 +252,7 @@ $(function loadAllSkill() {
     })
 });
 $(function loadAllComplexity() {
-    const url = baseUrl + `/api/v1/complexities/search`;
+    const url = baseUrl + `/api/v1/complexities`;
     // const token = localStorage.getItem('access-token')
     $.ajax({
         type: 'GET',
@@ -261,7 +261,7 @@ $(function loadAllComplexity() {
         dataType: "JSON",
         async: false,
         success: function (res) {
-           
+
             const ComplexityList = res.result;
             let itemHtml = ""
             let itemTempHtml = ""
@@ -272,12 +272,12 @@ $(function loadAllComplexity() {
                                         </div>`;
                 // console.log(SkillList[i].skillName)
                 itemHtml += itemTempHtml
-            }   
+            }
             $('#LevelsList').html(itemHtml)
         }
     })
 
 });
 function jobDetail(data) {
-    console.log(data)
+    console.log()
 }

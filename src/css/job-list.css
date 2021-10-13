@@ -1,0 +1,9 @@
+.nav-pagination{
+    text-align: center;
+}
+
+.btn-prev,.btn-next{
+    border: none;
+    padding: 8px 22px;
+    border-radius: 5px;
+}
