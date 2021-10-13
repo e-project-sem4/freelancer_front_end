@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#searchKey').on("click", function (event) {
         const search = $("#exampleInputName1").val();
-        const url = baseUrl + `/api/v1/job/search/1/10?keysearch=${search}`;
+        const url = baseUrl + `/api/v1/job/search?keySearch=${search}`;
         const token = localStorage.getItem('access-token')
         $.ajax({
             type: 'GET',
@@ -75,7 +75,7 @@ $(document).ready(function () {
     })
     $('#SearchSkillAndComplexity').on("click", function (event) {
         const search = $("#customCheckbox[]").val();
-        const url = baseUrl + `/api/v1/job/search/1/10?keysearch=${search}`;
+        const url = baseUrl + `/api/v1/job/search?keySearch=${search}`;
         // const token = localStorage.getItem('access-token')
         $.ajax({
             type: 'GET',
@@ -150,7 +150,7 @@ $(document).ready(function () {
 })
 
 $(function loadAllJob() {
-    const url = baseUrl + `/api/v1/job/search/1/10?keysearch=`;
+    const url = baseUrl + `/api/v1/job/search?keySearch=`;
     // const token = localStorage.getItem('access-token')
     $.ajax({
         type: 'GET',
@@ -260,6 +260,7 @@ $(function loadAllComplexity() {
         dataType: "JSON",
         async: false,
         success: function (res) {
+           
             const ComplexityList = res.result;
             let itemHtml = ""
             let itemTempHtml = ""
@@ -270,7 +271,7 @@ $(function loadAllComplexity() {
                                         </div>`;
                 // console.log(SkillList[i].skillName)
                 itemHtml += itemTempHtml
-            }
+            }   
             $('#LevelsList').html(itemHtml)
         }
     })
