@@ -90,7 +90,7 @@ function complexitySelect() {
 function getExpectedDuration() {
   $.ajax({
     type: "GET",
-    url: baseUrl + "/api/v1/durations",
+    url: baseUrl + "/api/v1/durations/search?status=1",
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
@@ -125,7 +125,7 @@ function durationSelect() {
 function getJobSkill() {
   $.ajax({
     type: "GET",
-    url: baseUrl + "/api/v1/skills",
+    url: baseUrl + "/api/v1/skills/search?status=1",
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
