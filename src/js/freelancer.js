@@ -1,5 +1,6 @@
 $(function loadProfileFreelancer() {
-    const id = 2;
+    const getUserInfo =localStorage.getItem("user-info")
+    const id = JSON.parse(getUserInfo).id;  
     const url = baseUrl + `/api/v1/users/${id}`;
     const token = localStorage.getItem('access-token')
     $.ajax({

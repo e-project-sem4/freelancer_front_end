@@ -15,8 +15,14 @@ router.get("/test", (req, res) => {
         res.send(data);
     });
 });
-router.get("/test", (req, res) => {
-    fs.readFile("./src/test.html", "utf-8", (err, data) => {
+router.get("/Profile", (req, res) => {
+    fs.readFile("./src/profile-user.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/ChangePassword", (req, res) => {
+    fs.readFile("./src/recovery_passward.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);
     });
