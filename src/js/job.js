@@ -17,8 +17,9 @@ $(document).ready(function () {
 
 function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
   const url =
-    baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+
+      baseUrl +
+      `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -43,11 +44,12 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                </div>                               
                                                    <div class="col-lg-7 col-md-9">
                                                            <div class="job-list-desc">
-                                                                      <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
+                                                                      <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">
                                                                                   <div class="list-inline-item mr-3">
                                                                                               <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
                                                                                         </div>
+
                                                                                    <div class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
                                                                                      </div>
@@ -72,7 +74,14 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                 
                                             </div>
                                             </div>
-                                        
+                                <div class="col-lg-3 col-md-3">
+                    <div class="job-list-button-sm text-right">                     
+                        <div class="mt-3">
+                            <a href="/job-details?id=${jobList[i].id}" type="button" class="btn btn-sm btn-primary" id="detail-job">Detail</a>
+                        </div>
+                    </div>
+                </div>
+                               
                                        
                                     </div>
                                 </div>
@@ -138,6 +147,7 @@ function loadAllComplexity() {
   });
 }
 
+
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();
   loadAllJob(search, page, pageSize, sort, complexity,skill);
@@ -174,9 +184,9 @@ function changeSkill(){
 $(".btn-prev").on("click", function () {
   if (page > 0) {
     page--;
-     start = page * pageSize - pageSize + 1;
-      end = pageSize * page;
-      $('#totalResult').html(`${start}-${end}`)
+    start = page * pageSize - pageSize + 1;
+    end = pageSize * page;
+    $('#totalResult').html(`${start}-${end}`)
 
     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
   }
@@ -191,3 +201,4 @@ $(".btn-next").on("click", function () {
     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
   }
 });
+

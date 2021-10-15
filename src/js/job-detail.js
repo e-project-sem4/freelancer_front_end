@@ -1,6 +1,9 @@
 $(document).ready(function () {
-    const url = baseUrl + `/api/v1/job/1`;
-    debugger;
+    var current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
+    var url_string = window.location.href
+    var url123 = new URL(url_string);
+    var c = url123.searchParams.get("id");
+    const url = baseUrl + `/api/v1/job/` + c;
     $.ajax({
         type: 'GET',
         url: url,
@@ -9,21 +12,36 @@ $(document).ready(function () {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
-            var date = timeConverter(jobDetails.updateAt);
+            const job_user_id = jobDetails.userBusiness.user.id;
+            var timestamp = (jobDetails.createAt)
+            var date = new Date(timestamp);
+            var dateView = (date.getDate() +
+                "/" + (date.getMonth() + 1) +
+                "/" + date.getFullYear());
+
             let itemTempHtml =
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
-                    <div class="job-detail border rounded p-4">
-                        <div class="job-detail-content">
-                            <img src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
-                            <div class="job-detail-com-desc overflow-hidden d-block">
-                                <h4 class="mb-2"><a class="job-name text-dark">${jobDetails.name}</a></h4>
-                                <h4 class="mb-2"><a class="job-name text-dark">${jobDetails.name}</a></h4>
-                                <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i>Freelancers</p>
-                                <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>${date}</p>
-                            </div>
-                        </div>
+                    <div class="job-detail text-center job-single border rounded p-4">
+                    <div class="job-single-img mb-2">
+                        <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
                     </div>
+                    <h4 class=""><a href="#" class="text-dark">${jobDetails.name}</a></h4>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mr-3">
+                            <p class="text-muted mb-2"><i class="mdi mdi-bank mr-1"></i>${jobDetails.userBusiness.location}</p>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <p class="text-muted mb-2"><i class="mdi mdi-clock-outline mr-2"></i>${dateView}</p>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i>${jobDetails.paymentAmount}</p>
+                        </li>
+                    </ul>
+                    <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>
+                </div>
 
                     <div class="row">
                         <div class="col-lg-12">
@@ -47,7 +65,7 @@ $(document).ready(function () {
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5 class="text-dark mt-4">Skill Responsibilities :</h5>
+                            <h5 class="text-dark mt-4">Require Skills :</h5>
                         </div>
                     </div>
 
@@ -78,69 +96,89 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>     
                 </div>
+                
+                
 
                 <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
-                    <div class="job-detail border rounded p-4">
-                        <h5 class="text-muted text-center pb-2"><i class="mdi mdi-account"></i>Hidden User</h5>
+                    <div class="company-brand-logo text-center">
+                    <img src="images/featured-job/img-2.png" alt="" class="img-fluid mx-auto d-block mb-3">
+                    <h5 class="text-muted mb-0"><a href="#" class="text-muted"><i class="mdi mdi-bank mr-1"></i>${jobDetails.userBusiness.location}</a></h5>
+                </div>
 
-                        <div class="job-detail-location pt-4 border-top">
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-bank text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: Web Themes.pvt.Ltd</p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-email text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: Webthemescom@gmail.com</p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-web text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: https://www.WebThemes.com</p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-cellphone-iphone text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: 1987 6543 21</p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-currency-usd text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: ${jobDetails.paymentAmount} </p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-security text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: 1 To 3 Years.</p>
-                            </div>
-
-
-                            <h6 class="text-dark f-17 mt-3 mb-0">Share Job :</h6>
-                            <ul class="social-icon list-inline mt-3 mb-0">
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-google-plus"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-linkedin"></i></a></li>
-                            </ul>
+                <div class="job-detail rounded border job-overview mt-4 mb-4">
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-security text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Experience</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
                         </div>
                     </div>
 
-                    <div class="job-detail border rounded mt-4 p-4">
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-currency-usd text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Salary</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.paymentAmount}</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-apps text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Category</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">Developer</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-human-male-female text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Gender</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">Male & Female</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-calendar-today text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Date Posted</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${dateView}</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-email text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Email</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.userBusiness.user.email}</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-phone-classic text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Contact No</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">+${jobDetails.userBusiness.user.phone}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-detail border rounded mt-4 p-4">
                         <h5 class="text-muted text-center pb-2"><i class="mdi mdi-clock-outline mr-2"></i>Opening Hours</h5>
 
                         <div class="job-detail-time border-top pt-4">
@@ -197,16 +235,75 @@ $(document).ready(function () {
                         </div>
                     </div>
 
-                    <div class="job-detail border rounded mt-4">
-                        <a href="#" class="btn btn-primary btn-block">Apply For Job</a>
-                    </div>
+                <h5 class="text-dark">Job Location</h5>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d6030.418742494061!2d-111.34563870463673!3d26.01036670629853!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1471908546569" class="rounded" style="border: 0" allowfullscreen=""></iframe>
                 </div>
-            </div>`;
+                <ul class="social-icon list-inline mb-0 mt-4">
+                    <li class="list-inline-item">Share :</li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-whatsapp"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-linkedin"></i></a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="job-single-social-icon text-center mt-4">
+                            <a href="" class="text-white"><i class="mdi mdi-facebook facebook"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="job-single-social-icon text-center mt-4">
+                            <a href="" class="text-white"><i class="mdi mdi-google-plus google"></i></a>
+                        </div>
+                    </div>
+                </div>   
+`;
+            if (job_user_id != current_user_id) {
+                itemTempHtml += `<div class="job-detail border rounded mt-4" >
+                    <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal">Apply For Job</button>
+                            </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 >Apply To Proposal</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="description"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="apply-proposal">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+
+            itemTempHtml += `</div>
+            </div>`
+            ;
             $('#job-description').html(itemTempHtml);
             let arrSkill = jobDetails.otherSkills
             let skillTemp = '';
             let temp = '';
-            for (i = 0; i < arrSkill.length;i++){
+            for (i = 0; i < arrSkill.length; i++) {
 
                 temp = `  <div class="">
   
@@ -215,23 +312,14 @@ $(document).ready(function () {
                                                    </div>
                                             
                           </div>`
-                skillTemp +=temp
+                skillTemp += temp
             }
             $('.job-details-desc-item').html(skillTemp)
         }
     })
 
 });
-function timeConverter(UNIX_timestamp){
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-    return time;
-    }
+
+
+
 
