@@ -48,7 +48,6 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                                                   <div class="list-inline-item mr-3">
                                                                                               <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
                                                                                         </div>
-
                                                                                    <div class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
                                                                                      </div>
