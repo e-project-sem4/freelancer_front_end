@@ -74,7 +74,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                 
                                             </div>
                                             </div>
-                                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">                     
                         <div class="mt-3">
                             <a href="/job-details?id=${jobList[i].id}" type="button" class="btn btn-sm btn-primary" id="detail-job">Detail</a>
