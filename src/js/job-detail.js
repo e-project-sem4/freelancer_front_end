@@ -1,8 +1,11 @@
+var url_string = window.location.href
+var url123 = new URL(url_string);
+var c = url123.searchParams.get("id");
 $(document).ready(function () {
+    loadJobDetails();
+});
+function loadJobDetails() {
     var current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
-    var url_string = window.location.href
-    var url123 = new URL(url_string);
-    var c = url123.searchParams.get("id");
     const url = baseUrl + `/api/v1/job/` + c;
     $.ajax({
         type: 'GET',
@@ -12,14 +15,13 @@ $(document).ready(function () {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
+            var proposals = jobDetails.proposals;
             const job_user_id = jobDetails.userBusiness.user.id;
-            var timestamp = (jobDetails.createAt)
-            var date = new Date(timestamp);
-            var dateView = (date.getDate() +
-                "/" + (date.getMonth() + 1) +
-                "/" + date.getFullYear());
+            var itemHtml = "";
+            let itemTempHtml = "";
+            var d = new Date(jobDetails.createAt).toLocaleDateString();
 
-            let itemTempHtml =
+             itemTempHtml =
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
@@ -33,7 +35,7 @@ $(document).ready(function () {
                         </li>
 
                         <li class="list-inline-item">
-                            <p class="text-muted mb-2"><i class="mdi mdi-clock-outline mr-2"></i>${dateView}</p>
+                            <p class="text-muted mb-2"><i class="mdi mdi-clock-outline mr-2"></i>${d}</p>
                         </li>
 
                         <li class="list-inline-item">
@@ -42,7 +44,6 @@ $(document).ready(function () {
                     </ul>
                     <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>
                 </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Complexity :</h5>
@@ -62,13 +63,11 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Require Skills :</h5>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="job-detail border rounded mt-2 p-4">
@@ -81,8 +80,6 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Job Description :</h5>
@@ -96,11 +93,104 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         </div>
-                    </div>     
+                    </div>`
+            if (job_user_id != current_user_id) {
+                itemTempHtml += ` 
+                <div class="row d-flex justify-content-center">
+                <div class="job-detail border rounded mt-4" >
+                    <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal">Apply For Job</button>
                 </div>
-                
-                
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 >Apply To Proposal</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="description"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="apply-proposal">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+                    itemTempHtml += `<div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="text-dark mt-4">Proposals :</h5>
+                        </div>
+                    </div>`
+                    for(let j = 0; j < proposals.length; j++){
+                        itemTempHtml += `
+<div class="row">
+    <div className="col-lg-12">
+            <div class="job-detail-desc">
+                <div class="col-lg-12 mt-4 pt-2">
+                    <div class="job-list-box border rounded">
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-2">
+                                    <div class="company-logo-img">
+                                        <img src="images/featured-job/img-1.png" alt=""
+                                             class="img-fluid mx-auto d-block">
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-9">
+                                    <div class="job-list-desc">
+                                        <ul class="list-inline mb-0">
+                                            <div class="list-inline-item mr-3">
+                                                <p  class="text-break mb-0"><i
+                                                        class="mdi mdi-animation mr-2"></i>Description:
+                                                    ${proposals[j].description}</p>
+                                            </div>
+                                            <div class="list-inline-item mr-3">
+                                                <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment
+                                                    : ${proposals[j].paymentAmount}</p>
+                                            </div>
+                                            <div class="list-inline-item mr-3">
+                                                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date
+                                                    : ${new Date(proposals[j].createAt).toLocaleDateString()}</p>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>`
+                        if (job_user_id == current_user_id){
+                            itemTempHtml+= `
+                            <div class="col-lg-3 col-md-3">
+                    <div class="job-list-button-sm text-right">                     
+                        <div class="mt-3">
+                            <button class="btn btn-sm btn-primary" id="apply-freelancer">Apply</a>
+                        </div>
+                    </div>
+                </div>`
+                        }
+                          itemTempHtml +=  `</div>
+                        </div>
+                    </div>   
+                </div>    
+            </div>
+            
+    </div>
+</div>`
 
+                 }
+            itemTempHtml+=  `
+                </div>
                 <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
                     <div class="company-brand-logo text-center">
                     <img src="images/featured-job/img-2.png" alt="" class="img-fluid mx-auto d-block mb-3">
@@ -154,7 +244,7 @@ $(document).ready(function () {
                         </div>
                         <div class="overview-details">
                             <h6 class="text-muted mb-0">Date Posted</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">${dateView}</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${d}</h6>
                         </div>
                     </div>
 
@@ -234,10 +324,9 @@ $(document).ready(function () {
                             </ul>
                         </div>
                     </div>
-
                 <h5 class="text-dark">Job Location</h5>
                 <div class="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d6030.418742494061!2d-111.34563870463673!3d26.01036670629853!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1471908546569" class="rounded" style="border: 0" allowfullscreen=""></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d465.5129686623197!2d105.78123742468962!3d21.028534344292176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4cd0c66f05%3A0xea31563511af2e54!2zOCBUw7RuIFRo4bqldCBUaHV54bq_dCwgTeG7uSDEkMOsbmgsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1634395902856!5m2!1svi!2s" class="rounded" style="border: 0" allowfullscreen=""></iframe>
                 </div>
                 <ul class="social-icon list-inline mb-0 mt-4">
                     <li class="list-inline-item">Share :</li>
@@ -260,46 +349,11 @@ $(document).ready(function () {
                         </div>
                     </div>
                 </div>   
-`;
-            if (job_user_id != current_user_id) {
-                itemTempHtml += `<div class="job-detail border rounded mt-4" >
-                    <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal">Apply For Job</button>
-                            </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h5 >Apply To Proposal</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Amount:</label>
-                                        <input type="text" class="form-control" id="amount">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Message:</label>
-                                        <textarea class="form-control" id="description"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="apply-proposal">Apply</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            }
-
-
-            itemTempHtml += `</div>
+               </div>
             </div>`
+            itemHtml += itemTempHtml;
             ;
-            $('#job-description').html(itemTempHtml);
+            $('#job-description').html(itemHtml);
             let arrSkill = jobDetails.otherSkills
             let skillTemp = '';
             let temp = '';
@@ -317,8 +371,30 @@ $(document).ready(function () {
             $('.job-details-desc-item').html(skillTemp)
         }
     })
+    $('#apply-freelancer').on('click',function (){
+        // const proposalForm = {
+        // };
+        // $.ajax({
+        //     type: 'POST',
+        //     url: baseUrl + "/api/v1/users/register?",
+        //     contentType: "application/json",
+        //     data:JSON.stringify(proposalForm),
+        //     dataType:"JSON",
+        //     async:false,
+        //     success: function (res) {
+        //         console.log(proposalForm)
+        //     },
+        //     error(){
+        //         console.log("sai");
+        //     },
+        // });
+        alert(1)
+    })
+}
 
-});
+
+
+
 
 
 
