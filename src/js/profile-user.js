@@ -1,5 +1,6 @@
 var status = ``;
 var id_freelancer = 0;
+var id_business = 0;
 $(function load() {
     const url = baseUrl + `/api/v1/users/viewprofile`;
     const token = localStorage.getItem('access-token')
@@ -18,6 +19,7 @@ $(function load() {
                 
             const ProfileList = res.result; 
             id_freelancer = ProfileList.freelancer.id;
+            id_business = ProfileList.business.id;
             console.log("id_freelancer 1 : ",id_freelancer)
             let itemHtmlInfo = `<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
             <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>              
@@ -61,7 +63,7 @@ $(function load() {
                         </div>
                     </div>
                     <div class="col-md-2">
-                    <button type="button" class="profile-edit-btn" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Edit Profile
                   </button>
                   
@@ -180,8 +182,8 @@ $(function load() {
             itemHtmltempFreelancer =`
             <div class="col-lg-12 mt-4 pt-2 pb-4 ">
             <div id="modal-freelancer" class="row" >
-            <div class="col-md-2 offset-md-9">
-            <button type="button" class="frelancer-edit-btn" data-toggle="modal"
+            <div class="col-md-3 offset-md-9">
+            <button type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#EditFreelancerModal">
                 Edit freelancer
             </button>
@@ -192,7 +194,7 @@ $(function load() {
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Freelancer</h5>
+                            <h5  class="modal-title " id="exampleModalLabel">Edit Freelancer</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -311,58 +313,123 @@ $(function load() {
 
 
 
+       let itemHtmlBussiness = ""
+       let itemtempHtmlBussiness = ""
+       itemtempHtmlBussiness=`
+       <div class="col-lg-12 mt-4 pt-2">
+                                <div id="modal-Business" class="row">
+                                    <div class="col-md-3 offset-md-9">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#EditBusinessModal">
+                                            Edit Business
+                                        </button>
+                                        <div class="modal fade" id="EditBusinessModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title " id="exampleModalLabel">Edit Business
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="needs-validation" novalidate>
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Location</label>
+                                                                <input type="text" class="form-control" id="location-Business"
+                                                                    aria-describedby="emailHelp"
+                                                                    placeholder="${ProfileList.business.location}">
+                                                                <div class="invalid-feedback">
+
+                                                                </div>
+                                                                <small id="emailHelp"
+                                                                    class="form-text text-muted"></small>
+                                                            </div>
+                                                            
+                                                            <button id="updateBusiness" type="button"
+                                                                class="btn btn-primary">Update</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="text-dark">Completed Job :</h4>
+
+                                <div id="JoblistBusinness" class="row">`;
+                                job=``;
+                                jobList = ProfileList.business?.listJob
+                                for (let i = 0; i < jobList?.length; i++) {
+                                    if(jobList[i].status == 3){                                     
+                                        job+= `<div class="col-lg-12 mt-4 pt-2">
+                                    <div class="job-list-box border rounded">
+                                        <div class="p-3">                           
+                                            <div class="row align-items-center">                                 
+                                               <div class="col-lg-2">
+                                                  <div class="company-logo-img">
+                                                    <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+                                                  </div>
+                                                </div>                               
+                                                    <div class="col-lg-7 col-md-9">
+                                                            <div class="job-list-desc">
+                                                                       <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
+                                                                              <ul class="list-inline mb-0">
+                                                                                   <li class="list-inline-item mr-3">
+                                                                                   <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
+                                                                                             
+                                                                                         </li>
+                        
+                                                                                    `;
+                                                                                      job += `<li class="list-inline-item mr-3">
+                                                         
+                                                       `;
+        let Proposals = "";
+        for (let j = 0; j < jobList[i].proposals.length; j++) {
+            if (jobList[i].proposals[j]?.proposal_status_catalog_id == 3 ){
+                Proposals += `<div class="list-inline-item mr-3">
+                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerComment :${jobList[i].proposals[j]?.freelancerComment} </p>
+                </div>`;
+                Proposals +=`<div class="list-inline-item mr-3">
+                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerGrade :${jobList[i].proposals[j]?.freelancerGrade} </p>
+                </div>`;             
+            }
+           
+           
+        }
+        Proposals = Proposals.substring(0, Proposals.length - 2);
+        job += Proposals;
+        job  +=`           </p>    
+                                                     </li>
+                                                 </ul>
+                                                 
+                                             </div>
+                                             
+                                             </div>
+                                                  
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>`;             
+                                  
+                                }
+                                
+                                    }                                     
+                                itemtempHtmlBussiness += job;  
+        itemtempHtmlBussiness+=`</div>
+                            </div>`;
+                            itemHtmlBussiness += itemtempHtmlBussiness
+                           
+                            $('#Bussiness').html(itemHtmlBussiness)
+
+
+
 
        //Business  
-        let itemHtmlJob =""   
-        let itemTempHtmlJob = ""      
-        jobList = ProfileList.business?.listJob
-        for (let i = 0; i < jobList?.length; i++) {
-            itemTempHtmlJob = `<div class="col-lg-12 mt-4 pt-2">
-            <div class="job-list-box border rounded">
-                <div class="p-3">                           
-                    <div class="row align-items-center">                                 
-                       <div class="col-lg-2">
-                          <div class="company-logo-img">
-                            <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
-                          </div>
-                        </div>                               
-                            <div class="col-lg-7 col-md-9">
-                                    <div class="job-list-desc">
-                                               <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
-                                                      <ul class="list-inline mb-0">
-                                                           <li class="list-inline-item mr-3">
-                                                                       <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
-                                                                 </li>
-
-                                                            <li class="list-inline-item mr-3">
-                                                                          <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                              </li>`;
-                                                              itemTempHtmlJob += `<li class="list-inline-item mr-3">
-                                  <p class="text-break mb-0">
-                                  <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-let listSkill = "";
-for (let j = 0; j < jobList[i].otherSkills.length; j++) {
-listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
-}
-listSkill = listSkill.substring(0, listSkill.length - 2);
-itemTempHtmlJob += listSkill;
-itemTempHtmlJob += `</p>
-
-                             </li>
-                         </ul>
-                         
-                     </div>
-                     
-                     </div>
-                          
-             </div>
-         </div>
-     </div>
- </div>`;
-
- itemHtmlJob += itemTempHtmlJob;           
-        }
-        $('#JoblistBusinness').html(itemHtmlJob)
+      
         }
 
     })
@@ -427,7 +494,42 @@ $(document).ready(function () {
             dataType:"JSON",
             async: false,
             success: function(res) {
-                // window.location.href='/profile'
+                window.location.href='/profile'
+                
+            },
+            error() {
+                console.log("sai");
+              },
+        });
+        
+    })
+    $('#updateBusiness').on("click", function(event) {  
+       
+        const location = $("#location-Business").val();       
+        console.log(location);
+        const url = baseUrl + `/api/v1/users/editprofilebusiness`;
+        console.log(id_business);
+        const param = {
+            id : id_business,
+            location: location,
+            
+        };
+      
+        $.ajax({
+            type: 'POST',
+            url: url,      
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+              },
+            data:JSON.stringify(param),
+            dataType:"JSON",
+            async: false,
+            success: function(res) {
+                window.location.href='/profile'
                 
             },
             error() {

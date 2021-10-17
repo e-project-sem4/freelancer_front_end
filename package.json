@@ -1,22 +1,31 @@
 {
-    "name": "freelance",
-    "version": "1.0.0",
-    "description": "freelance",
-    "main": "index.js",
-    "dependencies": {
-        "body-parse": "^0.1.0",
-        "cookie-parser": "^1.4.5",
-        "cors": "^2.8.5",
-        "express": "^4.17.1",
-        "nodemon": "^2.0.13",
-        "pm2": "^5.1.2"
-    },
-    "devDependencies": {
-        "gulp-file-include": "^2.3.0"
-    },
-    "scripts": {
-        "start": "nodemon index.js"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "freelance",
+  "version": "1.0.0",
+  "description": "freelance",
+  "main": "index.js",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "pm2": "^5.1.2",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {
+    "gulp-file-include": "^2.3.0"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-project-sem4/freelancer_front_end.git"
+  },
+  "bugs": {
+    "url": "https://github.com/e-project-sem4/freelancer_front_end/issues"
+  },
+  "homepage": "https://github.com/e-project-sem4/freelancer_front_end#readme"
 }
