@@ -29,6 +29,56 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/jquery.min.js" > </script>
     <script src="js/header.js" ></script>
+    <script>
+        function saveProposal(amountProposal, proposal_id){
+            const param = {
+                proposal_id: proposal_id,
+                paymentAmount: amountProposal,
+            };
+            $.ajax({
+                type: "POST",
+                url: baseUrl + "/api/v1/contracts",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(param),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        String(localStorage.getItem("access-token"))
+                    );
+                },
+                dataType: "JSON",
+                async: false,
+                success: function (res) {
+                    console.log(res)
+                },
+                error() {
+                    console.log("sai");
+                },
+            })
+        }
+        function deleteProposal(proposal_id){
+
+            $.ajax({
+                type: "DELETE",
+                url: baseUrl + "/api/v1/proposals/"+ proposal_id ,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        String(localStorage.getItem("access-token"))
+                    );
+                },
+                dataType: "JSON",
+                async: false,
+                success: function () {
+                    window.location.reload();
+                },
+                error() {
+                    console.log("sai");
+                },
+            })
+        }
+    </script>
 
 </head>
 
