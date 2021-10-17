@@ -364,7 +364,7 @@ $(function load() {
                                 job=``;
                                 jobList = ProfileList.business?.listJob
                                 for (let i = 0; i < jobList?.length; i++) {
-                                    if(jobList[i].status == 3){                                     
+                                    if(jobList[i].status == 2){                                     
                                         job+= `<div class="col-lg-12 mt-4 pt-2">
                                     <div class="job-list-box border rounded">
                                         <div class="p-3">                           
@@ -424,12 +424,6 @@ $(function load() {
                             itemHtmlBussiness += itemtempHtmlBussiness
                            
                             $('#Bussiness').html(itemHtmlBussiness)
-
-
-
-
-       //Business  
-      
         }
 
     })
