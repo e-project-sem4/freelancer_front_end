@@ -174,7 +174,7 @@ function loadJobDetails() {
                             <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">                     
                         <div class="mt-3">
-                            <button class="btn btn-sm btn-primary" id="apply-freelancer">Apply</a>
+                            <button class="btn btn-sm btn-primary" id="apply-freelancer">Recruit</a>
                         </div>
                     </div>
                 </div>`
