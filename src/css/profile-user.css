@@ -13,6 +13,13 @@
     border-radius: 0.5rem;
     background: rgba(226, 223, 224, 0.158);
 }
+.emp-bussiness{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: rgba(226, 223, 224, 0.158);
+}
 .profile-img{
     text-align: center;
 }
@@ -46,6 +53,19 @@
     border: none;
     border-radius: 1.5rem;
     width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #000000;
+    cursor: pointer;
+}
+.candidates-profile-exp-desc{
+  min-height: 250px;
+  height: 150px;
+}
+.frelancer-edit-btn{
+    border: none;
+    border-radius: 1.5rem;
+    width: 100%;
     padding: 2%;
     font-weight: 600;
     color: #000000;

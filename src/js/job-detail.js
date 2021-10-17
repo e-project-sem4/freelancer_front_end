@@ -356,7 +356,8 @@ function loadJobDetails() {
             $('#job-description').html(itemHtml);
             let arrSkill = jobDetails.otherSkills
             let skillTemp = '';
-            let temp = '';
+            let temp =
+                '';
             for (i = 0; i < arrSkill.length; i++) {
 
                 temp = `  <div class="">
@@ -372,6 +373,7 @@ function loadJobDetails() {
         }
     })
     $('#apply-freelancer').on('click',function (){
+        // var
         // const proposalForm = {
         // };
         // $.ajax({
