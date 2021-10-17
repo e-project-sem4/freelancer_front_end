@@ -1,11 +1,15 @@
 var url_string = window.location.href
 var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
+
 $(document).ready(function () {
     loadJobDetails();
 });
 function loadJobDetails() {
-    var current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
+    var current_user_id;
+    if (localStorage.getItem('user-info') != null)
+        current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
+
     const url = baseUrl + `/api/v1/job/` + c;
     $.ajax({
         type: 'GET',
@@ -21,7 +25,7 @@ function loadJobDetails() {
             let itemTempHtml = "";
             var d = new Date(jobDetails.createAt).toLocaleDateString();
 
-             itemTempHtml =
+            itemTempHtml =
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
@@ -130,13 +134,13 @@ function loadJobDetails() {
                     </div>
                 </div>`;
             }
-                    itemTempHtml += `<div class="row">
+            itemTempHtml += `<div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Proposals :</h5>
                         </div>
                     </div>`
-                    for(let j = 0; j < proposals.length; j++){
-                        itemTempHtml += `
+            for (let j = 0; j < proposals.length; j++) {
+                itemTempHtml += `
 <div class="row">
     <div className="col-lg-12">
             <div class="job-detail-desc">
@@ -169,8 +173,8 @@ function loadJobDetails() {
                                         </ul>
                                     </div>
                                 </div>`
-                        if (job_user_id == current_user_id){
-                            itemTempHtml+= `
+                if (job_user_id == current_user_id) {
+                    itemTempHtml += `
                             <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">                     
                         <div class="mt-3">
@@ -178,8 +182,8 @@ function loadJobDetails() {
                         </div>
                     </div>
                 </div>`
-                        }
-                          itemTempHtml +=  `</div>
+                }
+                itemTempHtml += `</div>
                         </div>
                     </div>   
                 </div>    
@@ -188,8 +192,8 @@ function loadJobDetails() {
     </div>
 </div>`
 
-                 }
-            itemTempHtml+=  `
+            }
+            itemTempHtml += `
                 </div>
                 <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
                     <div class="company-brand-logo text-center">
@@ -371,7 +375,7 @@ function loadJobDetails() {
             $('.job-details-desc-item').html(skillTemp)
         }
     })
-    $('#apply-freelancer').on('click',function (){
+    $('#apply-freelancer').on('click', function () {
         // const proposalForm = {
         // };
         // $.ajax({
