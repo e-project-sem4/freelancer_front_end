@@ -1,3 +1,12 @@
+CKEDITOR.editorConfig = function( config ) {
+  config.language = 'en';  // Chọn ngôn ngữ
+  config.uiColor = '#F7B42C'; // màu giao diện
+  config.height = 300; 
+  config.width = 500; 
+  config.toolbarCanCollapse = true;
+};
+
+CKEDITOR.replace( 'description' );
 $(document).ready(function () {
   $("#job_name").val("");
   $("#payment_amount").val("");
@@ -17,7 +26,7 @@ $(document).ready(function () {
           skill_id: item,
         };
       });
-    const description = $("#description").val();
+    const description = CKEDITOR.instances.description.getData();
     const param = {
       name: jobName,
       expected_duration_id: expectedDuration,
