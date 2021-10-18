@@ -120,4 +120,12 @@ router.get("/pricing", (req, res) => {
     });
 });
 
+router.get("/job-detail-payment", (req, res) => {
+    fs.readFile("./src/job-detail-payment.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
+
 module.exports = router;

@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#job_name").val("");
-  $("#payment_amount").val("")
+  $("#payment_amount").val("");
   $(".js-example-basic-multiple").select2({
     placeholder: "Choose event type",
   });
@@ -11,12 +11,12 @@ $(document).ready(function () {
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
     const otherSkill = $(".js-example-basic-multiple")
-        .select2("val")
-        .map((item) => {
-          return {
-            skill_id: item,
-          };
-        });
+      .select2("val")
+      .map((item) => {
+        return {
+          skill_id: item,
+        };
+      });
     const description = $("#description").val();
     const param = {
       name: jobName,
@@ -33,24 +33,38 @@ $(document).ready(function () {
       data: JSON.stringify(param),
       beforeSend: function (xhr) {
         xhr.setRequestHeader(
-            "Authorization",
-            String(localStorage.getItem("access-token"))
+          "Authorization",
+          String(localStorage.getItem("access-token"))
         );
       },
       dataType: "JSON",
       async: false,
       success: function (res) {
-        if (res.status !== "-1")  {
-          location.href="/job-list"
+        if (res.status !== "-1") {
+          localStorage.setItem('id_job',res.result.id)
+          $("#success").html(` <div class="alert alert-success" role="alert">
+                                  Post job successfull!
+                                </div>`);          
+        }
+        if(res.result.isPaymentStatus ===1){
+           setTimeout((location.href = "/job-list"), 1000);
+        }else if(res.result.isPaymentStatus ===0){
+          setTimeout((location.href = "/job-detail-payment"), 1000);
         }
       },
-      error() {
-        console.log("sai");
+      error:function(xhr) {
+        if(xhr.status ==403){
+          return window.location ="/login";
+        }
+        $("#success").html(` <div class="alert alert-danger" role="alert">
+                                    Post job failed!
+                              </div>`);
       },
     });
     event.preventDefault();
   });
-}),jQuery(function() { });
+}),
+  jQuery(function () {});
 
 function getExpectedComplexity(e, idx) {
   $.ajax({
@@ -59,8 +73,8 @@ function getExpectedComplexity(e, idx) {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-          "Authorization",
-          String(localStorage.getItem("access-token"))
+        "Authorization",
+        String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",
@@ -94,8 +108,8 @@ function getExpectedDuration() {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-          "Authorization",
-          String(localStorage.getItem("access-token"))
+        "Authorization",
+        String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",
@@ -129,8 +143,8 @@ function getJobSkill() {
     contentType: "application/json; charset=utf-8",
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
-          "Authorization",
-          String(localStorage.getItem("access-token"))
+        "Authorization",
+        String(localStorage.getItem("access-token"))
       );
     },
     dataType: "JSON",

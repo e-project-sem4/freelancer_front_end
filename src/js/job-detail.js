@@ -191,13 +191,6 @@ function loadJobDetails() {
 
                     }
 
-
-
-
-
-
-
-
                     if (job_user_id == current_user_id) {
                         if(proposal_catalog_id == 2){
                             itemTempHtml += `
@@ -232,13 +225,6 @@ function loadJobDetails() {
 </div>`
 
                 }
-
-
-
-
-
-
-
             }
             itemTempHtml += `
                 </div>
