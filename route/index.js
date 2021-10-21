@@ -129,7 +129,7 @@ router.get("/job-detail-payment", (req, res) => {
 
 
 //router admin
-router.get("/admin/dashbloard", (req, res) => {
+router.get("/admin/dashboard", (req, res) => {
     fs.readFile("./src/admin/src/Dashboard.Default.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);
