@@ -135,4 +135,20 @@ router.get("/live-exch", (req, res) => {
 });
 
 
+//router admin
+router.get("/admin/dashbloard", (req, res) => {
+    fs.readFile("./src/admin/src/Dashboard.Default.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-job", (req, res) => {
+    fs.readFile("./src/admin/src/Layouts.List.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
+
+
 module.exports = router;
