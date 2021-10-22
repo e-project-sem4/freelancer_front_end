@@ -127,5 +127,28 @@ router.get("/job-detail-payment", (req, res) => {
     });
 });
 
+router.get("/live-exch", (req, res) => {
+    fs.readFile("./src/live-exch.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
+
+//router admin
+router.get("/admin/dashboard", (req, res) => {
+    fs.readFile("./src/admin/src/Dashboard.Default.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-job", (req, res) => {
+    fs.readFile("./src/admin/src/Layouts.List.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
+
 
 module.exports = router;

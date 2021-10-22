@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jobya - Responsive Job Board HTML Template</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
+
+    <!-- selectize css -->
+    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/jquery.min.js"> </script>
+    <script src="js/header.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script defer src="./js/chatlive.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/chatstyle.css">
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+    <!-- Navigation Bar-->
+    <header id="header"></header>
+    <!-- Navbar End -->
+
+    <!-- Start home -->
+    <section class="bg-half page-next-level">
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">Live chat with partner</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="/home" class="text-uppercase font-weight-bold">Home</a></li>
+                            <!-- <li><a href="#" class="text-uppercase font-weight-bold">Jobs</a></li>
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">Job Listing</span>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+    <!-- JOB LIST START -->
+    <div class="container">
+        <div class="home-form-position">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card card-bordered">
+                        <div class="card-header">
+                            <h4 class="card-title"><strong>Chat</strong></h4>
+                        </div>
+                        <div class="ps-container ps-theme-default ps-active-y" id="chat-content"
+                            style="overflow-y: scroll !important; height:400px !important;">
+                            <!-- <div class="media media-chat"> 
+                                    <div class="media-body">
+                                      <p>Sorry I don't have. i changed my phone.</p> -->
+                            <!-- <p class="meta"><time datetime="2018">00:12</time></p> -->
+                            <!-- </div>
+                                  </div>
+                                  <div class="media media-chat media-chat-reverse">
+                                    <div class="media-body">
+                                      <p>Okay then see you on sunday!!</p> -->
+                            <!-- <p class="meta"><time datetime="2018">00:12</time></p> -->
+                            <!-- </div>
+                                  </div>
+                                  <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                    <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                  </div>
+                                  <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                                    <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                                  </div> -->
+                        </div>
+                        <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs"
+                                src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                            <input class="publisher-input" type="text" placeholder="Write something ..."
+                                id="input-message">
+                            <!-- <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i>
+                                    <input type="file">
+                                  </span> -->
+                            <!-- <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> -->
+                            <button class="publisher-btn text-info" href="#" data-abc="true" onclick="sendmessage()"><i
+                                    class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- subscribe start -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </section>
+    <!-- subscribe end -->
+
+    <!-- footer start -->
+    <footer id="footer"></footer>
+    <!-- footer end -->
+    <hr>
+
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top">
+        <i class="mdi mdi-chevron-up d-block"> </i>
+    </a>
+    <!-- Back to top -->
+
+    <!-- javascript -->
+    <!-- <script src="js/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
+
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/default.js"></script>
+</body>
+
+</html>

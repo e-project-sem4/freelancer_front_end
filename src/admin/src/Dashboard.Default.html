@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Freelancer ADMIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
+
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/fullcalendar.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/datatables.responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/select2.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
+</head>
+
+<body id="app-container" class="menu-default show-spinner">
+
+    <nav class="navbar fixed-top">
+        <div class="d-flex align-items-center navbar-left">
+            <a href="#" class="menu-button d-none d-md-block">
+                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                    <rect x="0.48" y="0.5" width="7" height="1" />
+                    <rect x="0.48" y="7.5" width="7" height="1" />
+                    <rect x="0.48" y="15.5" width="7" height="1" />
+                </svg>
+                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                    <rect x="1.56" y="0.5" width="16" height="1" />
+                    <rect x="1.56" y="7.5" width="16" height="1" />
+                    <rect x="1.56" y="15.5" width="16" height="1" />
+                </svg>
+            </a>
+
+            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                    <rect x="0.5" y="0.5" width="25" height="1" />
+                    <rect x="0.5" y="7.5" width="25" height="1" />
+                    <rect x="0.5" y="15.5" width="25" height="1" />
+                </svg>
+            </a>
+
+            <div class="search" data-search-path="Layouts.Search.html?q=">
+                <input placeholder="Search...">
+                <span class="search-icon">
+                    <i class="simple-icon-magnifier"></i>
+                </span>
+            </div>
+        </div>
+
+
+        <a class="navbar-logo" href="dashboard">
+            <span class="logo d-none d-xs-block"></span>
+            <span class="logo-mobile d-block d-xs-none"></span>
+        </a>
+
+        <div class="navbar-right">
+            <div class="header-icons d-inline-block align-middle">
+        
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                    <i class="simple-icon-size-fullscreen"></i>
+                    <i class="simple-icon-size-actual"></i>
+                </button>
+
+            </div>
+
+            <div class="user d-inline-block">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">ADMIN</span>
+                    <span>
+                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" />
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                    <a class="dropdown-item" href="#">Account</a>
+                    <a class="dropdown-item" href="#">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="sidebar">
+        <div class="main-menu">
+            <div class="scroll">
+                <ul class="list-unstyled">
+                    <li class="active">
+                        <a href="dashboard">
+                            <i class="iconsmind-Shop-4"></i>
+                            <span>Dashboards</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#layouts">
+                            <i class="iconsmind-Digital-Drawing"></i> Manage Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#applications">
+                            <i class="iconsmind-Air-Balloon"></i> Manage User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#ui">
+                            <i class="iconsmind-Pantone"></i>Transaction
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#landingPage">
+                            <i class="iconsmind-Space-Needle"></i> Manage Message
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sub-menu">
+            <div class="scroll">
+                <ul class="list-unstyled" data-link="dashboard">
+                </ul>
+
+                <ul class="list-unstyled" data-link="layouts">
+                    <li>
+                        <a href="list-job">
+                            <i class="simple-icon-credit-card"></i> List Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-skill">
+                            <i class="simple-icon-list"></i> List Skill
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-complexity">
+                            <i class="simple-icon-grid"></i> List 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-expected-duration">
+                            <i class="simple-icon-book-open"></i> List Expected Duration
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-unstyled" data-link="applications">
+                    <li>
+                        <a href="list-user">
+                            <i class="simple-icon-picture"></i> List User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-freelancer">
+                            <i class="simple-icon-check"></i> List Freelancer
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-business">
+                            <i class="simple-icon-calculator"></i> List Business
+                        </a>
+                    </li>
+                
+                </ul>
+                <ul class="list-unstyled" data-link="ui">
+                    <li>
+                        <a href="money-received">
+                            <i class="simple-icon-badge"></i> Money received
+                        </a>
+                    </li>
+                    <li>
+                        <a href="money-deposits">
+                            <i class="simple-icon-control-play"></i>Money deposits
+                        </a>
+                    </li>
+                    
+                </ul>
+                <ul class="list-unstyled" data-link="landingPage">
+                    <li>
+                        <a target="_blank" href="LandingPage.Home.html">
+                            <i class="simple-icon-docs"></i> Multipage Home
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container-fluid">
+            <div class="row  ">
+                <div class="col-12">
+
+                    <h1>Dashboard</h1>
+                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                        <ol class="breadcrumb pt-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                        
+                        </ol>
+                    </nav>
+                    <div class="separator mb-5"></div>
+
+
+                </div>
+                <div class="col-lg-12 col-xl-6">
+
+                    <div class="icon-cards-row">
+                        <div class="owl-container">
+                            <div class="owl-carousel dashboard-numbers">
+                                <a href="#" class="card">
+                                    <div class="card-body text-center">
+                                        <i class="iconsmind-Alarm"></i>
+                                        <p class="card-text mb-0">Pending Orders</p>
+                                        <p class="lead text-center">16</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="card">
+                                    <div class="card-body text-center">
+                                        <i class="iconsmind-Basket-Coins"></i>
+                                        <p class="card-text mb-0">Completed Orders</p>
+                                        <p class="lead text-center">32</p>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="card">
+                                    <div class="card-body text-center">
+                                        <i class="iconsmind-Arrow-Refresh"></i>
+                                        <p class="card-text mb-0">Refund Requests</p>
+                                        <p class="lead text-center">2</p>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="card">
+                                    <div class="card-body text-center">
+                                        <i class="iconsmind-Mail-Read"></i>
+                                        <p class="card-text mb-0">New Comments</p>
+                                        <p class="lead text-center">25</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="card">
+                                <div class="position-absolute card-top-buttons">
+
+                                    <button class="btn btn-header-light icon-button" type="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="simple-icon-refresh"></i>
+                                    </button>
+
+                                    <div class="dropdown-menu dropdown-menu-right mt-3">
+                                        <a class="dropdown-item" href="#">Sales</a>
+                                        <a class="dropdown-item" href="#">Orders</a>
+                                        <a class="dropdown-item" href="#">Refunds</a>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Sales</h5>
+                                    <div class="dashboard-line-chart">
+                                        <canvas id="salesChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-12 mb-4">
+                    <div class="card">
+                        <div class="position-absolute card-top-buttons">
+                            <button class="btn btn-header-light icon-button">
+                                <i class="simple-icon-refresh"></i>
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Recent Orders</h5>
+                            <div class="scroll dashboard-list-with-thumbs">
+
+
+                                <div class="d-flex flex-row mb-3">
+                                    <a class="d-block position-relative" href="#">
+                                        <img src="/admin/src/img/marble-cake-thumb.jpg" alt="Marble Cake" class="list-thumbnail border-0" />
+                                        <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right">NEW</span>
+                                    </a>
+                                    <div class="pl-3 pt-2 pr-2 pb-2">
+                                        <a href="#">
+                                            <p class="list-item-heading">Marble Cake</p>
+                                            <div class="pr-4 d-none d-sm-block">
+                                                <p class="text-muted mb-1 text-small">Latashia Nagy - 100-148 Warwick
+                                                    Trfy, Kansas City, USA</p>
+                                            </div>
+                                            <div class="text-primary text-small font-weight-medium d-none d-sm-block">09.04.2018</div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Categories</h5>
+                            <div class="dashboard-donut-chart">
+                                <canvas id="polarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Logs</h5>
+
+                            <div class="scroll dashboard-logs">
+
+                                <table class="table table-sm table-borderless">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-1 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New user registiration</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">14:12</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Soufflé</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">13:20</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-danger align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">14 products added</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">12:55</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Napoleonshat</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">12:44</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Cremeschnitte</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">12:30</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Soufflé</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">10:40</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-danger align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">2 categories added</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">10:20</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Chocolate Cake</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">09:28</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Bebinca</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">09:25</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Bebinca</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">09:20</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="log-indicator border-theme-2 align-middle"></span>
+                                            </td>
+                                            <td>
+                                                <span class="font-weight-medium">New sale: Chocolate Cake</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="text-muted">08:20</span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tickets</h5>
+
+                            <div class="scroll dashboard-list-with-user">
+
+                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                    <a href="#">
+                                        <img src="/admin/src/img/profile-pic-l.jpg" alt="Mayra Sibley" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
+                                    </a>
+                                    <div class="pl-3 pr-2">
+                                        <a href="#">
+                                            <p class="font-weight-medium mb-0 ">Mayra Sibley</p>
+                                            <p class="text-muted mb-0 text-small">09.08.2018 - 12:45</p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-4">
+                    <div class="card dashboard-progress">
+                        <div class="position-absolute card-top-buttons">
+                            <button class="btn btn-header-light icon-button">
+                                <i class="simple-icon-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Profile Status</h5>
+                            <div class="mb-4">
+                                <p class="mb-2">Basic Information
+                                    <span class="float-right text-muted">12/18</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="66" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Portfolio
+                                    <span class="float-right text-muted">1/8</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="12" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Billing Details
+                                    <span class="float-right text-muted">2/6</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Interests
+                                    <span class="float-right text-muted">0/8</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Legal Documents
+                                    <span class="float-right text-muted">1/2</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card dashboard-sq-banner justify-content-end">
+                        <div class="card-body justify-content-end d-flex flex-column">
+                            <span class="badge badge-pill badge-theme-3 align-self-start mb-3">DORE</span>
+                            <p class="lead text-white">MAGIC IS IN THE DETAILS</p>
+                            <p class="text-white">Yes, it is indeed!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row sortable">
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Payment Status</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40" data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Work Progress</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64" data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Tasks Completed</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75" data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Payments Done</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32" data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <div class="card dashboard-filled-line-chart">
+                        <div class="card-body ">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <h5 class="d-inline">Website Visits</h5>
+                                    <span class="text-muted text-small d-block">Unique Visitors</span>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart card-body pt-0">
+                            <canvas id="visitChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <div class="card dashboard-filled-line-chart">
+                        <div class="card-body ">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <h5 class="d-inline">Conversion Rates</h5>
+                                    <span class="text-muted text-small d-block">Per Session</span>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right mt-2 float-none-xs">
+                                <button class="btn btn-outline-secondary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart card-body pt-0">
+                            <canvas id="conversionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-12 col-xl-4">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-4">
+                            <div class="card mb-4 progress-banner">
+                                <div class="card-body justify-content-between d-flex flex-row align-items-center">
+                                    <div>
+                                        <i class="iconsmind-Printer mr-2 text-white align-text-bottom d-inline-block"></i>
+                                        <div>
+                                            <p class="lead text-white">5 Files</p>
+                                            <p class="text-small text-white">Pending for print</p>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div role="progressbar" class="progress-bar-circle progress-bar-banner position-relative"
+                                            data-color="white" data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="5"
+                                            aria-valuemax="12" data-show-percent="false">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-4">
+                            <div class="card mb-4 progress-banner">
+                                <div class="card-body justify-content-between d-flex flex-row align-items-center">
+                                    <div>
+                                        <i class="iconsmind-Male mr-2 text-white align-text-bottom d-inline-block"></i>
+                                        <div>
+                                            <p class="lead text-white">4 Orders</p>
+                                            <p class="text-small text-white">On approval process</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div role="progressbar" class="progress-bar-circle progress-bar-banner position-relative"
+                                            data-color="white" data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="4"
+                                            aria-valuemax="6" data-show-percent="false">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-4">
+                            <div class="card mb-4 progress-banner">
+                                <a href="#" class="card-body justify-content-between d-flex flex-row align-items-center">
+                                    <div>
+                                        <i class="iconsmind-Bell mr-2 text-white align-text-bottom d-inline-block"></i>
+                                        <div>
+                                            <p class="lead text-white">8 Alerts</p>
+                                            <p class="text-small text-white">Waiting for notice</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div role="progressbar" class="progress-bar-circle progress-bar-banner position-relative"
+                                            data-color="white" data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="8"
+                                            aria-valuemax="10" data-show-percent="false">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 mb-4">
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart2"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart3"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart4"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/Chart.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/chartjs-plugin-datalabels.js"></script>
+    <script src="/admin/src/js/vendor/moment.min.js"></script>
+    <script src="/admin/src/js/vendor/fullcalendar.min.js"></script>
+    <script src="/admin/src/js/vendor/datatables.min.js"></script>
+    <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
+    <script src="/admin/src/js/vendor/owl.carousel.min.js"></script>
+    <script src="/admin/src/js/vendor/progressbar.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/select2.full.js"></script>
+    <script src="/admin/src/js/vendor/nouislider.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap-datepicker.js"></script>
+    <script src="/admin/src/js/vendor/Sortable.js"></script>
+    <script src="/admin/src/js/vendor/mousetrap.min.js"></script>
+    <script src="/admin/src/js/dore.script.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+</body>
+
+</html>
