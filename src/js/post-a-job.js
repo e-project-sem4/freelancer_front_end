@@ -52,10 +52,11 @@ $(document).ready(function () {
       async: false,
       success: function (res) {
         if (res.status !== "-1") {
+
           localStorage.setItem('id_job',res.result.id)
           $("#success").html(` <div class="alert alert-success" role="alert">
                                   Post job successfull!
-                                </div>`);          
+                                </div>`)
         }
         if(res.result.isPaymentStatus ===1){
            setTimeout((location.href = "/job-list"), 1000);
