@@ -107,6 +107,7 @@ function loadJobDetails() {
                     <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal" id="apply-job">Apply For Job</button>
                 </div>
                 </div>
+                <form id="apply-form">
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -120,21 +121,22 @@ function loadJobDetails() {
                                 <form>
                                     <div class="form-group">
                                         <label class="col-form-label">Amount:</label>
-                                        <input type="text" class="form-control" id="amount">
+                                        <input type="text" class="form-control" id="amount" name="amount">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Message:</label>
-                                        <textarea class="form-control" id="description"></textarea>
+                                        <textarea class="form-control" id="description" name="description"></textarea>
                                     </div>
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="apply-proposal">Apply</button>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-primary" id="apply-proposal">Apply</button>
                             </div>
                         </div>
                     </div>
-                </div>`;
+                </div>
+                </form>
+                `;
             }
             itemTempHtml += `<div class="row">
                         <div class="col-lg-12">
@@ -164,16 +166,19 @@ function loadJobDetails() {
                                     <div class="job-list-desc">
                                         <ul class="list-inline mb-0">
                                             <div class="list-inline-item mr-3">
-                                                <p  class="text-break mb-0" style="display: inline-block!important;"><i
-                                                        class="mdi mdi-animation mr-2"></i>Description:
+                                                <p  class="text-break mb-0"><i
+                                                        class="mdi mdi-animation mr-2">                
+                                                    </i>Description:
                                                     ${proposals[j].description}</p>
                                             </div>
                                             <div class="list-inline-item mr-3">
-                                                <p class="text-break mb-0" id="payment-amount-proposal"><i class="mdi mdi-currency-usd mr-2"></i>Payment
+                                                <p class="text-break mb-0" id="payment-amount-proposal">
+                                                <i class="mdi mdi-currency-usd mr-2"></i>Payment
                                                     : ${paymentAmountProposal}</p>
                                             </div>
                                             <div class="list-inline-item mr-3">
-                                                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date
+                                                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2">
+                                                    </i>Date
                                                     : ${new Date(proposals[j].createAt).toLocaleDateString()}</p>
                                             </div>
                                         </ul>
@@ -181,64 +186,45 @@ function loadJobDetails() {
                                 </div>`
                     if(proposals[j].userAccountId == current_user_id ){
                         itemTempHtml += `
-                            <div class="col-lg-3 col-md-3">
-                    <div class="job-list-button-sm text-right">                     
-                        <div class="mt-3">
-                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="deleteProposal(${proposals[j].id});">Retrieve</button>
-                        </div>
-                    </div>
-                </div>`
-
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="deleteProposal(${proposals[j].id});">Retrieve</button>
+                                        </div>
+                                    </div>
+                                </div>`
                     }
-
-
-
-
-
-
-
-
                     if (job_user_id == current_user_id) {
                         if(proposal_catalog_id == 2){
                             itemTempHtml += `
-                            <div class="col-lg-3 col-md-3">
-                    <div class="job-list-button-sm text-right">                     
-                        <div class="mt-3">
-                            <label class="text-primary">Applied</label>
-                        </div>
-                    </div>
-                </div>`
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <label class="text-primary">Applied</label>
+                                        </div>
+                                    </div>
+                                </div>`
                         }else {
                             itemTempHtml += `
-                            <div class="col-lg-3 col-md-3">
-                    <div class="job-list-button-sm text-right">                     
-                        <div class="mt-3">
-                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
-                        </div>
-                    </div>
-                </div>`
-
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
+                                        </div>
+                                    </div>
+                                </div>`
                         }
 
                     }
-
-                    itemTempHtml += `</div>
-                        </div>
-                    </div>   
-                </div>    
-            </div>
-            
-    </div>
+                    itemTempHtml += `
+                                </div> 
+                             </div>
+                          </div>   
+                      </div>    
+                  </div>
+              </div>
 </div>`
-
                 }
-
-
-
-
-
-
-
             }
             itemTempHtml += `
                 </div>
@@ -430,6 +416,28 @@ function loadJobDetails() {
             location.href="/login"
         }
     })
+    $("#apply-form").validate({
+        rules: {
+            amount: {
+                required: true,
+                minlength: 4
+            },
+            description: {
+                required: true,
+                minlength: 10
+            }
+        },
+        messages: {
+            amount: {
+                required: "Please enter a amount",
+                minlength: "Your amount must consist of at least 4 characters"
+            },
+            description: {
+                required: "Please provide a description",
+                minlength: "Your description must be at least 10 characters long"
+            }
+        }
+    });
 }
 
 

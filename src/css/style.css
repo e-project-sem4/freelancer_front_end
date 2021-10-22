@@ -235,12 +235,11 @@ File: main stylesheet
 }
 
 .btn.btn-danger-outline {
-  border: 1px solid #e43f52;
-  color: #e43f52;
+  border: 1px solid #2f55d4;
+  color: #2f55d4;
   background-color: transparent;
 }
-
-.btn.btn-danger-outline:hover, .btn.btn-danger-outline:focus, .btn.btn-danger-outline:active, .btn.btn-danger-outline.active, .btn.btn-danger-outline.focus {
+.btn.btn-danger-outline:hover,.btn.btn-danger-outline:focus, .btn.btn-danger-outline:active, .btn.btn-danger-outline.active, .btn.btn-danger-outline.focus {
   background-color: #e43f52;
   border-color: #e43f52;
 }
@@ -1783,8 +1782,8 @@ p {
   border-color: #849ae5 !important;
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
-  -webkit-transform: translateY(-5px);
-          transform: translateY(-5px);
+  /* -webkit-transform: translateY(-5px); */
+          /* transform: translateY(-5px); */
 }
 
 .job-box:hover .lable {
@@ -2456,7 +2455,7 @@ a.job-list[data-toggle=collapse].collapsed:before {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 466px;
+  max-width: 600px;
 }
 .error {
   margin: 8px 0px;
