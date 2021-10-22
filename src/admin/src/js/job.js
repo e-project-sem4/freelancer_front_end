@@ -148,7 +148,12 @@ function changeSort() {
 //   }
 //   loadAllJob(search, page, pageSize, sort, complexity, skill);
 // }
+function changeSort() {
+  page = 1;
+  sort = $('#dropdown-sort').val();
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 
+}
 
 // function changeSkill() {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
