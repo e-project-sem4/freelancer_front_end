@@ -28,7 +28,10 @@ $(document).ready(function () {
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
+<<<<<<< HEAD
 var fileAttachment;
+=======
+>>>>>>> 14d4e81a7ef0e9759a1eca894bd1f071ceaf8819
 function onLoadPage() {
     onLoadMessage();
 }

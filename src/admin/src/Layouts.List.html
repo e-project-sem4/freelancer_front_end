@@ -16,7 +16,7 @@
 
 <body id="app-container" class="menu-default show-spinner">
 
-    
+
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">
@@ -49,14 +49,14 @@
         </div>
 
 
-        <a class="navbar-logo" href="home">
+        <a class="navbar-logo" href="dashboard">
             <span class="logo d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
 
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
-        
+
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
@@ -89,7 +89,7 @@
                             <span>Dashboards</span>
                         </a>
                     </li>
-                    <li class="active"> 
+                    <li class="active">
                         <a href="#layouts">
                             <i class="iconsmind-Digital-Drawing"></i> Manage Job
                         </a>
@@ -115,7 +115,7 @@
 
         <div class="sub-menu">
             <div class="scroll">
-                <ul class="list-unstyled" data-link="dashboard">
+                <ul class="list-unstyled" href="dashboard">
                 </ul>
 
                 <ul class="list-unstyled" data-link="layouts">
@@ -131,7 +131,7 @@
                     </li>
                     <li>
                         <a href="list-complexity">
-                            <i class="simple-icon-grid"></i> List 
+                            <i class="simple-icon-grid"></i> List
                         </a>
                     </li>
                     <li>
@@ -156,7 +156,7 @@
                             <i class="simple-icon-calculator"></i> List Business
                         </a>
                     </li>
-                
+
                 </ul>
                 <ul class="list-unstyled" data-link="ui">
                     <li>
@@ -169,7 +169,7 @@
                             <i class="simple-icon-control-play"></i>Money deposits
                         </a>
                     </li>
-                    
+
                 </ul>
                 <ul class="list-unstyled" data-link="landingPage">
                     <li>
@@ -177,7 +177,7 @@
                             <i class="simple-icon-docs"></i> Multipage Home
                         </a>
                     </li>
-                   
+
                 </ul>
             </div>
         </div>
@@ -199,7 +199,8 @@
                                         <span class="custom-control-label"></span>
                                     </label>
                                 </div>
-                                <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split pl-2 pr-2"
+                                <button type="button"
+                                    class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split pl-2 pr-2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
@@ -233,9 +234,10 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
                                         <path class="view-icon-svg" d="M17.5,3H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
                                         <path class="view-icon-svg" d="M17.5,10H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
-                                        <path class="view-icon-svg" d="M17.5,17H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" /></svg>
+                                        <path class="view-icon-svg" d="M17.5,17H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
+                                    </svg>
                                 </a>
-                            
+
                             </span>
                             <div class="d-block d-md-inline-block">
                                 <div class="btn-group float-md-left mr-1 mb-1">
@@ -253,18 +255,21 @@
                                 </div>
                             </div>
                             <div class="float-md-right">
-                                <span class="text-muted text-small">Displaying 1-10 of 210 items </span>
-                                <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    20
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">10</a>
-                                    <a class="dropdown-item active" href="#">20</a>
-                                    <a class="dropdown-item" href="#">30</a>
-                                    <a class="dropdown-item" href="#">50</a>
-                                    <a class="dropdown-item" href="#">100</a>
-                                </div>
+                                <select id="dropdown-page" class="form-control select2-single" onchange="changePage()">
+                                    <option data-display="Size" value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                            <div class="float-md-right">
+                                <select id="dropdown-sort" onchange="changeSort()" class="form-control select2-single">
+                                    <option data-display="Sort"  value="0">All</option>
+                                    <option value="1"> Create Date ↑</option>
+                                    <option value="2"> Create Date ↓</option>
+                                    <option value="3"> Price ↑</option>
+                                    <option value="4"> Price ↓</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -273,54 +278,11 @@
             </div>
 
             <div class="row">
-                <div id="job-list" class="col-12 list" data-check-all="checkAll">
+                <div class=" col-12 list" data-check-all="checkAll">
 
-
-                    <div class="card d-flex flex-row mb-3">
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-40 w-xs-100" href="Layouts.Details.html">
-                                    Marble Cake
-                                </a>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">Cakes</p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">02.04.2018</p>
-                                <div class="w-15 w-xs-100">
-                                    <span class="badge badge-pill badge-secondary">ON HOLD</span>
-                                </div>
-                            </div>
-                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                <label class="custom-control custom-checkbox mb-0">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-label"></span>
-                                </label>
-                            </div>
-                        </div>
+                    <div id="job-list">
+                        <!-- call api -->
                     </div>
-
-                    <div class="card d-flex flex-row mb-3">
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-40 w-xs-100" href="Layouts.Details.html">
-                                    Fruitcake
-                                </a>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">Cupcakes</p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">01.04.2018</p>
-                                <div class="w-15 w-xs-100">
-                                    <span class="badge badge-pill badge-primary">PROCESSED</span>
-                                </div>
-                            </div>
-
-                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                <label class="custom-control custom-checkbox mb-0">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-label"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-
                     <nav class="mt-4 mb-3">
                         <ul class="pagination justify-content-center mb-0">
                             <li class="page-item ">
@@ -366,7 +328,8 @@
     <script src="/admin/src/js/vendor/jquery.contextMenu.min.js"></script>
     <script src="/admin/src/js/dore.script.js"></script>
     <script src="/admin/src/js/scripts.js"></script>
-    <script src="/admin/src/js/list-job.js"></script>
+    <script src="/admin/src/js/default.js"></script>
+    <script src="/admin/src/js/job.js"></script>
 </body>
 
 </html>
