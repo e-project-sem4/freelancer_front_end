@@ -148,7 +148,16 @@ function changeSort() {
 //   }
 //   loadAllJob(search, page, pageSize, sort, complexity, skill);
 // }
+<<<<<<< HEAD
 
+=======
+function changeSort() {
+  page = 1;
+  sort = $('#dropdown-sort').val();
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
+
+}
+>>>>>>> 25cd1f0bcc79717d4892919dc5ddc2fb8b86fb36
 
 // function changeSkill() {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
