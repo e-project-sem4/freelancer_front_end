@@ -47,7 +47,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                                       <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">  
                                                                              <div class="list-inline-item mr-3">
-                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2" ></i>Description: ${jobList[i].description}</p>
                                                                        </div>                                                                                
                                                                                    <div class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
@@ -146,6 +146,34 @@ function loadAllComplexity() {
   });
 }
 
+// function loadSuitableJob() {
+//   const url = baseUrl + `/api/v1/complexities/search?status=1`;
+//   $.ajax({
+//     type: "GET",
+//     url: url,
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "JSON",
+//     async: false,
+//     success: function (res) {
+//       const ComplexityList = res.result;
+//       let itemHtml = "";
+//       let itemTempHtml = "";
+//       for (let i = 0; i < ComplexityList.length; i++) {
+//         itemTempHtml = `<div class="custom-control custom-radio">
+//                                             <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
+//                                             <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
+//                                         </div>`;
+//         itemHtml += itemTempHtml;
+//       }
+
+//       $("#LevelsList").html(itemHtml);
+//       $("#LevelsList").append(`<div class="custom-control custom-radio">
+//       <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
+//       <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
+//   </div>`);
+//     },
+//   });
+// }
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();

@@ -296,6 +296,10 @@
     -webkit-transition: .2s linear;
     transition: .2s linear
   }
+
+  .publisher-btn input {
+    display: none;
+  }
   
   .file-group {
     position: relative;
@@ -322,4 +326,32 @@
   
   .text-info {
     color: #48b0f7 !important
+  }
+
+  #close-attach-file{
+    display: none;
+  }
+
+  #close-attach-file:hover{
+    color: #2f55d4;
+  }
+
+  #attach-file:hover{
+    color: #2f55d4;
+  }
+
+  .chat-list-item {
+    height: 60px;
+    background-color: #ebebeb;
+    cursor: pointer;
+    border: 2px solid #fff;
+  }
+  .chat-list-item p {
+    padding: 3px 10px;
+  }
+  .chat-list-item:hover {
+    background-color: #48b0f7;
+  }
+  .active{
+    background-color: red;
   }
