@@ -79,13 +79,13 @@
     <div class="container">
         <div class="home-form-position">
             <div class="row justify-content-center">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <div class="card card-bordered">
                         <div class="card-header">
                             <h4 class="card-title"><strong>Chat</strong></h4>
                         </div>
                         <div class="ps-container ps-theme-default ps-active-y" id="chat-content"
-                            style="overflow-y: scroll !important; height:400px !important;">
+                            style="overflow-y: scroll !important; height:420px !important;">
                             <!-- <div class="media media-chat"> 
                                     <div class="media-body">
                                       <p>Sorry I don't have. i changed my phone.</p> -->
@@ -109,12 +109,27 @@
                                 src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
                             <input class="publisher-input" type="text" placeholder="Write something ..."
                                 id="input-message">
-                            <!-- <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i>
-                                    <input type="file">
-                                  </span> -->
+                            <label id="close-attach-file" class="publisher-btn" title="close file"
+                                onclick="onCloseAttachFile()"> <i class="fa fa-times-circle"></i>
+                            </label>
+                            <label id="attach-file" for="file-input-chat" class="publisher-btn" title="attach file"> <i
+                                    class="fa fa-paperclip file-browser"></i>
+                                <input id="file-input-chat" type="file" onchange="onchangeInputFile()">
+                            </label>
                             <!-- <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> -->
                             <button class="publisher-btn text-info" href="#" data-abc="true" onclick="sendmessage()"><i
                                     class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-bordered">
+                        <div class="card-header">
+                            <h4 class="card-title"><strong>Chat List</strong></h4>
+                        </div>
+                        <div class="ps-container ps-theme-default ps-active-y" id="chat-list"
+                            style="overflow-y: scroll !important; height:420px !important;">
+                            
                         </div>
                     </div>
                 </div>

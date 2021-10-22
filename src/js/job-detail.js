@@ -164,6 +164,7 @@ function loadJobDetails() {
                                 </div>
                                 <div class="col-lg-7 col-md-9">
                                     <div class="job-list-desc">
+                                    <h4 class="mb-2"><a href="/job-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
                                         <ul class="list-inline mb-0">
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
@@ -389,7 +390,6 @@ function loadJobDetails() {
                </div>
             </div>`
             itemHtml += itemTempHtml;
-            ;
             $('#job-description').html(itemHtml);
             let arrSkill = jobDetails.otherSkills
             let skillTemp = '';

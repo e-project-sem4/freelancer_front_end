@@ -63,12 +63,12 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="company-logo-img">
-                            <img src="https://via.placeholder.com/400X400//88929f/5a6270C/O https://placeholder.com/" alt="" class="img-fluid mx-auto d-block">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" class="img-fluid mx-auto d-block">
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-9">
                         <div class="job-list-desc">
-                            <h4 class="mb-2"><a href="/job-details?id=${freelancerList[i].id}"
+                            <h4 class="mb-2"><a href="/candidate-details?id=${freelancerList[i].id}"
                                                 class="text-dark">${freelancerList[i].user.fullName}</a></h4>
                             <ul class="list-inline mb-0">
                                 <div class="list-inline-item mr-3">
@@ -104,7 +104,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                 <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">
                         <div class="candidates-listing-btn mt-4">
-                           <a href="/candidate-details?id=${freelancerList[i].id}" class="btn btn-primary-outline btn-sm">View Profile</a>
+                           <a href="/candidate-details?id=${freelancerList[i].id}" class="btn btn-primary-outline btn-sm" id="get-profile">View Profile</a>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ $(".btn-prev").on("click", function () {
         end = pageSize * page;
         $('#totalResult').html(`${start}-${end}`)
 
-        loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
     }
 });
 $(".btn-next").on("click", function () {
@@ -136,17 +136,17 @@ $(".btn-next").on("click", function () {
         end = pageSize * page;
         $('#totalResult').html(`${start}-${end}`)
 
-        loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
     }
 });
 function changeSkill(){
     const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-    loadAllJob(search, page, pageSize, sort,arrSkill)
+    loadAllFreelancer(search, page, pageSize, sort,arrSkill)
 }
 function changeSort(){
     page =1;
     sort = $('#dropdown-sort').val();
-    loadAllJob(search, page, pageSize, sort,skill);
+    loadAllFreelancer(search, page, pageSize, sort,skill);
 
 }
 function changePage() {
@@ -155,5 +155,5 @@ function changePage() {
     start = page * pageSize - pageSize + 1;
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
-    loadAllJob(search, page, pageSize, sort,skill);
+    loadAllFreelancer(search, page, pageSize, sort,skill);
 }

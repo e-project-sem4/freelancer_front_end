@@ -1,37 +1,39 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     // onInstanceFirebase();
 
-    const data=  localStorage.getItem('user-info')
-       const output =   document.getElementById('username')
-       const obj = JSON.parse(data);
-       output.innerHTML= obj.username
+    const data = localStorage.getItem('user-info')
+    const output = document.getElementById('username')
+    const obj = JSON.parse(data);
+    output.innerHTML = obj.username
+    
     if (localStorage.getItem("access-token") === null) {
-        document.getElementById("logout").innerHTML="Login";
+        document.getElementById("logout").innerHTML = "Login";
         document.getElementById("logout").setAttribute("href", "/login");
     }
-    
+    // document.getElementById('dropdownMessage').style.display = "none";
+
     var html = '';
     obj.chatKeyUsers.forEach(item => {
-        html += `<a class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}')">`+item.jobName+`</a>`;
+        html += `<a class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}')">` + item.jobName + `</a>`;
     });
     $('#message-chat-box-header').html(html);
-    $('#profile').on('click',function(event) {
-        location.href="/profile"
+    $('#profile').on('click', function (event) {
+        location.href = "/profile"
     });
-    $('#changePassword').on('click',function(event) {
-        location.href="/ChangePassword"
+    $('#changePassword').on('click', function (event) {
+        location.href = "/ChangePassword"
     });
-    
+
 })
 
-function goToChat(id, sender_id, receiver_id, job_id, room_key){
+function goToChat(id, sender_id, receiver_id, job_id, room_key) {
     localStorage.setItem('chat_room_id', id);
     localStorage.setItem('sender_id', sender_id);
     localStorage.setItem('receiver_id', receiver_id);
     localStorage.setItem('job_id', job_id);
     localStorage.setItem('room_key', room_key);
-    location.href="/live-exch";
+    location.href = "/live-exch";
 }
 
 function onInstanceFirebase() {
