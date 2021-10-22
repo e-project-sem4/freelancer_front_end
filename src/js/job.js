@@ -146,6 +146,34 @@ function loadAllComplexity() {
   });
 }
 
+// function loadSuitableJob() {
+//   const url = baseUrl + `/api/v1/complexities/search?status=1`;
+//   $.ajax({
+//     type: "GET",
+//     url: url,
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "JSON",
+//     async: false,
+//     success: function (res) {
+//       const ComplexityList = res.result;
+//       let itemHtml = "";
+//       let itemTempHtml = "";
+//       for (let i = 0; i < ComplexityList.length; i++) {
+//         itemTempHtml = `<div class="custom-control custom-radio">
+//                                             <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
+//                                             <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
+//                                         </div>`;
+//         itemHtml += itemTempHtml;
+//       }
+
+//       $("#LevelsList").html(itemHtml);
+//       $("#LevelsList").append(`<div class="custom-control custom-radio">
+//       <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
+//       <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
+//   </div>`);
+//     },
+//   });
+// }
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();

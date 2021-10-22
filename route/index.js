@@ -27,6 +27,12 @@ router.get("/ChangePassword", (req, res) => {
         res.send(data);
     });
 });
+router.get("/Jobmanager", (req, res) => {
+    fs.readFile("./src/Job-manager.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 router.get("/post-a-job", (req, res) => {
     fs.readFile("./src/post-a-job.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -127,5 +133,44 @@ router.get("/job-detail-payment", (req, res) => {
     });
 });
 
+router.get("/live-exch", (req, res) => {
+    fs.readFile("./src/live-exch.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
+
+//router admin
+router.get("/admin/dashboard", (req, res) => {
+    fs.readFile("./src/admin/src/Dashboard.Default.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-job", (req, res) => {
+    fs.readFile("./src/admin/src/List-job.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-skill", (req, res) => {
+    fs.readFile("./src/admin/src/List-skill.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-complexity", (req, res) => {
+    fs.readFile("./src/admin/src/List-complexity.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-expected-duration", (req, res) => {
+    fs.readFile("./src/admin/src/List-expected-duration.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 
 module.exports = router;
