@@ -14,6 +14,7 @@ $(document).ready(function () {
   $(".js-example-basic-multiple").select2({
     placeholder: "Choose event type",
   });
+})
 
   $("#post-job").on("click", function (event) {
     event.preventDefault();
@@ -26,13 +27,7 @@ $(document).ready(function () {
         skill_id: item,
       };
     });
-    console.log(otherSkill);
-      // // .select2("val")
-      // .map((item) => {
-      //   return {
-      //     skill_id: item,
-      //   };
-      // });
+   
     const description = CKEDITOR.instances.description.getData();
     const param = {
       name: jobName,
@@ -79,8 +74,7 @@ $(document).ready(function () {
     });
    
   });
-}),
-  jQuery(function () {});
+
 
 function getExpectedComplexity(e, idx) {
   $.ajax({
