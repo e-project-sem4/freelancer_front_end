@@ -1,24 +1,15 @@
-var pageSize = 10;
-var page = 1;
-var totalPage = 0;
-var complexity = "";
-var search = "";
-var sort = 0;
-var skill = "";
-var start = page * pageSize - pageSize + 1;
-var end = pageSize * page;
-
+var status = 1;
 $(document).ready(function () {
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllDurations(status);
   // loadAllSkill();
   // loadAllComplexity();
   // $('#totalResult').html(`${start}-${end}`)
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAllDurations(status) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/durations/search?status=${status}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -26,29 +17,24 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
     dataType: "JSON",
     async: false,
     success: function (res) {
-      const jobList = res.result;
-      console.log(jobList)
+      const durations = res.result;
+      console.log(durations)
       totalPage = res.total;
-      let itemHtml = "";
       let itemTempHtml = "";
-      for (let i = 0; i < jobList.length; i++) {
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
-        if(jobList[i].isPaymentStatus ==1){
-          str = '<span class="badge badge-pill badge-primary">Đã thanh toán</span>'
+      for (let i = 0; i < durations.length; i++) {
+        if(durations[i].status ==1){
+          str = '<span class="badge badge-pill badge-primary">Đang mở</span>'
         }else{
-          str = '<span class="badge badge-pill badge-danger">Chưa thanh toán</span>'
+          str = '<span class="badge badge-pill badge-danger">Đang đóng</span>'
         }
         ;
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="Layouts.Details.html">
-                                ${jobList[i].name}
+                                <a class="list-item-heading mb-1 truncate w-40 w-xs-100" href="Layouts.Details.html">
+                                ${durations[i].durationText}
                                 </a>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].userBusiness.user.fullName} </p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${d}</p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].paymentAmount} USD</p>
                                 <div class="w-15 w-xs-100">`+ str+`</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
@@ -61,7 +47,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                     </div>
         `;
       }
-      $("#job-list").html(itemTempHtml);
+      $("#durations-list").html(itemTempHtml);
     },
   });
 }
@@ -69,7 +55,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
 
 $("#search-input").change(function() {
   search = $("#search-input").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllDurations(status);
 });
 
 
@@ -80,12 +66,12 @@ function changePage() {
   start = page * pageSize - pageSize + 1;
   end = pageSize * page;
   $('#totalResult').html(`${start}-${end}`)
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllDurations(status);
 }
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllDurations(status);
 
 }
 // function changeComplexity(data) {
