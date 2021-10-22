@@ -1,6 +1,28 @@
 var status = ``;
 var id_freelancer = 0;
 var id_business = 0;
+var thumbnailsUrl = ''
+var myWidget = cloudinary.createUploadWidget(
+    {
+        cloudName: 'hoadaica',
+        uploadPreset: 'hoadaica',
+        multiple: false,
+        form: '#product_form',
+        fieldName: 'thumbnails',
+        thumbnails: '.thumbnails'
+    }, function (error, result) {
+        if (!error && result && result.event === "success") {
+            console.log('Done! Here is the image info: ', result.info.url); 
+            thumbnailsUrl = result.info.url; 
+            console.log(thumbnailsUrl);
+            var arrayThumnailInputs = document.querySelectorAll('input[name="thumbnails"]');
+            for (let i = 0; i < arrayThumnailInputs.length; i++) {
+                arrayThumnailInputs[i].value = arrayThumnailInputs[i].getAttribute('data-cloudinary-public-id');
+            }
+        }
+    }
+);
+
 $(function load() {
     const url = baseUrl + `/api/v1/users/viewprofile`;
     const token = localStorage.getItem('access-token')
@@ -15,13 +37,12 @@ $(function load() {
         },
         dataType: "JSON",
         async: false,    
-        success: function (res) {         
-                
+        success: function (res) {               
             const ProfileList = res.result; 
             id_freelancer = ProfileList.freelancer.id;
             id_business = ProfileList.business.id;
             console.log("id_freelancer 1 : ",id_freelancer)
-            let itemHtmlInfo = `<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
+            let itemHtmlInfo = `<img src="${ProfileList.user.thumbnail}" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
             <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>              
             <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.overview}</p>
             <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.location}</p>
@@ -38,11 +59,7 @@ $(function load() {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
+                            <img src="${ProfileList.user.thumbnail}" style="width: 207px;height: 140px;border-radius: 16%" alt=""/>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -101,8 +118,12 @@ $(function load() {
                               <div class="invalid-feedback">
                                 
                               </div>
-                            </div>
-                           
+                            </div>                            
+                            <div class="form-group">
+                                <button type="button" id="upload_widget" onclick="changeAvatar()" class="btn btn-primary">Thêm ảnh
+                                </button>
+                            <div class="thumbnails" name="thumbnails"></div>
+                            </div>                           
                             <button id="updateProfile" type="button" class="btn btn-primary">Update</button>
                           </form>
                         </div>
@@ -429,8 +450,7 @@ $(function load() {
     })
 });
 $(document).ready(function () {
-    $('#updateProfile').on("click", function(event) {
-        
+    $('#updateProfile').on("click", function(event) {  
         const fullName = $("#fullName").val();       
         const email = $("#email").val();
         const phone = $("#phone").val();
@@ -439,6 +459,7 @@ $(document).ready(function () {
             fullName: fullName,
             email: email,
             phone: phone,
+            thumbnail: thumbnailsUrl
         };
         $.ajax({
             type: 'PUT',
@@ -450,7 +471,7 @@ $(document).ready(function () {
                     String(localStorage.getItem("access-token"))
                 );
               },
-            data:JSON.stringify(param),
+              data:JSON.stringify(param),
             dataType:"JSON",
             async: false,
             success: function(res) {
@@ -534,3 +555,19 @@ $(document).ready(function () {
     })
 
   });
+
+  function changeAvatar(){
+    myWidget.open();
+  }
+// xử lý js trên dynamic content.
+$('body').on('click', '.cloudinary-delete', function () {
+    var splittedImg = $(this).parent().find('img').attr('src').split('/');
+    var imgName = splittedImg[splittedImg.length - 1];
+    imgName = imgName.replace('.jpg', '');
+    $('input[data-cloudinary-public-id="' + imgName + '"]').remove();
+    $(this).parent().remove();
+});
+
+
+    
+  
