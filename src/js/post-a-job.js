@@ -1,3 +1,4 @@
+
 CKEDITOR.editorConfig = function( config ) {
   config.language = 'en';  // Chọn ngôn ngữ
   config.uiColor = '#F7B42C'; // màu giao diện
@@ -13,19 +14,20 @@ $(document).ready(function () {
   $(".js-example-basic-multiple").select2({
     placeholder: "Choose event type",
   });
+})
 
   $("#post-job").on("click", function (event) {
+    event.preventDefault();
     const jobName = $("#job_name").val();
     const expectedDuration = $(".duration").val();
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
-    const otherSkill = $(".js-example-basic-multiple")
-      .select2("val")
-      .map((item) => {
-        return {
-          skill_id: item,
-        };
-      });
+    const otherSkill = $(".js-example-basic-multiple").val().map((item) => {
+      return {
+        skill_id: item,
+      };
+    });
+   
     const description = CKEDITOR.instances.description.getData();
     const param = {
       name: jobName,
@@ -71,10 +73,9 @@ $(document).ready(function () {
                               </div>`);
       },
     });
-    event.preventDefault();
+   
   });
-}),
-  jQuery(function () {});
+
 
 function getExpectedComplexity(e, idx) {
   $.ajax({
