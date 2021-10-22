@@ -27,6 +27,12 @@ router.get("/ChangePassword", (req, res) => {
         res.send(data);
     });
 });
+router.get("/Jobmanager", (req, res) => {
+    fs.readFile("./src/Job-manager.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 router.get("/post-a-job", (req, res) => {
     fs.readFile("./src/post-a-job.html", "utf-8", (err, data) => {
         res.type("text/html");
