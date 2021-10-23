@@ -1,14 +1,18 @@
-var pageSize = 5;
+var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
 var search = "";
 var sort = 0;
 var skill = "";
-var totals = 0;
+var start = page * pageSize - pageSize + 1;
+var end = pageSize * page;
+
 $(document).ready(function () {
   loadAllJob(search, page, pageSize, sort, complexity, skill);
-  pagination(totalRow);
+  // loadAllSkill();
+  // loadAllComplexity();
+  // $('#totalResult').html(`${start}-${end}`)
 });
 
 function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
@@ -23,14 +27,16 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
     async: false,
     success: function (res) {
       const jobList = res.result;
-      totalRow = res.total;
+      console.log(jobList)
+      totalPage = res.total;
+      let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
         var d = new Date(jobList[i].createAt).toLocaleDateString();
-        if (jobList[i].isPaymentStatus == 1) {
-          str = '<span class="badge badge-pill badge-primary">Paid</span>'
-        } else {
-          str = '<span class="badge badge-pill badge-danger">Unpaid</span>'
+        if(jobList[i].isPaymentStatus ==1){
+          str = '<span class="badge badge-pill badge-primary">Đã thanh toán</span>'
+        }else{
+          str = '<span class="badge badge-pill badge-danger">Chưa thanh toán</span>'
         }
         ;
         itemTempHtml += `
@@ -43,7 +49,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                                 <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].userBusiness.user.fullName} </p>
                                 <p class="mb-1 text-muted text-small w-15 w-xs-100">${d}</p>
                                 <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-100">`+ str + `</div>
+                                <div class="w-15 w-xs-100">`+ str+`</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
@@ -53,41 +59,35 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                             </div>
                         </div>
                     </div>
-                    
         `;
       }
       $("#job-list").html(itemTempHtml);
-      
     },
   });
 }
-// phân trang
-function pagination(totalRow) {
-  var totals = Math.ceil(totalRow / pageSize);
-  $('#pagination-demo').twbsPagination({
-    totalPages: totals,
-    visiblePages: pageSize,
-    onPageClick: function (event, page) {
-      loadAllJob(search, page, pageSize, sort, complexity, skill)
-    }
-  });
-}
+
+
+$("#search-input").change(function() {
+  search = $("#search-input").val();
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
+});
+
+
 function changePage() {
   page = 1;
   pageSize = $("#dropdown-page").val();
-  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
-  pagination(totalRow);
+
+  start = page * pageSize - pageSize + 1;
+  end = pageSize * page;
+  $('#totalResult').html(`${start}-${end}`)
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 }
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
   loadAllJob(search, page, pageSize, sort, complexity, skill);
-}
-$("#search-input").change(function () {
-  search = $("#search-input").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
-});
 
+}
 // function changeComplexity(data) {
 //   complexity = data;
 //   if (data === null) {
@@ -99,5 +99,24 @@ $("#search-input").change(function () {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
 //   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
+// $(".btn-prev").on("click", function () {
+//   if (page > 0) {
+//     page--;
+//     start = page * pageSize - pageSize + 1;
+//     end = pageSize * page;
+//     $('#totalResult').html(`${start}-${end}`)
 
+//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+//   }
+// });
+// $(".btn-next").on("click", function () {
+//   if (page * pageSize < totalPage) {
+//     page++;
+//     start = page * pageSize - pageSize + 1;
+//     end = pageSize * page;
+//     $('#totalResult').html(`${start}-${end}`)
+
+//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+//   }
+// });
 
