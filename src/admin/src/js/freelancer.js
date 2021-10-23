@@ -1,24 +1,21 @@
-var pageSize = 10;
+var pageSize = 5;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
 var search = "";
 var sort = 0;
 var skill = "";
-var start = page * pageSize - pageSize + 1;
-var end = pageSize * page;
-
+var totals = 0;
 $(document).ready(function () {
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
-  // loadAllSkill();
-  // loadAllComplexity();
-  // $('#totalResult').html(`${start}-${end}`)
+  loadAll(search, page, pageSize, sort, skill);
+  pagination(totalRow);
+
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAll(searchKey, page, pageSize, sort, skill) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/freelancer/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&skill_id=${skill}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -26,30 +23,38 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
     dataType: "JSON",
     async: false,
     success: function (res) {
-      const jobList = res.result;
-      console.log(jobList)
-      totalPage = res.total;
-      let itemHtml = "";
+      const lists = res.result;
+      console.log(lists)
+      totalRow = res.total;
       let itemTempHtml = "";
-      for (let i = 0; i < jobList.length; i++) {
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
-        if(jobList[i].isPaymentStatus ==1){
-          str = '<span class="badge badge-pill badge-primary">Đã thanh toán</span>'
-        }else{
-          str = '<span class="badge badge-pill badge-danger">Chưa thanh toán</span>'
+      for (let i = 0; i < lists.length; i++) {
+        //check ảnh
+        if (lists[i].user.thumbnail == null) {
+          avatar = 'https://res.cloudinary.com/trinhlh96/image/upload/v1634989584/fei7k5xyqsunvostz3yb.jpg'
+        } else {
+          avatar = lists[i].user.thumbnail
         }
+
+        if (lists[i].statusSearchJob == 1) {
+          statusJob = '<span class="badge badge-pill badge-secondary ">Open for jobs</span>'
+        } else {
+          statusJob = '<span class="badge badge-pill badge-danger">Close job</span>'
+        }
+
         ;
-        itemTempHtml += `
+        itemTempHtml += ` 
                     <div class="card d-flex flex-row mb-3">
+                        <a class="d-flex w-10" href="/admin/list-job/${lists[i].id}">
+                          <img src="${avatar}" alt="Fat Rascal" class="list-thumbnail responsive border-0" />
+                        </a>
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="Layouts.Details.html">
-                                ${jobList[i].name}
+                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${lists[i].id}">
+                                ${lists[i].user.fullName}
                                 </a>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].userBusiness.user.fullName} </p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${d}</p>
-                                <p class="mb-1 text-muted text-small w-15 w-xs-100">${jobList[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-100">`+ str+`</div>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].certifications} </p>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].location}</p>
+                                <div class="w-15 w-xs-100">`+ statusJob + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
@@ -58,36 +63,40 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
         `;
       }
-      $("#job-list").html(itemTempHtml);
+      $("#lists").html(itemTempHtml);
     },
   });
 }
-
-
-$("#search-input").change(function() {
-  search = $("#search-input").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
-});
-
-
+// phân trang
+function pagination(totalRow) {
+  var totals = Math.ceil(totalRow / pageSize);
+  $('#pagination-demo').twbsPagination({
+    totalPages: totals,
+    visiblePages: pageSize,
+    onPageClick: function (event, page) {
+      loadAll(search, page, pageSize, sort, skill)
+    }
+  });
+}
 function changePage() {
   page = 1;
   pageSize = $("#dropdown-page").val();
-
-  start = page * pageSize - pageSize + 1;
-  end = pageSize * page;
-  $('#totalResult').html(`${start}-${end}`)
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
 }
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
-
+  loadAll(search, page, pageSize, sort, skill);
 }
+$("#search-input").change(function () {
+  search = $("#search-input").val();
+  loadAll(search, page, pageSize, sort, skill);
+});
+
 // function changeComplexity(data) {
 //   complexity = data;
 //   if (data === null) {
@@ -99,24 +108,4 @@ function changeSort() {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
 //   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
-// $(".btn-prev").on("click", function () {
-//   if (page > 0) {
-//     page--;
-//     start = page * pageSize - pageSize + 1;
-//     end = pageSize * page;
-//     $('#totalResult').html(`${start}-${end}`)
-
-//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
-//   }
-// });
-// $(".btn-next").on("click", function () {
-//   if (page * pageSize < totalPage) {
-//     page++;
-//     start = page * pageSize - pageSize + 1;
-//     end = pageSize * page;
-//     $('#totalResult').html(`${start}-${end}`)
-
-//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
-//   }
-// });
 

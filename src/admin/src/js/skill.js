@@ -1,12 +1,12 @@
 var status = 1;
 $(document).ready(function () {
-  loadAllSkill(status);
-  // loadAllSkill();
+  loadAll(status);
+  // loadAll();
   // loadAllComplexity();
   // $('#totalResult').html(`${start}-${end}`)
 });
 
-function loadAllSkill(status) {
+function loadAll(status) {
   const url =
     baseUrl +
     `/api/v1/skills/search?status=${status}`;
@@ -17,12 +17,12 @@ function loadAllSkill(status) {
     dataType: "JSON",
     async: false,
     success: function (res) {
-      const skill = res.result;
-      console.log(skill)
+      const lists = res.result;
+      console.log(lists)
       totalPage = res.total;
       let itemTempHtml = "";
-      for (let i = 0; i < skill.length; i++) {
-        if(skill[i].status ==1){
+      for (let i = 0; i < lists.length; i++) {
+        if(lists[i].status ==1){
           str = '<span class="badge badge-pill badge-primary">Đang mở</span>'
         }else{
           str = '<span class="badge badge-pill badge-danger">Đang đóng</span>'
@@ -33,7 +33,7 @@ function loadAllSkill(status) {
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                 <a class="list-item-heading mb-1 truncate w-40 w-xs-100" href="Layouts.Details.html">
-                                ${skill[i].skillName}
+                                ${lists[i].skillName}
                                 </a>
                                 <div class="w-15 w-xs-100">`+ str+`</div>
                             </div>
@@ -55,7 +55,7 @@ function loadAllSkill(status) {
 
 $("#search-input").change(function() {
   search = $("#search-input").val();
-  loadAllSkill(status);
+  loadAll(status);
 });
 
 
@@ -66,12 +66,12 @@ function changePage() {
   start = page * pageSize - pageSize + 1;
   end = pageSize * page;
   $('#totalResult').html(`${start}-${end}`)
-  loadAllSkill(status);
+  loadAll(status);
 }
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAllSkill(status);
+  loadAll(status);
 
 }
 // function changeComplexity(data) {
