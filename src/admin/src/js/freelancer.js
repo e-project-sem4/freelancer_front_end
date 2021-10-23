@@ -1,4 +1,4 @@
-var pageSize = 5;
+var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
@@ -7,11 +7,12 @@ var sort = 0;
 var skill = "";
 var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
-var totals = 0;
+
 $(document).ready(function () {
   loadAllJob(search, page, pageSize, sort, complexity, skill);
-  pagination(totalRow);
-  
+  // loadAllSkill();
+  // loadAllComplexity();
+  // $('#totalResult').html(`${start}-${end}`)
 });
 
 function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
@@ -27,14 +28,15 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
     success: function (res) {
       const jobList = res.result;
       console.log(jobList)
-      totalRow = res.total;
+      totalPage = res.total;
+      let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
         var d = new Date(jobList[i].createAt).toLocaleDateString();
         if(jobList[i].isPaymentStatus ==1){
-          str = '<span class="badge badge-pill badge-primary">Paid</span>'
+          str = '<span class="badge badge-pill badge-primary">Đã thanh toán</span>'
         }else{
-          str = '<span class="badge badge-pill badge-danger">Unpaid</span>'
+          str = '<span class="badge badge-pill badge-danger">Chưa thanh toán</span>'
         }
         ;
         itemTempHtml += `
@@ -57,24 +59,11 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                             </div>
                         </div>
                     </div>
-                    
         `;
       }
       $("#job-list").html(itemTempHtml);
-      
     },
   });
-}
-
-function pagination(totalRow){
-  var totals = Math.ceil(totalRow / pageSize);
-  $('#pagination-demo').twbsPagination({
-    totalPages: totals,
-    visiblePages: pageSize,
-    onPageClick: function (event, page) {
-        loadAllJob(search, page, pageSize, sort, complexity, skill)
-    }
-});
 }
 
 
@@ -87,8 +76,11 @@ $("#search-input").change(function() {
 function changePage() {
   page = 1;
   pageSize = $("#dropdown-page").val();
-  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination-sm"></ul>`);
-  pagination(totalRow);
+
+  start = page * pageSize - pageSize + 1;
+  end = pageSize * page;
+  $('#totalResult').html(`${start}-${end}`)
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 }
 function changeSort() {
   page = 1;
@@ -107,5 +99,24 @@ function changeSort() {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
 //   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
+// $(".btn-prev").on("click", function () {
+//   if (page > 0) {
+//     page--;
+//     start = page * pageSize - pageSize + 1;
+//     end = pageSize * page;
+//     $('#totalResult').html(`${start}-${end}`)
 
+//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+//   }
+// });
+// $(".btn-next").on("click", function () {
+//   if (page * pageSize < totalPage) {
+//     page++;
+//     start = page * pageSize - pageSize + 1;
+//     end = pageSize * page;
+//     $('#totalResult').html(`${start}-${end}`)
+
+//     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+//   }
+// });
 
