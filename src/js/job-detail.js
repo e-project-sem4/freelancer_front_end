@@ -4,8 +4,8 @@ var c = url123.searchParams.get("id");
 
 $(document).ready(function () {
     loadJobDetails();
-
 });
+
 function loadJobDetails() {
 
     var current_user_id;
@@ -100,14 +100,26 @@ function loadJobDetails() {
                             </div>
                         </div>
                     </div>`
+            var hiennutapply = 1
             if (job_user_id != current_user_id) {
-                itemTempHtml += ` 
-                <div class="row d-flex justify-content-center">
-                <div class="job-detail border rounded mt-4" >
+                for (let y = 0; y < proposals.length; y++) {
+                    if (proposals[y].userAccountId == current_user_id) {
+                        if (proposals[y].proposal_status_catalog_id == 1) {
+                            hiennutapply = 0;
+                        }
+                    }
+
+                }
+                if (hiennutapply == 1) {
+                    itemTempHtml += `<div class="row d-flex justify-content-center">
+                <div class="job-detail border rounded mt-4">
                     <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal" id="apply-job">Apply For Job</button>
                 </div>
-                </div>
-                <form id="apply-form">
+            </div>`
+                }
+
+                itemTempHtml += ` 
+                <div id="apply-form">
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -118,26 +130,35 @@ function loadJobDetails() {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <div>
                                     <div class="form-group">
                                         <label class="col-form-label">Amount:</label>
                                         <input type="text" class="form-control" id="amount" name="amount">
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Message:</label>
-                                        <textarea class="form-control" id="description" name="description"></textarea>
+                                        <textarea class="form-control" id="description-apply" name="description"></textarea>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-primary" id="apply-proposal">Apply</button>
+                                <button class="btn btn-primary" id="apply-proposal" onclick="applyJob()">Apply</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                </form>
+                </div>
                 `;
             }
+            // else {
+            //     itemTempHtml += `
+            // <div class="row d-flex justify-content-center">
+            //     <div class="job-detail border rounded mt-4" >
+            //         <button class="btn btn-primary btn-block" id="complete-job">Complete Job</button>
+            //     </div>
+            // </div>`
+            //
+            // }
             itemTempHtml += `<div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Proposals :</h5>
@@ -147,7 +168,7 @@ function loadJobDetails() {
 
                 var paymentAmountProposal = proposals[j].paymentAmount;
                 var proposal_catalog_id = proposals[j].proposal_status_catalog_id;
-                if(proposal_catalog_id == 1 || proposal_catalog_id ==2){
+                if (proposal_catalog_id == 1 || proposal_catalog_id == 2) {
                     itemTempHtml += `
 <div class="row">
     <div className="col-lg-12">
@@ -164,12 +185,12 @@ function loadJobDetails() {
                                 </div>
                                 <div class="col-lg-7 col-md-9">
                                     <div class="job-list-desc">
-                                    <h4 class="mb-2"><a href="/job-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
+                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
                                         <ul class="list-inline mb-0">
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
                                                         class="mdi mdi-animation mr-2">                
-                                                    </i>Description:
+                                                    </i>Message:
                                                     ${proposals[j].description}</p>
                                             </div>
                                             <div class="list-inline-item mr-3">
@@ -185,7 +206,7 @@ function loadJobDetails() {
                                         </ul>
                                     </div>
                                 </div>`
-                    if(proposals[j].userAccountId == current_user_id ){
+                    if (proposals[j].userAccountId == current_user_id) {
                         itemTempHtml += `
                                 <div class="col-lg-3 col-md-3">
                                     <div class="job-list-button-sm text-right">                     
@@ -196,7 +217,7 @@ function loadJobDetails() {
                                 </div>`
                     }
                     if (job_user_id == current_user_id) {
-                        if(proposal_catalog_id == 2){
+                        if (proposal_catalog_id == 2) {
                             itemTempHtml += `
                                 <div class="col-lg-3 col-md-3">
                                     <div class="job-list-button-sm text-right">                     
@@ -205,12 +226,12 @@ function loadJobDetails() {
                                         </div>
                                     </div>
                                 </div>`
-                        }else {
+                        } else {
                             itemTempHtml += `
                                 <div class="col-lg-3 col-md-3">
                                     <div class="job-list-button-sm text-right">                     
                                         <div class="mt-3">
-                                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
+                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="applyProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
                                         </div>
                                     </div>
                                 </div>`
@@ -411,32 +432,68 @@ function loadJobDetails() {
         }
     })
 
-    $('#apply-job').on('click',function (){
-        if (localStorage.getItem('user-info') == null){
-            location.href="/login"
+    $('#apply-job').on('click', function () {
+        if (localStorage.getItem('user-info') == null) {
+            location.href = "/login"
         }
     })
-    $("#apply-form").validate({
-        rules: {
-            amount: {
-                required: true,
-                minlength: 4
-            },
-            description: {
-                required: true,
-                minlength: 10
-            }
+    // $("#apply-form").validate({
+    //     rules: {
+    //         amount: {
+    //             required: true,
+    //         },
+    //         description: {
+    //             required: true,
+    //             minlength: 10
+    //         }
+    //     },
+    //     messages: {
+    //         amount: {
+    //             required: "Please enter a amount",
+    //         },
+    //         description: {
+    //             required: "Please provide a description",
+    //             minlength: "Your description must be at least 10 characters long"
+    //         }
+    //     }
+    // });
+}
+
+function applyJob() {
+    if ($('#description-apply').val().length < 10) {
+        swal("Error!", "Your description must be at least 10 characters long!", "warning");
+        return;
+    }
+    var url_string = window.location.href
+    var url123 = new URL(url_string);
+    var c = url123.searchParams.get("id");
+    var job_id = c;
+    var amount = $('#amount').val();
+    var description = $("#description-apply").val();
+    const proposalForm = {
+        job_id: job_id,
+        paymentAmount: amount,
+        description: description,
+    };
+    $.ajax({
+        type: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization",
+                String(localStorage.getItem("access-token"))
+            );
         },
-        messages: {
-            amount: {
-                required: "Please enter a amount",
-                minlength: "Your amount must consist of at least 4 characters"
-            },
-            description: {
-                required: "Please provide a description",
-                minlength: "Your description must be at least 10 characters long"
-            }
-        }
+        url: baseUrl + "/api/v1/proposals",
+        contentType: "application/json",
+        data: JSON.stringify(proposalForm),
+        dataType: "JSON",
+        async: false,
+        success: function () {
+            window.location.reload()
+        },
+        error() {
+            console.log("sai");
+        },
     });
 }
 

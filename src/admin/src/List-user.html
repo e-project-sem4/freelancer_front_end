@@ -89,12 +89,12 @@
                             <span>Dashboards</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li >
                         <a href="#layouts">
                             <i class="iconsmind-Digital-Drawing"></i> Manage Job
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="#applications">
                             <i class="iconsmind-Air-Balloon"></i> Manage User
                         </a>
@@ -188,7 +188,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-2">
-                        <h1>Layout List</h1>
+                        <h1>Manager User</h1>
                         <div class="float-sm-right text-zero">
                             <button type="button" class="btn btn-primary btn-lg top-right-button mr-1">ADD NEW</button>
 
@@ -213,10 +213,7 @@
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb pt-0">
                                 <li class="breadcrumb-item">
-                                    <a href="#">Manager Job</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Job list</a>
+                                    <a href="#">User list</a>
                                 </li>
                             </ol>
                         </nav>
@@ -251,7 +248,7 @@
                                     </div>
                                 </div>
                                 <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                                    <input type="search" id="search-input" placeholder="Search Job name..." onchange="changeSearch()">
+                                    <input type="search" id="search-input" placeholder="Search User name..." onchange="changeSearch()">
                                 </div>
                             </div>
                             <div class="float-md-right">
@@ -280,11 +277,46 @@
             <div class="row">
                 <div class=" col-12 list" data-check-all="checkAll">
 
-                    <div id="lists">
+                    <div id="job-list">
                         <!-- call api -->
                     </div>
+<<<<<<< HEAD
                     <nav id="pagination-api" class="mt-4 mb-3">
                         <ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>
+=======
+                    <nav class="mt-4 mb-3">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item ">
+                                <a class="page-link first" href="#">
+                                    <i class="simple-icon-control-start"></i>
+                                </a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link prev" href="#">
+                                    <i class="simple-icon-arrow-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link next" href="#" aria-label="Next">
+                                    <i class="simple-icon-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link last" href="#">
+                                    <i class="simple-icon-control-end"></i>
+                                </a>
+                            </li>
+                        </ul>
+>>>>>>> 86de0fadc0604c431f0b8e5349b968fb88b3f02d
                     </nav>
                 </div>
             </div>
@@ -299,8 +331,12 @@
     <script src="/admin/src/js/dore.script.js"></script>
     <script src="/admin/src/js/scripts.js"></script>
     <script src="/admin/src/js/default.js"></script>
-    <script src="/admin/src/js/job.js"></script>
+    <script src="/admin/src/js/user.js"></script>
+<<<<<<< HEAD
     <script src="/admin/src/js/jquery.twbsPagination.js"></script>
+
+=======
+>>>>>>> 86de0fadc0604c431f0b8e5349b968fb88b3f02d
 </body>
 
 </html>

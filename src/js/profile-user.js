@@ -40,8 +40,7 @@ $(function load() {
         success: function (res) {               
             const ProfileList = res.result; 
             id_freelancer = ProfileList.freelancer.id;
-            id_business = ProfileList.business.id;
-            console.log("id_freelancer 1 : ",id_freelancer)
+            id_business = ProfileList.business.id;            
             let itemHtmlInfo = `<img src="${ProfileList.user.thumbnail}" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
             <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>              
             <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.overview}</p>
@@ -197,13 +196,28 @@ $(function load() {
                 </div>
             </form>           
         </div>  `;
+        
         $('#profile').html(itemHtmlProfile) 
            let itemHtmlFreelancer ="";
            let itemHtmltempFreelancer ="";
             itemHtmltempFreelancer =`
             <div class="col-lg-12 mt-4 pt-2 pb-4 ">
             <div id="modal-freelancer" class="row" >
-            <div class="col-md-3 offset-md-9">
+              <div class="col-md-9 ">
+               <h4 class="font-weight-normal">Status Search Job `;
+               if (ProfileList.freelancer.statusSearchJob == 1 ){
+                itemHtmltempFreelancer += `<Button  type="button" class="btn btn-sm btn-success status"   >Active</Button>`;
+                
+            }
+              else {
+                itemHtmltempFreelancer +=`<Button  type="button" class="btn btn-sm btn-danger status"  >Not Active</Button>`; 
+              }
+
+              itemHtmltempFreelancer +=   
+             `       
+                </h4>
+              </div>
+            <div class="col-md-3 ">
             <button type="button" class="btn btn-primary" data-toggle="modal"
                 data-target="#EditFreelancerModal">
                 Edit freelancer
@@ -258,7 +272,9 @@ $(function load() {
                 </div>
             </div>
         </div>
+        
                             </div>
+                             
                                 <h4 class="text-dark">Education :</h4>
                                 <div id="CertificationsProfileList" class="row">
                                 <div class="col-lg-4 col-md-6 mt-4 pt-5">
@@ -289,7 +305,11 @@ $(function load() {
                                 itemHtmltempFreelancer += Listskill;
                                 itemHtmltempFreelancer +=` 
                           </div>
+                          
+                          
+                          
                             </div>
+                            
                             <div class="col-lg-12 mt-4 pt-2">
                                 <h4 class="text-dark">Rate Freelancer :</h4>
                                 <div class="row">`
@@ -554,11 +574,38 @@ $(document).ready(function () {
         
     })
 
+
+    $(".status").on("click", function () { 
+        const url = baseUrl + `/api/v1/freelancer/changeStatus`;
+        $.ajax({
+            type: 'PATCH',
+            url: url,      
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+              },
+            dataType:"JSON",
+            async: false,
+            success: function(res) {
+                window.location.href='/profile'
+                
+            },
+            error() {
+                console.log("sai");
+              },
+        });
+       
+      })
+
   });
 
   function changeAvatar(){
     myWidget.open();
   }
+ 
 // xử lý js trên dynamic content.
 $('body').on('click', '.cloudinary-delete', function () {
     var splittedImg = $(this).parent().find('img').attr('src').split('/');

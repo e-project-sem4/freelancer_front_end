@@ -1,3 +1,9 @@
+var user_business_id;
+// var userName_Business ;
+// var userName_freelancer ;
+var proposal_id;
+var jobId =JSON.parse(localStorage.job_id)
+const urlJobDetail = baseUrl + `/api/v1/job/` + jobId ;
 const firebaseConfig = {
     apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
     authDomain: "august-list-328603.firebaseapp.com",
@@ -8,7 +14,16 @@ const firebaseConfig = {
     appId: "1:948951260730:web:241f74606e09ee93135f03",
     measurementId: "G-GS4LMG5QB1"
 };
+var person;
+var person2;
+var room_key;
+var chat_room_id;
+var fileAttachment;
 $(document).ready(function () {
+    person = localStorage.getItem('sender_id');
+    person2 = localStorage.getItem('receiver_id');
+    room_key = localStorage.getItem('room_key');
+    chat_room_id = localStorage.getItem('chat_room_id');
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
@@ -19,12 +34,100 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
+    var itemHtmlButton =``
+    var itemHtmlChatTitle =``
     obj.chatKeyUsers.forEach(item => {
-        html += `<div class="chat-list-item" id="'${item.id}'" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
-        console.log(item);
+        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
+        console.log(item);      
+        //check user type   
+        proposal_id = item.proposalId       
+        if (user_business_id == item.senderId) {
+            itemHtmlButton = `            
+            <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
+            <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> 
+                               `
+            itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
+        }
+        else {
+            itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
+            itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
+        }
     });
+    $("#Status").html(itemHtmlButton)
+    $('#chatTitle').html(itemHtmlChatTitle);
     $('#chat-list').html(html);
+    $(".buttonStatus").on("click", function () {
+        const status = $(this).val()
+        const url = baseUrl + `/api/v1/proposals/` + proposal_id;
+        const param = {
+            id : jobId,
+            proposal_id: proposal_id,
+            proposal_status_catalog_id : status
+          }
+        console.log(param)
+        swal({
+            title: "Are you sure?",
+            text: "Once click, you will not be able to recover this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'PATCH',
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(param),
+                    dataType: "JSON",       
+                    async: false,
+                    success: function (res) {
+                        swal("Poof! Your job is over!", {               
+                            icon: "success",                       
+                          });
+                          setTimeout(() =>window.location.href='/home', 2000);
+                    },
+                    error() {
+                        swal("Something was wrong !", {               
+                            icon: "warning",                       
+                          });
+                    },
+                            
+                 })
+              
+            } 
+          });
+        
+    })
+    var element = document.getElementById(chat_room_id);
+    element.classList.add("active");
+    
+
+
 });
+//get job_detail to check user type
+$.ajax({
+    type: 'GET',
+    url: urlJobDetail,
+    contentType: "application/json; charset=utf-8",
+    dataType: "JSON",
+    async: false,
+    success: function (res) {      
+        // var listProposal = res.result.proposals  
+        // const pid = proposal_id;
+       
+        // for (let i = 0; i < listProposal.length; i++) { 
+        //     if(listProposal[i].id == pid ){
+        //          userName_freelancer = listProposal[i].freeLancerName                 
+        //     }   
+        // } 
+        // userName_Business = res.result.userBusiness.user.fullName;
+        user_business_id =  res.result.user_business_id;
+    }
+})
+   
+
+
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
@@ -48,9 +151,9 @@ function onLoadMessage() {
         var senderJob = snapshot.val().sender;
         var messageJob = snapshot.val().message;
         if (senderJob == person)
-            html += '<div class="media media-chat"><div class="media-body"><p>' + messageJob + '</p></div></div>';
-        else if (senderJob == person2)
             html += '<div class="media media-chat media-chat-reverse"><div class="media-body"><p>' + messageJob + '</p></div></div>';
+        else if (senderJob == person2)
+            html += '<div class="media media-chat"><div class="media-body"><p>' + messageJob + '</p></div></div>';
         document.getElementById('chat-content').innerHTML += html;
         var objDiv = document.getElementById("chat-content");
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -128,19 +231,18 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     person = senderId;
     person2 = receiverId;
     room_key = roomKeyId;
-    var chat_list = document.getElementById('chat-list').childNodes;
-    console.log(chat_list);
-    // chat_list.getElementsByClassName('chat-list-item');
-    for (item of chat_list) {
-        item.addEventListener('click', function () {
-            if (this.classList.contains('active')) {
-                this.classList.remove("active");
-                alert('remove');
-            } else {
-                alert('add');
-                this.classList.add("active");
-            }
-        })
-    }
+    var chat_list = document.getElementById('chat-list');
+    var btns = chat_list.getElementsByClassName('chat-list-item');
+    console.log(btns);
+    // for (var i = 0; i < btns.length; i++) {
+    //     btns[i].addClass('active');
+    // }
+    $('.chat-list-item').removeClass('active');
+    var element = document.getElementById(id);
+    element.classList.add("active");
     onLoadMessage();
+    localStorage.setItem('chat_room_id', id);
+    localStorage.setItem('sender_id', senderId);
+    localStorage.setItem('receiver_id', receiverId);
+    localStorage.setItem('room_key', roomKeyId);
 }
