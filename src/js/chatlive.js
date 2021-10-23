@@ -1,3 +1,5 @@
+var user_business_id;
+var url = baseUrl + `/api/v1/job/` + JSON.parse(localStorage.job_id);
 const firebaseConfig = {
     apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
     authDomain: "august-list-328603.firebaseapp.com",
@@ -19,12 +21,40 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
+    var itemHtml = ``;
     obj.chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="'${item.id}'" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
-        console.log(item);
+        console.log(item);      
+        //check user type
+        if (user_business_id == item.senderId) {
+            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Layoff</button>`
+        }
+        else {
+            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Quit</button>`
+        }
     });
+    $("#DropOut").html(itemHtml)
     $('#chat-list').html(html);
+
+
+
 });
+
+//get job_detail to check user type
+$.ajax({
+    type: 'GET',
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+        user_business_id = res.result.user_business_id;
+    }
+})
+function ButtonDrop() {
+    console.log("do nothing yet")
+}
+
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');

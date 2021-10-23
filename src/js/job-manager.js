@@ -36,7 +36,7 @@ $(document).ready(function () {
       const expectedDuration = $(".durationJobmn").val();
       const complexity = $(".complexityJobmn").val();
       const paymentAmount = $("#payment_amountJobmn").val();
-      const otherSkill = $(".skillsJobmn")
+      const otherSkill = $("js-example-basic-multiple")
         .select2("val")
         .map((item) => {
           return {
@@ -53,7 +53,7 @@ $(document).ready(function () {
         otherSkills: otherSkill,
         description: description,
       };
-        console.log(param)    
+        console.log(otherSkill)    
     });
   }), jQuery(function () { });
 
