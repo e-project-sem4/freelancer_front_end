@@ -9,7 +9,6 @@ var totals = 0;
 $(document).ready(function () {
   loadAllJob(search, page, pageSize, sort, complexity, skill);
   pagination(totalRow);
-
 });
 
 function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
@@ -58,6 +57,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
         `;
       }
       $("#job-list").html(itemTempHtml);
+      
     },
   });
 }
