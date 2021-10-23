@@ -172,5 +172,23 @@ router.get("/admin/list-expected-duration", (req, res) => {
         res.send(data);
     });
 });
+router.get("/admin/list-user", (req, res) => {
+    fs.readFile("./src/admin/src/List-user.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-freelancer", (req, res) => {
+    fs.readFile("./src/admin/src/List-freelancer.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/list-business", (req, res) => {
+    fs.readFile("./src/admin/src/List-business.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 
 module.exports = router;
