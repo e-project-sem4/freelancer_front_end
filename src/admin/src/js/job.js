@@ -9,7 +9,6 @@ var totals = 0;
 $(document).ready(function () {
   loadAll(search, page, pageSize, sort, complexity, skill);
   pagination(totalRow);
-
 });
 
 function loadAll(searchKey, page, pageSize, sort, complexity, skill) {

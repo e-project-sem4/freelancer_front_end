@@ -9,7 +9,6 @@ var totals = 0;
 $(document).ready(function () {
   loadAllJob(search, page, pageSize, sort, complexity, skill);
   pagination(totalRow);
-
 });
 
 function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
@@ -38,7 +37,6 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
         } else {
           statusJob = '<span class="badge badge-pill badge-danger">Closed</span>'
         }
-
         ;
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
@@ -61,7 +59,6 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                             </div>
                         </div>
                     </div>
-                    
         `;
       }
       $("#job-list").html(itemTempHtml);
@@ -94,7 +91,6 @@ $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAllJob(search, page, pageSize, sort, complexity, skill);
 });
-
 // function changeComplexity(data) {
 //   complexity = data;
 //   if (data === null) {
@@ -106,5 +102,4 @@ $("#search-input").change(function () {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
 //   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
-
 

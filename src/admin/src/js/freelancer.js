@@ -63,8 +63,7 @@ function loadAll(searchKey, page, pageSize, sort, skill) {
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
         `;
       }
       $("#lists").html(itemTempHtml);
@@ -109,5 +108,4 @@ $("#search-input").change(function () {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
 //   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
-
 
