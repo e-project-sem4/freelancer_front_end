@@ -16,7 +16,7 @@ $(document).ready(function () {
   $('#totalResult').html(`${start}-${end}`)
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
+function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentStatus) {
   const url =
 
       baseUrl +
@@ -196,7 +196,7 @@ function changePage() {
   start = page * pageSize - pageSize + 1;
   end = pageSize * page;
   $('#totalResult').html(`${start}-${end}`)
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 }
 
 function changeComplexity(data) {
@@ -204,18 +204,18 @@ function changeComplexity(data) {
   if (data === null) {
     complexity = "";
   }
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 }
 function changeSort(){
   page =1;
   sort = $('#dropdown-sort').val();
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 
 }
 
 function changeSkill(){
   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-  loadAllJob(search, page, pageSize, sort, complexity,arrSkill)
+  loadAllJob(search, page, pageSize, sort, complexity,arrSkill,PaymentStatus)
 }
 $(".btn-prev").on("click", function () {
   if (page > 0) {
@@ -224,7 +224,7 @@ $(".btn-prev").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
   }
 });
 $(".btn-next").on("click", function () {
@@ -234,7 +234,7 @@ $(".btn-next").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
   }
 });
 
