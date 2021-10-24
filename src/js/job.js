@@ -186,7 +186,7 @@ function loadAllComplexity() {
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
   event.preventDefault();
 });
 
