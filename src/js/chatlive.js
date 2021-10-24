@@ -1,5 +1,6 @@
 var user_business_id;
-var url = baseUrl + `/api/v1/job/` + JSON.parse(localStorage.job_id);
+var jobId =JSON.parse(localStorage.job_id)
+var url = baseUrl + `/api/v1/job/` + jobId ;
 const firebaseConfig = {
     apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
     authDomain: "august-list-328603.firebaseapp.com",
@@ -37,11 +38,11 @@ $(document).ready(function () {
         console.log(item);      
         //check user type
         if (user_business_id == item.senderId) {
-            itemHtmlButton = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Layoff</button>`
+            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 4 >Layoff</button>`
             itemHtmlChatTitle = `<strong>Chat with your freelancer</strong>`
         }
         else {
-            itemHtmlButton = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Quit Job </button>`
+            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 5 >Quit Job </button>`
             itemHtmlChatTitle = `<strong>Chat with your business</strong>`
         }
     });
@@ -65,10 +66,32 @@ $.ajax({
         user_business_id = res.result.user_business_id;
     }
 })
-function ButtonDrop() {
-    console.log("do nothing yet")
-}
 
+function ButtonDrop() {
+    const status = ($(".buttonDrop").val())
+    const proposal_id = 1
+    const url = baseUrl + `/api/v1/proposals/` + proposal_id;
+    const param = {
+        id : jobId,
+        proposal_id: proposal_id,
+        proposal_status_catalog_id : status
+      }
+    $.ajax({
+        type: 'PATCH',
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        dataType: "JSON",       
+        async: false,
+        success: function (res) {
+            window.location.href='/home'
+        },
+        error() {
+            console.log("ko ok");
+        },
+                
+     })
+}
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
