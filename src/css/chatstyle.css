@@ -353,5 +353,6 @@
     background-color: #48b0f7;
   }
   .active{
-    background-color: red;
+    background-color: #48b0f7;
+    font-weight: bold;
   }
