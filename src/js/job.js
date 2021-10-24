@@ -47,7 +47,9 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                                       <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">  
                                                                              <div class="list-inline-item mr-3">
-                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
+                                                                             <span style="max-width: 100px;
+                                                                             word-break: break-all;">${jobList[i].description}</span>
                                                                        </div>                                                                                
                                                                                    <div class="list-inline-item mr-3">
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
@@ -73,10 +75,11 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                                                 
                                             </div>
                                             </div>
+            
                 <div class="col-lg-3 col-md-3">
-                    <div class="job-list-button-sm text-right">                     
-                        <div class="mt-3">
-                            <a href="/job-details?id=${jobList[i].id}" type="button" class="btn btn-sm btn-primary" id="detail-job">Detail</a>
+                    <div class="job-list-button-sm text-right">
+                        <div class="candidates-listing-btn mt-4">
+                           <a href="/job-details?id=${jobList[i].id}" class="btn btn-primary-outline btn-sm">Detail</a>
                         </div>
                     </div>
                 </div>

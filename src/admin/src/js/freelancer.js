@@ -7,14 +7,15 @@ var sort = 0;
 var skill = "";
 var totals = 0;
 $(document).ready(function () {
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, skill);
   pagination(totalRow);
+
 });
 
-function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAll(searchKey, page, pageSize, sort, skill) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/freelancer/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&skill_id=${skill}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -23,33 +24,36 @@ function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
     async: false,
     success: function (res) {
       const lists = res.result;
+      console.log(lists)
       totalRow = res.total;
       let itemTempHtml = "";
       for (let i = 0; i < lists.length; i++) {
-        var d = new Date(lists[i].createAt).toLocaleDateString();
-        if (lists[i].isPaymentStatus == 1) {
-          payment = '<span class="badge badge-pill badge-primary">Paid</span>'
+        //check ảnh
+        if (lists[i].user.thumbnail == null) {
+          avatar = 'https://res.cloudinary.com/trinhlh96/image/upload/v1634989584/fei7k5xyqsunvostz3yb.jpg'
         } else {
-          payment = '<span class="badge badge-pill badge-danger">Unpaid</span>'
+          avatar = lists[i].user.thumbnail
         }
-        if (lists[i].status == 1) {
-          statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
+
+        if (lists[i].statusSearchJob == 1) {
+          statusJob = '<span class="badge badge-pill badge-secondary ">Open for jobs</span>'
         } else {
-          statusJob = '<span class="badge badge-pill badge-danger">Closed</span>'
+          statusJob = '<span class="badge badge-pill badge-danger">Close job</span>'
         }
 
         ;
-        itemTempHtml += `
+        itemTempHtml += ` 
                     <div class="card d-flex flex-row mb-3">
+                        <a class="d-flex w-10" href="/admin/list-job/${lists[i].id}">
+                          <img src="${avatar}" alt="Fat Rascal" class="list-thumbnail responsive border-0" />
+                        </a>
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                 <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${lists[i].id}">
-                                ${lists[i].name}
+                                ${lists[i].user.fullName}
                                 </a>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].userBusiness.user.fullName} </p>
-                                <p class="mb-1  w-15 w-xs-100">${d}</p>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-100">`+ payment + `</div>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].certifications} </p>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].location}</p>
                                 <div class="w-15 w-xs-100">`+ statusJob + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
@@ -59,8 +63,7 @@ function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
         `;
       }
       $("#lists").html(itemTempHtml);
@@ -74,7 +77,7 @@ function pagination(totalRow) {
     totalPages: totals,
     visiblePages: pageSize,
     onPageClick: function (event, page) {
-      loadAll(search, page, pageSize, sort, complexity, skill)
+      loadAll(search, page, pageSize, sort, skill)
     }
   });
 }
@@ -87,11 +90,11 @@ function changePage() {
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, skill);
 }
 $("#search-input").change(function () {
   search = $("#search-input").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, skill);
 });
 
 // function changeComplexity(data) {
@@ -99,11 +102,10 @@ $("#search-input").change(function () {
 //   if (data === null) {
 //     complexity = "";
 //   }
-//   loadAll(search, page, pageSize, sort, complexity, skill);
+//   loadAllJob(search, page, pageSize, sort, complexity, skill);
 // }
 // function changeSkill() {
 //   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-//   loadAll(search, page, pageSize, sort, complexity, arrSkill)
+//   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 // }
-
 
