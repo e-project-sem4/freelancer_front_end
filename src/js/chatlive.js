@@ -21,20 +21,25 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
-    var itemHtml = ``;
+    var itemHtmlButton =``
+    var itemHtmlChatTitle =``
     obj.chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="'${item.id}'" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
         console.log(item);      
         //check user type
         if (user_business_id == item.senderId) {
-            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Layoff</button>`
+            itemHtmlButton = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Layoff</button>`
+            itemHtmlChatTitle = `<strong>Chat with your freelancer</strong>`
         }
         else {
-            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Quit</button>`
+            itemHtmlButton = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Quit Job </button>`
+            itemHtmlChatTitle = `<strong>Chat with your business</strong>`
         }
     });
-    $("#DropOut").html(itemHtml)
+    $("#DropOut").html(itemHtmlButton)
+    $('#chatTitle').html(itemHtmlChatTitle);
     $('#chat-list').html(html);
+    
 
 
 
