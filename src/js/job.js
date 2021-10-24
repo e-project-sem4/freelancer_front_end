@@ -2,6 +2,7 @@ var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
+var PaymentStatus = 1;
 var search = "";
 var sort = 0;
 var skill = "";
@@ -19,7 +20,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
   const url =
 
       baseUrl +
-      `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+      `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}&isPaymentStatus=${PaymentStatus}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -32,7 +33,9 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
       let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
+        if( jobList[i].status == 1 || jobList[i].status == 2 ) {
+          var d = new Date(jobList[i].createAt).toLocaleDateString();
+        
         itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
                                    <div class="job-list-box border rounded">
                                        <div class="p-3">                           
@@ -91,6 +94,9 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
                         </div>`;
 
         itemHtml += itemTempHtml;
+
+        }    
+        
       }
       $("#job-list").html(itemHtml);
     },

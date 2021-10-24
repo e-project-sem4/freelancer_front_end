@@ -1,5 +1,6 @@
 var user_business_id;
-var url = baseUrl + `/api/v1/job/` + JSON.parse(localStorage.job_id);
+var jobId =JSON.parse(localStorage.job_id)
+var url = baseUrl + `/api/v1/job/` + jobId ;
 const firebaseConfig = {
     apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
     authDomain: "august-list-328603.firebaseapp.com",
@@ -30,19 +31,23 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
-    var itemHtml = ``;
+    var itemHtmlButton =``
+    var itemHtmlChatTitle =``
     obj.chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
         console.log(item);      
         //check user type
         if (user_business_id == item.senderId) {
-            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Layoff</button>`
+            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 4 >Layoff</button>`
+            itemHtmlChatTitle = `<strong>Chat with your freelancer</strong>`
         }
         else {
-            itemHtml = ` <button class="btn btn-danger" href="#" data-abc="true" onclick="ButtonDrop()" >Quit</button>`
+            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 5 >Quit Job </button>`
+            itemHtmlChatTitle = `<strong>Chat with your business</strong>`
         }
     });
-    $("#DropOut").html(itemHtml)
+    $("#DropOut").html(itemHtmlButton)
+    $('#chatTitle').html(itemHtmlChatTitle);
     $('#chat-list').html(html);
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
@@ -61,10 +66,32 @@ $.ajax({
         user_business_id = res.result.user_business_id;
     }
 })
-function ButtonDrop() {
-    console.log("do nothing yet")
-}
 
+function ButtonDrop() {
+    const status = ($(".buttonDrop").val())
+    const proposal_id = 1
+    const url = baseUrl + `/api/v1/proposals/` + proposal_id;
+    const param = {
+        id : jobId,
+        proposal_id: proposal_id,
+        proposal_status_catalog_id : status
+      }
+    $.ajax({
+        type: 'PATCH',
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        dataType: "JSON",       
+        async: false,
+        success: function (res) {
+            window.location.href='/home'
+        },
+        error() {
+            console.log("ko ok");
+        },
+                
+     })
+}
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
