@@ -9,17 +9,20 @@ var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
 
 $(document).ready(function () {
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
   loadAllSkill();
   loadAllComplexity();
+  if (localStorage.getItem('user-info')){
+    loadSuitableJob();
+  }
   $('#totalResult').html(`${start}-${end}`)
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity,skill) {
+function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
   const url =
 
-      baseUrl +
-      `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    baseUrl +
+    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -149,38 +152,44 @@ function loadAllComplexity() {
   });
 }
 
-// function loadSuitableJob() {
-//   const url = baseUrl + `/api/v1/complexities/search?status=1`;
-//   $.ajax({
-//     type: "GET",
-//     url: url,
-//     contentType: "application/json; charset=utf-8",
-//     dataType: "JSON",
-//     async: false,
-//     success: function (res) {
-//       const ComplexityList = res.result;
-//       let itemHtml = "";
-//       let itemTempHtml = "";
-//       for (let i = 0; i < ComplexityList.length; i++) {
-//         itemTempHtml = `<div class="custom-control custom-radio">
-//                                             <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
-//                                             <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
-//                                         </div>`;
-//         itemHtml += itemTempHtml;
-//       }
+function loadSuitableJob() {
+  const url = baseUrl + `/api/v1/job/suitable`;
+  const token = localStorage.getItem('access-token')
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization", token
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      const ComplexityList = res.result;
+      let itemHtml = "";
+      let itemTempHtml = "";
+      for (let i = 0; i < ComplexityList.length; i++) {
+        itemTempHtml = `<div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
+                                            <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
+                                        </div>`;
+        itemHtml += itemTempHtml;
+      }
 
-//       $("#LevelsList").html(itemHtml);
-//       $("#LevelsList").append(`<div class="custom-control custom-radio">
-//       <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
-//       <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
-//   </div>`);
-//     },
-//   });
-// }
+      $("#LevelsList").html(itemHtml);
+      $("#LevelsList").append(`<div class="custom-control custom-radio">
+      <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
+      <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
+      </div>`);
+    },
+  });
+}
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
   event.preventDefault();
 });
 
@@ -190,7 +199,7 @@ function changePage() {
   start = page * pageSize - pageSize + 1;
   end = pageSize * page;
   $('#totalResult').html(`${start}-${end}`)
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 }
 
 function changeComplexity(data) {
@@ -198,18 +207,18 @@ function changeComplexity(data) {
   if (data === null) {
     complexity = "";
   }
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 }
-function changeSort(){
-  page =1;
+function changeSort() {
+  page = 1;
   sort = $('#dropdown-sort').val();
-  loadAllJob(search, page, pageSize, sort, complexity,skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill);
 
 }
 
-function changeSkill(){
+function changeSkill() {
   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-  loadAllJob(search, page, pageSize, sort, complexity,arrSkill)
+  loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
 }
 $(".btn-prev").on("click", function () {
   if (page > 0) {
@@ -218,7 +227,7 @@ $(".btn-prev").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
   }
 });
 $(".btn-next").on("click", function () {
@@ -228,7 +237,7 @@ $(".btn-next").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
   }
 });
 
