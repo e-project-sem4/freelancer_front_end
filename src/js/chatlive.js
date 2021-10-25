@@ -60,8 +60,8 @@ $(document).ready(function () {
         const status = $(this).val()
         const url = baseUrl + `/api/v1/proposals/` + proposal_id;
         const param = {
-            id : jobId,
-            proposal_id: proposal_id,
+            // id : jobId,
+            id: proposal_id,
             proposal_status_catalog_id : status
           }
         console.log(param)
