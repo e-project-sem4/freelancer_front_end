@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
   config.toolbarCanCollapse = true;
 };
 
-CKEDITOR.replace( 'description' );
+var editor = CKEDITOR.replace('description' );
 $(document).ready(function () {
   $("#job_name").val("");
   $("#payment_amount").val("");

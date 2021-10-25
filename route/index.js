@@ -190,5 +190,10 @@ router.get("/admin/list-business", (req, res) => {
         res.send(data);
     });
 });
-
+router.get("/admin/job-details", (req, res) => {
+    fs.readFile("./src/admin/src/job-details.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 module.exports = router;

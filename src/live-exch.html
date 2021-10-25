@@ -33,6 +33,7 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script defer src="./js/chatlive.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/chatstyle.css">
@@ -82,7 +83,16 @@
                 <div class="col-md-8">
                     <div class="card card-bordered">
                         <div class="card-header">
-                            <h4 class="card-title"><strong>Chat</strong></h4>
+                           
+                                <div class="col-sm-6">
+                                    <h4 class="card-title" id="chatTitle"><strong>Chat</strong></h4>
+                                </div>
+                                <div class="col-sm-6 Status" id="Status" >
+                                 
+                                </div>
+                                
+                          
+                            
                         </div>
                         <div class="ps-container ps-theme-default ps-active-y" id="chat-content"
                             style="overflow-y: scroll !important; height:420px !important;">
@@ -121,9 +131,7 @@
                             <!-- <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> -->
                             <button class="publisher-btn text-info" href="#" data-abc="true" onclick="sendmessage()"><i
                                     class="fa fa-paper-plane"></i></button>
-                            <div id="DropOut">
-                                
-                            </div>
+                            
                         </div>
                         
                     </div>
