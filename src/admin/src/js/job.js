@@ -43,13 +43,13 @@ function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${lists[i].id}">
+                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/job-details?id=${lists[i].id}">
                                 ${lists[i].name}
                                 </a>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].userBusiness.user.fullName} </p>
                                 <p class="mb-1  w-15 w-xs-100">${d}</p>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-100">`+ payment + `</div>
+                                <div class="w-15 w-xs-200">`+ payment + `</div>
                                 <div class="w-15 w-xs-100">`+ statusJob + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
