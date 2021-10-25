@@ -2,6 +2,7 @@ var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
+var PaymentStatus = 1;
 var search = "";
 var sort = 0;
 var skill = "";
@@ -18,11 +19,11 @@ $(document).ready(function () {
   $('#totalResult').html(`${start}-${end}`)
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentStatus) {
   const url =
 
-    baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+      baseUrl +
+      `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}&isPaymentStatus=${PaymentStatus}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -35,7 +36,9 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
       let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
+        if( jobList[i].status == 1 || jobList[i].status == 2 ) {
+          var d = new Date(jobList[i].createAt).toLocaleDateString();
+        
         itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
                                    <div class="job-list-box border rounded">
                                        <div class="p-3">                           
@@ -94,6 +97,9 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                         </div>`;
 
         itemHtml += itemTempHtml;
+
+        }    
+        
       }
       $("#job-list").html(itemHtml);
     },
@@ -189,7 +195,7 @@ function loadSuitableJob() {
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
   event.preventDefault();
 });
 
@@ -199,7 +205,7 @@ function changePage() {
   start = page * pageSize - pageSize + 1;
   end = pageSize * page;
   $('#totalResult').html(`${start}-${end}`)
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 }
 
 function changeComplexity(data) {
@@ -207,18 +213,18 @@ function changeComplexity(data) {
   if (data === null) {
     complexity = "";
   }
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 }
 function changeSort() {
   page = 1;
   sort = $('#dropdown-sort').val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 
 }
 
 function changeSkill() {
   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-  loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
+  loadAllJob(search, page, pageSize, sort, complexity,arrSkill,PaymentStatus)
 }
 $(".btn-prev").on("click", function () {
   if (page > 0) {
@@ -227,7 +233,7 @@ $(".btn-prev").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
   }
 });
 $(".btn-next").on("click", function () {
@@ -237,7 +243,7 @@ $(".btn-next").on("click", function () {
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
 
-    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity, skill);
+    loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
   }
 });
 
