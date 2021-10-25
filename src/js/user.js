@@ -3,10 +3,11 @@ $(document).ready(function () {
     // onInstanceFirebase();
 
     const data = localStorage.getItem('user-info')
+    // if (data)
     const output = document.getElementById('username')
     const obj = JSON.parse(data);
     output.innerHTML = obj.username
-    
+
     if (localStorage.getItem("access-token") === null) {
         document.getElementById("logout").innerHTML = "Login";
         document.getElementById("logout").setAttribute("href", "/login");
