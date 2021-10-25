@@ -49,7 +49,7 @@ $(document).ready(function () {
             itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
         }
         else {
-            itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-6" href="#" data-abc="true"  value = 5 >Quit Job </button>`
+            itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
             itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
         }
     });
