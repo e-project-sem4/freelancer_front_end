@@ -32,10 +32,13 @@ function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
         } else {
           payment = '<span class="badge badge-pill badge-danger">Unpaid</span>'
         }
-        if (lists[i].status == 1) {
+        if (lists[i].status == 1 || lists[i].status == 2) {
           statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
-        } else {
-          statusJob = '<span class="badge badge-pill badge-danger">Closed</span>'
+        } else if (lists[i].status == 3){
+          statusJob = '<span class="badge badge-pill badge-danger">Complete</span>'
+        } else
+        {
+          statusJob = '<span class="badge badge-pill badge-danger">Close</span>'
         }
 
         ;
