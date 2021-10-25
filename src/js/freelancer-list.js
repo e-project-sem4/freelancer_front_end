@@ -6,9 +6,11 @@ var sort = 0;
 var skill = "";
 var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
+var totals = 0;
 $(document).ready(function () {
     loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
+    pagination(totalRow);
 });
 function loadAllSkill() {
     const url = baseUrl + `/api/v1/skills/search?status=1`;
@@ -164,8 +166,16 @@ function changeSort(){
 function changePage() {
     page = 1;
     pageSize = $("#dropdown-page").val();
-    start = page * pageSize - pageSize + 1;
-    end = pageSize * page;
-    $('#totalResult').html(`${start}-${end}`)
-    loadAllFreelancer(search, page, pageSize, sort,skill);
+    $("#pagination-api").html(`<ul id="pagination-demo" class="pagination-sm"></ul>`);
+    pagination(totalRow);
+}
+function pagination(totalRow){
+    var totals = Math.ceil(totalRow / pageSize);
+    $('#pagination-demo').twbsPagination({
+        totalPages: totals,
+        visiblePages: pageSize,
+        onPageClick: function (event,page){
+            loadAllFreelancer(search, page, pageSize, sort,skill);
+        }
+    });
 }
