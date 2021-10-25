@@ -27,7 +27,11 @@
 
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <script src="js/jquery.min.js" > </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
     <script src="js/header.js" ></script>
     <script>
         function saveProposal(amountProposal, proposal_id){
@@ -77,6 +81,16 @@
                     console.log("sai");
                 },
             })
+
+            }
+        function applyProposal(payment_amount_proposal,proposal_id){
+            window.localStorage.setItem('chat_room_id', id);
+            window.localStorage.setItem('sender_id', sender_id);
+            window.localStorage.setItem('receiver_id', receiver_id);
+            window.localStorage.setItem('job_id', job_id);
+            window.localStorage.setItem('room_key', room_key);
+            window.location.href = "/live-exch";
+
         }
     </script>
 
@@ -153,7 +167,7 @@
 
 <!-- javascript -->
 <!--    <script src="js/jquery.min.js"></script>-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/plugins.js"></script>
@@ -172,6 +186,8 @@
 <script src="js/job-detail.js"></script>
 
 
+
+
 <!--<script src="cljs/jquery.min.js"></script>-->
 </body>
 </html>
@@ -181,40 +197,9 @@
         color: #2F55D4;
     }
 </style>
+
 <script>
     $(document).ready(function () {
-        $("#apply-proposal").on("click", function (event) {
-            var url_string = window.location.href
-            var url123 = new URL(url_string);
-            var c = url123.searchParams.get("id");
-            var job_id = c;
-            var amount = $('#amount').val();
-            var description = $("#description").val();
-            const proposalForm = {
-                job_id: job_id,
-                paymentAmount: amount,
-                description: description,
-            };
-            $.ajax({
-                type: 'POST',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(
-                        "Authorization",
-                        String(localStorage.getItem("access-token"))
-                    );
-                },
-                url: baseUrl + "/api/v1/proposals",
-                contentType: "application/json",
-                data:JSON.stringify(proposalForm),
-                dataType:"JSON",
-                async:false,
-                success: function (res) {
-                    window.location.href = '/job-details?id='+c
-                },
-                error(){
-                    console.log("sai");
-                },
-            });
-        });
+
     })
 </script>
