@@ -10,7 +10,7 @@ var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
 
 $(document).ready(function () {
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAllJob(search, page, pageSize, sort, complexity, skill,PaymentStatus);
   loadAllSkill();
   loadAllComplexity();
   if (localStorage.getItem('user-info')){
@@ -36,6 +36,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
       let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
+        
         if( jobList[i].status == 1 || jobList[i].status == 2 ) {
           var d = new Date(jobList[i].createAt).toLocaleDateString();
         
@@ -98,7 +99,8 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
 
         itemHtml += itemTempHtml;
 
-        }    
+        }
+            
         
       }
       $("#job-list").html(itemHtml);
@@ -208,7 +210,8 @@ function changePage() {
   loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
 }
 
-function changeComplexity(data) {
+function changeComplexity(data) { 
+  
   complexity = data;
   if (data === null) {
     complexity = "";
