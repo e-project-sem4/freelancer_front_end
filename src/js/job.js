@@ -249,4 +249,3 @@ $(".btn-next").on("click", function () {
     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
   }
 });
-
