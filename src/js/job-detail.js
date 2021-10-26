@@ -231,7 +231,7 @@ function loadJobDetails() {
                                 <div class="col-lg-3 col-md-3">
                                     <div class="job-list-button-sm text-right">                     
                                         <div class="mt-3">
-                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="applyProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
+                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
                                         </div>
                                     </div>
                                 </div>`
