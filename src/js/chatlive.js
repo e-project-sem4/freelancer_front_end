@@ -103,7 +103,6 @@ $(document).ready(function () {
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
 
-
 });
 //get job_detail to check user type
 $.ajax({
@@ -125,7 +124,6 @@ $.ajax({
         user_business_id = res.result.user_business_id;
     }
 })
-
 
 
 function ButtonDrop() {
