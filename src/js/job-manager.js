@@ -134,8 +134,8 @@ $(document).ready(function () {
   getJobSkillJobmn();
 });
 function updateJob(index) {
-  const job_id = $(".id_job")[index].val();
-  // name_job = $(".job_nameJobmn").val();
+  // const job_id = $(".id_job").val([index]);
+  name_job = $(".job_nameJobmn").val([index]);
   // expectedDurationId_job = $(".durationJobmn").val();
   // complexityId_job = $(".complexityJobmn").val();
   // payAmount = $(".payment_amountJobmn").val();
@@ -155,7 +155,7 @@ function updateJob(index) {
   //   otherSkills: otherSkill,
   //   description: description_job,
   // };
-  console.log(job_id)
+  console.log(name_job)
 
 }
 
@@ -259,7 +259,7 @@ function loadAllJobJobmn() {
                                                                                   <div class="col-md-12">
                                                                                       <div class="form-group app-label mt-2">
                                                                                           <label class="text-muted">Job name</label>
-                                                                                          <input type="text" name="id" class="job_nameJobmn form-control resume" value="${jobList[i].name}" >`
+                                                                                          <input type="text" name="id" class="job_nameJobmn${[i]} form-control resume" value="${jobList[i].name}" >`
                                                                                            
                             itemTempHtml += `                                   </div>
                                                                                   </div>
