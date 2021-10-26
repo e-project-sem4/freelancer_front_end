@@ -2,6 +2,11 @@ var user_business_id;
 var jobId = JSON.parse(localStorage.job_id)
 var url = baseUrl + `/api/v1/job/` + jobId;
 
+// var userName_Business ;
+// var userName_freelancer ;
+var proposal_id;
+var jobId =JSON.parse(localStorage.job_id)
+const urlJobDetail = baseUrl + `/api/v1/job/` + jobId ;
 var person;
 var person2;
 var room_key;
@@ -35,37 +40,93 @@ $(document).ready(function () {
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
     obj.chatKeyUsers.forEach(item => {
-        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
-        
-        //check user type
+        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;    
+        //check user type   
+        proposal_id = item.proposalId       
         if (user_business_id == item.senderId) {
-            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 4 >Layoff</button>`
-            itemHtmlChatTitle = `<strong>Chat with your freelancer</strong>`
+            itemHtmlButton = `            
+            <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
+            <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> 
+                               `
+            itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
         }
         else {
-            itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 5 >Quit Job </button>`
-            itemHtmlChatTitle = `<strong>Chat with your business</strong>`
+            itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
+            itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
         }
     });
-    $("#DropOut").html(itemHtmlButton)
+    $("#Status").html(itemHtmlButton)
     $('#chatTitle').html(itemHtmlChatTitle);
     $('#chat-list').html(html);
+    $(".buttonStatus").on("click", function () {
+        const status = $(this).val()
+        const url = baseUrl + `/api/v1/proposals/` + proposal_id;
+        const param = {
+            // id : jobId,
+            id: proposal_id,
+            proposal_status_catalog_id : status
+          }
+        swal({
+            title: "Are you sure?",
+            text: "Once click, you will not be able to recover this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'PATCH',
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(param),
+                    dataType: "JSON",       
+                    async: false,
+                    success: function (res) {
+                        swal("Poof! Your job is over!", {               
+                            icon: "success",                       
+                          });
+                          setTimeout(() =>window.location.href='/home', 2000);
+                    },
+                    error() {
+                        swal("Something was wrong !", {               
+                            icon: "warning",                       
+                          });
+                    },
+                            
+                 })
+              
+            } 
+          });
+        
+    })
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
+    
 
 });
-
 //get job_detail to check user type
 $.ajax({
     type: 'GET',
-    url: url,
+    url: urlJobDetail,
     contentType: "application/json; charset=utf-8",
     dataType: "JSON",
     async: false,
-    success: function (res) {
-        user_business_id = res.result.user_business_id;
+    success: function (res) {      
+        // var listProposal = res.result.proposals  
+        // const pid = proposal_id;
+       
+        // for (let i = 0; i < listProposal.length; i++) { 
+        //     if(listProposal[i].id == pid ){
+        //          userName_freelancer = listProposal[i].freeLancerName                 
+        //     }   
+        // } 
+        // userName_Business = res.result.userBusiness.user.fullName;
+        user_business_id =  res.result.user_business_id;
     }
 })
+   
+
 
 function ButtonDrop() {
     const status = ($(".buttonDrop").val())

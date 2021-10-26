@@ -36,13 +36,11 @@ $(document).ready(function () {
       const expectedDuration = $(".durationJobmn").val();
       const complexity = $(".complexityJobmn").val();
       const paymentAmount = $("#payment_amountJobmn").val();
-      const otherSkill = $("js-example-basic-multiple")
-        .select2("val")
-        .map((item) => {
-          return {
-            skill_id: item,
-          };
-        });
+      const otherSkill = $(".js-example-basic-multiple").val().map((item) => {
+        return {
+          skill_id: item,
+        };
+      });
       const description =$("#descriptionJobmn").val();
       const param = {
         job_id : job_id,
