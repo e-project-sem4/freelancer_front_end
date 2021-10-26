@@ -98,12 +98,12 @@
                                         </label>
 
                                         <label class="form-group has-top-label">
-                                            <input class="form-control" id="password" type="password" placeholder="" />
+                                            <input class="form-control" id="password" type="password" />
                                             <span>PASSWORD</span>
                                         </label>
 
 
-                                        <button class="btn btn-outline-semi-light btn-xl mt-4">LOGIN</button>
+                                        <button class="btn btn-outline-semi-light btn-xl mt-4" id="login">LOGIN</button>
 
                                     </form>
 
@@ -129,13 +129,17 @@
     <script src="/admin/src/js/vendor/landing-page/jquery.scrollTo.min.js"></script>
     <script src="/admin/src/js/dore.scripts.landingpage.js"></script>
     <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
 </body>
 <script>
-$(document).ready(function() {
+ $(document).ready(function() {
     $('#login').on("click", function(event) {
+        
         const name = $("#username").val();
         const pass = $("#password").val();
-        const url = baseUrl + `/api/v1/user/admin/login?username=${name}&password=${password}`;
+        
+        const url = baseUrl + `/api/v1/users/admin/login?username=${name}&password=${pass}`;
+    
         $.ajax({
             type: 'POST',
             url: url,
@@ -149,16 +153,21 @@ $(document).ready(function() {
                     return;
                 }
                 if (res.status != '-1') {
+                    
                     localStorage.setItem('access-token-admin', res.message)
                     localStorage.setItem('user-info-admin', JSON.stringify(res.result))
-                    location.href = '/admin/dashboard'
+                    location.href="/admin/dashboard"
                 }
             },
-        });
+            
+        
+        })
         event.preventDefault()
-    })
+  });
+         
+    });
 
-})
+ 
 </script>
 
 </html>
