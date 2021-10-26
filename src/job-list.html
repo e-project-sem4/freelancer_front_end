@@ -76,23 +76,8 @@
     <div class="container">
         <div class="home-form-position">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3">                              
-                            <div class="row">
-                                <div class="col-lg-12 col-md-6 pt-3 pb-2">
-                                    <div class="registration-form-box">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <div class="section-title text-center ">
-                                                    <h4 class="title title-line pb-5">Available job for you</h4>
-                                                    <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                      
-                    </div>
+                <div class="col-lg-10">
+
                 </div>
             </div>
         </div>
@@ -101,7 +86,15 @@
     <!-- JOB LIST START -->
     <section class="section pt-0">
         <div class="container">
-            
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="section-title text-center mb-4 pb-2 mt-5">
+                        <h4 class="title title-line pb-5">Available job for you</h4>
+                        <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll
+                            quickly match you with the right freelancers.</p>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-3">
@@ -149,42 +142,23 @@
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <div class="show-results">
-                                
-                                <div class="row">
-                                    <div class="col-lg-3 ">
-                                        <h5 class="text-dark mb-0 pt-2 f-18">Show results <span id="totalResult"></span>
-                                        </h5>
-                                    </div>
-                                    <div class="col-lg-5 ">
-                                        <div class="registration-form-box">
-                                            <i class="fa fa-briefcase"></i>
-                                            <input type="text" id="exampleInputName1" class="form-control rounded registration-input-box" placeholder="Job keyboards...">
-                                        </div>
-                                    </div>
-    
-                                    <div class="col-lg-1 ">                                     
-                                            <button type="button" id="search-key" class="submitBnt btn  btn-primary"><i class="fa fa-search"></i></button>
-                                        
-                                    </div>
-                                    <div class="col-lg-1 sort-button ml-3">
-                                        <select id="dropdown-page" class="nice-select rounded" onchange="changePage()">
-                                            <option data-display="Size" value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-1 sort-button ml-3">
-                                        <select id="dropdown-sort" class="nice-select rounded" onchange="changeSort()">
-                                            <option data-display="Sort" value="0">All</option>
-                                            <option value="1"> Create Date ↑</option>
-                                            <option value="2"> Create Date ↓</option>
-                                            <option value="3"> Price ↑</option>
-                                            <option value="4"> Price ↓</option>
-                                        </select>
-                                    </div>
+                                <div class="sort-button float-left">
+                                    <select id="dropdown-sort" class="nice-select rounded" onchange="changeSort()">
+                                        <option data-display="Sort" value="0">All</option>
+                                        <option value="1"> Create Date ↑</option>
+                                        <option value="2"> Create Date ↓</option>
+                                        <option value="3"> Price ↑</option>
+                                        <option value="4"> Price ↓</option>
+                                    </select>
                                 </div>
-                               
+                                <div class="sort-button float-left ml-3">
+                                    <select id="dropdown-page" class="nice-select rounded" onchange="changePage()">
+                                        <option data-display="Size" value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
 
                                 <div class="col-md-9 float-right pr-0">
                                     <!-- <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3"> -->
@@ -233,7 +207,6 @@
                         </div>
 
                         <!-- <div class="float-right nav-pagination mt-3">
-
                         </div> -->
                     </div>
 

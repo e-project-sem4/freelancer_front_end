@@ -8,53 +8,31 @@
 // var start = page * pageSize - pageSize + 1;
 // var end = pageSize * page;
 // $('.JobModal').on('hidden.bs.modal', function () {
-      
+
 //   $('.js-example-basic-multiple').val(null);
 // });
 
+var name_job;
+var complexityId_job;
+var expectedDurationId_job;
+var otherSkill;
+var payAmount;
+var description_job;
+
 $(document).ready(function () {
   loadAllJobJobmn();
-  CKEDITOR.editorConfig = function( config ) {
+  console.log($(this).find("[class='job_nameJobmn']").val())
+  $(".skillsJobmn").select2({
+    placeholder: "Choose event type",
+  });
+  CKEDITOR.editorConfig = function (config) {
     config.language = 'en';  // Chọn ngôn ngữ
     config.uiColor = '#F7B42C'; // màu giao diện
-    config.height = 300; 
-    config.width = 500; 
+    config.height = 300;
+    config.width = 500;
     config.toolbarCanCollapse = true;
   };
-  
-  CKEDITOR.replace( 'descriptionJobmn' );
-
-  $(document).ready(function () {
-    
-    $(".skillsJobmn").select2({
-      placeholder: "Choose event type",
-    });
-    
-    $(".update_job").on("click", function (event) {
-      const job_id = $(this).val();
-       jobName = $("#job_nameJobmn").val();
-      const expectedDuration = $(".durationJobmn").val();
-      const complexity = $(".complexityJobmn").val();
-      const paymentAmount = $("#payment_amountJobmn").val();
-      const otherSkill = $(".js-example-basic-multiple").val().map((item) => {
-        return {
-          skill_id: item,
-        };
-      });
-      const description =$("#descriptionJobmn").val();
-      const param = {
-        job_id : job_id,
-        name: jobName,
-        expected_duration_id: expectedDuration,
-        complexity_id: complexity,
-        paymentAmount: paymentAmount,
-        otherSkills: otherSkill,
-        description: description,
-      };
-        console.log(otherSkill)    
-    });
-  }), jQuery(function () { });
-
+  CKEDITOR.replace('descriptionJobmn');
   function getExpectedComplexityJobmn(e, idx) {
     $.ajax({
       type: "GET",
@@ -85,11 +63,9 @@ $(document).ready(function () {
       },
     });
   }
-
   function complexitySelectJobmn() {
     return (value = $(".complexityJobmn").val());
   }
-
   function getExpectedDurationJobmn() {
     $.ajax({
       type: "GET",
@@ -120,11 +96,9 @@ $(document).ready(function () {
       },
     });
   }
-
   function durationSelectJobmn() {
     return (value = $(".expected_durationJobmn").val());
   }
-
   function getJobSkillJobmn() {
     $.ajax({
       type: "GET",
@@ -159,6 +133,31 @@ $(document).ready(function () {
   getExpectedDurationJobmn();
   getJobSkillJobmn();
 });
+function updateJob(index) {
+  const job_id = $(".id_job")[index].val();
+  // name_job = $(".job_nameJobmn").val();
+  // expectedDurationId_job = $(".durationJobmn").val();
+  // complexityId_job = $(".complexityJobmn").val();
+  // payAmount = $(".payment_amountJobmn").val();
+  // otherSkill = $(".js-example-basic-multiple").val().map((item) => {
+  //   return {
+  //     skill_id: item,
+  //   };
+  // });
+  // description_job = $("#descriptionJobmn").val();
+  
+  // const param = {
+  //   job_id: job_id,
+  //   name: name_job,
+  //   expected_duration_id: expectedDurationId_job,
+  //   complexity_id: complexityId_job,
+  //   paymentAmount: payAmount,
+  //   otherSkills: otherSkill,
+  //   description: description_job,
+  // };
+  console.log(job_id)
+
+}
 
 function loadAllJobJobmn() {  
   const url = baseUrl + `/api/v1/users/viewprofile`;
@@ -175,6 +174,7 @@ function loadAllJobJobmn() {
     dataType: "JSON",
     async: false,
     success: function (res) {
+     
       const ProfileList = res.result;
       const jobList = ProfileList.business?.listJob;
       //   totalPage = res.total;
@@ -182,8 +182,9 @@ function loadAllJobJobmn() {
       let itemTempHtml = "";
 
       for (let i = 0; i < jobList.length; i++) {
+        
         var d = new Date(jobList[i].createAt).toLocaleDateString();
-          itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
+        itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
                                     <div class="job-box bg-white overflow-hidden border rounded position-relative overflow-hidden">
                                         <div class="p-3">                           
                                             <div class="row align-items-center">                                 
@@ -196,6 +197,7 @@ function loadAllJobJobmn() {
                                                             <div class="job-list-desc">
                                                                         <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                               <ul class="list-inline mb-0">
+                                                                              
                                                                                     <div class="list-inline-item mr-3">
                                                                                                 <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
                                                                                           </div>
@@ -209,16 +211,17 @@ function loadAllJobJobmn() {
                                                                                       <div class="list-inline-item mr-3">
                                                                                       <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
                                                                           </div>`;
-          itemTempHtml += `<li class="list-inline-item mr-3">
+        itemTempHtml += `<li class="list-inline-item mr-3">
                                                           <p class="text-break mb-0">
                                                           <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-          let listSkill = "";
-          for (let j = 0; j < jobList[i].otherSkills.length; j++) {
-            listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
-          }
-          listSkill = listSkill.substring(0, listSkill.length - 2);
-          itemTempHtml += listSkill;
-          itemTempHtml += `</p>
+        let listSkill = "";
+        for (let j = 0; j < jobList[i].otherSkills.length; j++) {
+          listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
+        }
+
+        listSkill = listSkill.substring(0, listSkill.length - 2);
+        itemTempHtml += listSkill;
+        itemTempHtml += `</p>
                                                       </li>
                                                   </ul>
                                                   
@@ -235,7 +238,7 @@ function loadAllJobJobmn() {
                                                   Edit 
                                                   </button>
                                       
-                                                  <div class="modal fade JobModal" id="exampleModal${[i]}"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal fade JobModal" id="exampleModal${[i]}"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
                                                   <div class="modal-dialog" role="document">
                                                     <div class="modal-content" style="margin-left: -270px; width: 200%">
                                                       <div class="modal-header">
@@ -256,9 +259,9 @@ function loadAllJobJobmn() {
                                                                                   <div class="col-md-12">
                                                                                       <div class="form-group app-label mt-2">
                                                                                           <label class="text-muted">Job name</label>
-                                                                                          <input id="job_nameJobmn" type="text" class="form-control resume" value="${jobList[i].name}" >
-                                                                                          
-                                                                                      </div>
+                                                                                          <input type="text" name="id" class="job_nameJobmn form-control resume" value="${jobList[i].name}" >`
+                                                                                           
+                            itemTempHtml += `                                   </div>
                                                                                   </div>
                                                                               </div>
                                                   
@@ -286,7 +289,7 @@ function loadAllJobJobmn() {
                                                                                   <div class="col-md-6">
                                                                                       <div class="form-group app-label mt-2">
                                                                                           <label class="text-muted">Payment Amount</label>
-                                                                                          <input id="payment_amountJobmn" type="text" value= "${jobList[i].paymentAmount}"  class="form-control resume" >
+                                                                                          <input type="text" value= "${jobList[i].paymentAmount}"  class="payment_amountJobmn form-control resume" >
                                                                                           
                                                                                       </div>
                                                                                   </div>
@@ -319,7 +322,7 @@ function loadAllJobJobmn() {
                                                           </div>
                                                       </div>
                                                       <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary update_job" value="${jobList[i].id}" >Save changes</button>
+                                                        <button type="button" onclick="updateJob(${[i]})" class="btn btn-primary id_job" value="${jobList[i].id}" >Save changes</button>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -339,10 +342,12 @@ function loadAllJobJobmn() {
                                   </div>
                               </div>
                           </div>`;
-
+                          
         itemHtml += itemTempHtml;
+        
       }
       $("#job-list").html(itemHtml);
+     
     },
   });
 }
