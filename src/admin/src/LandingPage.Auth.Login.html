@@ -90,6 +90,10 @@
                                 
                                     </p>
 
+                                    <div class="alert alert-danger rounded" role="alert" id="errorAccount">
+                                        Username or password wrong
+                                    </div>
+
 
                                     <form class="dark-background">
                                         <label class="form-group has-top-label">
@@ -133,6 +137,7 @@
 </body>
 <script>
  $(document).ready(function() {
+     $('#errorAccount').hide();
     $('#login').on("click", function(event) {
         
         const name = $("#username").val();
@@ -140,14 +145,28 @@
         
         const url = baseUrl + `/api/v1/users/admin/login?username=${name}&password=${pass}`;
     
-        $.ajax({
+        if($("#username").val()==""&&$("#password").val()=="" ){
+
+            $('#errorAccount').text("Username, Password require");
+            $('#errorAccount').show();
+        }
+        else if($("#username").val()==""){
+            $('#errorAccount').text("Username is require");
+            $('#errorAccount').show();
+        }else if($("#password").val()==""){
+            $('#errorAccount').text("Password is require");
+            $('#errorAccount').show();
+        }
+        else(
+
+            $.ajax({
             type: 'POST',
             url: url,
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function(res) {
                 if (res.status == '-1') {
-                    
+                    $('#errorAccount').show();
                     $("#error").html(template)
                     $('.alert-login').show();
                     return;
@@ -162,6 +181,9 @@
             
         
         })
+
+        )
+    
         event.preventDefault()
   });
          
