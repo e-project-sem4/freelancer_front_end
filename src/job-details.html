@@ -5,15 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - Responsive Job Board HTML Template</title>
+    <title>TOPWORK</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
 
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/logo-small-f-ico.png">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -84,12 +90,14 @@
 
             }
         function applyProposal(payment_amount_proposal,proposal_id){
-            window.localStorage.setItem('chat_room_id', id);
-            window.localStorage.setItem('sender_id', sender_id);
-            window.localStorage.setItem('receiver_id', receiver_id);
-            window.localStorage.setItem('job_id', job_id);
-            window.localStorage.setItem('room_key', room_key);
-            window.location.href = "/live-exch";
+
+            // window.localStorage.setItem('chat_room_id', id);
+            // window.localStorage.setItem('sender_id', sender_id);
+            // window.localStorage.setItem('receiver_id', receiver_id);
+            // window.localStorage.setItem('job_id', job_id);
+            // window.localStorage.setItem('room_key', room_key);
+            // window.location.href = "/live-exch";
+
 
         }
     </script>
