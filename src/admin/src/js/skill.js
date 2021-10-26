@@ -1,5 +1,8 @@
 var status = 1;
 $(document).ready(function () {
+  if(localStorage.getItem("access-token-admin")==null){
+    location.href="/admin/login"
+  }
   loadAll(status);
   // loadAll();
   // loadAllComplexity();

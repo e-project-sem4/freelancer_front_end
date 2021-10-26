@@ -6,93 +6,69 @@
     <title>Dore jQuery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="font/iconsmind/style.css" />
-    <link rel="stylesheet" href="font/simple-line-icons/css/simple-line-icons.css" />
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
 
-    <link rel="stylesheet" href="css/vendor/bootstrap-stars.css" />
-    <link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/vendor/owl.carousel.min.css" />
-    <link rel="stylesheet" href="css/vendor/bootstrap-float-label.min.css" />
-    <link rel="stylesheet" href="css/vendor/bootstrap-stars.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-float-label.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
 </head>
 
 
 <body class="show-spinner">
     <div class="landing-page">
         <div class="mobile-menu">
-            <a href="LandingPage.Home.html" class="logo-mobile">
+            <a href="/admin/login" class="logo-mobile">
                 <span></span>
             </a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="LandingPage.Features.html">FEATURES</a>
+                   
                 </li>
                 <li class="nav-item">
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            LEARN
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="LandingPage.Docs.html">DOCS</a>
-                            <a class="dropdown-item" href="LandingPage.Videos.html">VIDEOS</a>
-                            <a class="dropdown-item" href="LandingPage.Contact.html">HELP</a>
-                        </div>
-                    </div>
+                    
                 </li>
                 <li class="nav-item">
-                    <a href="LandingPage.Prices.html">PRICING</a>
-                </li>
+                    
                 <li class="nav-item mb-2">
-                    <a href="LandingPage.Blog.html">BLOG</a>
+                    
                 </li>
                 <li class="nav-item">
                     <div class="separator"></div>
                 </li>
                 <li class="nav-item mt-2">
-                    <a href="LandingPage.Auth.Login.html">SIGN IN</a>
+                    
                 </li>
                 <li class="nav-item">
-                    <a href="LandingPage.Auth.Register.html">SIGN UP</a>
+                    
                 </li>
             </ul>
         </div>
         <div class="main-container">
             <nav class="landing-page-nav">
                 <div class="container d-flex align-items-center justify-content-between">
-                    <a class="navbar-logo pull-left" href="LandingPage.Home.html">
+                    <a class="navbar-logo pull-left" href="/admin/login">
                         <span class="white"></span>
                         <span class="dark"></span>
                     </a>
                     <ul class="navbar-nav d-none d-lg-flex flex-row">
-                        <li class="nav-item">
-                            <a href="LandingPage.Features.html">FEATURES</a>
-                        </li>
+                       
                         <li class="nav-item ">
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    LEARN
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="LandingPage.Docs.html">DOCS</a>
-                                    <a class="dropdown-item" href="LandingPage.Videos.html">VIDEOS</a>
-                                    <a class="dropdown-item" href="LandingPage.Contact.html">HELP</a>
-                                </div>
-                            </div>
+                           
                         </li>
                         <li class="nav-item">
-                            <a href="LandingPage.Prices.html">PRICING</a>
+                            
                         </li>
                         <li class="nav-item">
-                            <a href="LandingPage.Blog.html">BLOG</a>
-                        </li>
+                            
                         <li class="nav-item mr-3 active">
-                            <a href="LandingPage.Auth.Login.html">SIGN IN</a>
+                            
                         </li>
                         <li class="nav-item pl-2">
-                            <a class="btn btn-outline-semi-light btn-sm pr-4 pl-4" href="LandingPage.Auth.Register.html">SIGN
-                                UP</a>
+                           
                         </li>
                     </ul>
                     <a href="#" class="mobile-menu-button">
@@ -111,23 +87,23 @@
                                     </div>
                                     <p class="white mb-5">
                                         Please use your credentials to login.<br>
-                                        If you are not a member, please <a href="#" class="white-underline-link">register</a>.
+                                
                                     </p>
 
 
                                     <form class="dark-background">
                                         <label class="form-group has-top-label">
-                                            <input class="form-control" />
-                                            <span>E-MAIL</span>
+                                            <input class="form-control" id="username" />
+                                            <span>USERNAME</span>
                                         </label>
 
                                         <label class="form-group has-top-label">
-                                            <input class="form-control" id="password" type="password" placeholder="" />
+                                            <input class="form-control" id="password" type="password" />
                                             <span>PASSWORD</span>
                                         </label>
 
 
-                                        <button class="btn btn-outline-semi-light btn-xl mt-4">LOGIN</button>
+                                        <button class="btn btn-outline-semi-light btn-xl mt-4" id="login">LOGIN</button>
 
                                     </form>
 
@@ -143,16 +119,55 @@
         </div>
     </div>
 
-    <script src="js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="js/vendor/owl.carousel.min.js"></script>
-    <script src="js/vendor/jquery.barrating.min.js"></script>
-    <script src="js/vendor/jquery.barrating.min.js"></script>
-    <script src="js/vendor/landing-page/headroom.min.js"></script>
-    <script src="js/vendor/landing-page/jQuery.headroom.js"></script>
-    <script src="js/vendor/landing-page/jquery.scrollTo.min.js"></script>
-    <script src="js/dore.scripts.landingpage.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/owl.carousel.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/headroom.min.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/jQuery.headroom.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/jquery.scrollTo.min.js"></script>
+    <script src="/admin/src/js/dore.scripts.landingpage.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
 </body>
+<script>
+ $(document).ready(function() {
+    $('#login').on("click", function(event) {
+        
+        const name = $("#username").val();
+        const pass = $("#password").val();
+        
+        const url = baseUrl + `/api/v1/users/admin/login?username=${name}&password=${pass}`;
+    
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function(res) {
+                if (res.status == '-1') {
+                    
+                    $("#error").html(template)
+                    $('.alert-login').show();
+                    return;
+                }
+                if (res.status != '-1') {
+                    
+                    localStorage.setItem('access-token-admin', res.message)
+                    localStorage.setItem('user-info-admin', JSON.stringify(res.result))
+                    location.href="/admin/dashboard"
+                }
+            },
+            
+        
+        })
+        event.preventDefault()
+  });
+         
+    });
+
+ 
+</script>
 
 </html>

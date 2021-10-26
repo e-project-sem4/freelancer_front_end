@@ -1,5 +1,9 @@
 $(document).ready(function () {
+  if(localStorage.getItem("access-token-admin")==null){
+    location.href="/admin/login"
+  }
   loadCountAccout();
+
 });
 
 function loadCountAccout() {
@@ -13,7 +17,7 @@ function loadCountAccout() {
     beforeSend: function (xhr) {
       xhr.setRequestHeader(
         "Authorization",
-        String(localStorage.getItem("access-token"))
+        String(localStorage.getItem("access-token-admin"))
       );
     },
     dataType: "JSON",
