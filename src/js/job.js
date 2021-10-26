@@ -63,7 +63,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
                                                                                      </div>
                                                                                      <div class="list-inline-item mr-3">
-                                                                                                 <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount}</p>
+                                                                                                 <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount} $</p>
                                                                                      </div>
                                                                                      <div class="list-inline-item mr-3">
                                                                                      <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>

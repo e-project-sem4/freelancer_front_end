@@ -20,6 +20,7 @@ $(document).ready(function() {
                 if (res.status != '-1') {
                     localStorage.setItem('access-token', res.message)
                     localStorage.setItem('user-info', JSON.stringify(res.result))
+                    localStorage.setItem('chatKeyUsers', JSON.stringify(res.result.chatKeyUsers))
                     location.href = '/home'
                 }
             },
