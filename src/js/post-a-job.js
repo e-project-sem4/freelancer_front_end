@@ -14,6 +14,9 @@ $(document).ready(function () {
   $(".js-example-basic-multiple").select2({
     placeholder: "Choose event type",
   });
+  toastr.options.timeOut=1000;
+  toastr.options.fadeIn = 0;
+  toastr.options.positionClass = "toast-top-left"
 })
 
   $("#post-job").on("click", function (event) {
@@ -50,27 +53,25 @@ $(document).ready(function () {
       },
       dataType: "JSON",
       async: false,
-      success: function (res) {
-        if (res.status !== "-1") {
-
-          localStorage.setItem('id_job',res.result.id)
-          $("#success").html(` <div class="alert alert-success" role="alert">
-                                  Post job successfull!
-                                </div>`)
-        }
-        if(res.result.isPaymentStatus ===1){
-           setTimeout((location.href = "/job-list"), 1000);
-        }else if(res.result.isPaymentStatus ===0){
-          setTimeout((location.href = "/job-detail-payment"), 1000);
+      success:  function (res,xhr) {
+        if (res.status === "0") {
+          localStorage.setItem('id_job',res.result.id)         
+          toastr.success('Post job successfull!')
+          if(res.result.isPaymentStatus === 1){
+            setInterval((location.href = `/job-details?id=${res.result.id}`),30000);
+         }else if(res.result.isPaymentStatus === 0){
+          setInterval((location.href = "/job-detail-payment"), 30000);
+         }
         }
       },
       error:function(xhr) {
-        if(xhr.status ==403){
+        if(xhr.status ===403){
+          toastr.error('You must login')
           return window.location ="/login";
         }
-        $("#success").html(` <div class="alert alert-danger" role="alert">
-                                    Post job failed!
-                              </div>`);
+        if(xhr.status ===400){
+          toastr.error('Post job failed!')
+        }        
       },
     });
    
