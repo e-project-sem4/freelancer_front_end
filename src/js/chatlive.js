@@ -30,8 +30,9 @@ $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
-    const data = localStorage.getItem('user-info');
-    const obj = JSON.parse(data);
+    if(person != null)
+        reloadKeyChat(person);
+    var chatKeyUsers = JSON.parse(localStorage.getItem('chatKeyUsers'));
     if (localStorage.getItem("access-token") === null) {
         document.getElementById("logout").innerHTML = "Login";
         document.getElementById("logout").setAttribute("href", "/login");
@@ -39,7 +40,7 @@ $(document).ready(function () {
     var html = '';
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
-    obj.chatKeyUsers.forEach(item => {
+    chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>${item.jobName}</p>  </div></a>`;
         //check user type   
         proposal_id = item.proposalId
@@ -49,8 +50,7 @@ $(document).ready(function () {
             <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> 
                                `
             itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
-        }
-        else {
+        } else {
             itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
             itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
         }
@@ -101,7 +101,10 @@ $(document).ready(function () {
 
     })
     var element = document.getElementById(chat_room_id);
-    element.classList.add("active");
+    console.log(document.getElementById(chat_room_id))
+    if (element != null)
+        element.classList.add("active");
+
 
 });
 //get job_detail to check user type
@@ -151,10 +154,12 @@ function ButtonDrop() {
 
     })
 }
+
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
 var fileAttachment;
+
 function onLoadPage() {
     onLoadMessage();
 }
@@ -204,6 +209,7 @@ function sendmessage(mess) {
         return false;
     }
 }
+
 $("#input-message").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
         sendmessage();
@@ -260,6 +266,29 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
+
+function reloadKeyChat(sender_id){
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" +sender_id,
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization",
+                String(localStorage.getItem("access-token"))
+            );
+        },
+        dataType: "JSON",
+        async: false,
+        success: function (res) {
+            localStorage.setItem("chatKeyUsers", JSON.stringify(res.result));
+        },
+        error() {
+            console.log("sai");
+        },
+    })
+}
+
 window.onbeforeunload = function () {
     localStorage.setItem('room_key', null);
 };

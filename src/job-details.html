@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
@@ -6,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TOPWORK</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="Themesdesign" />
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="Themesdesign"/>
 
     <link rel="shortcut icon" href="images/logo-small-f-ico.png">
 
@@ -22,25 +21,25 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
-    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css"/>
 
-    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css"/>
 
     <!-- selectize css -->
-    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+    <link rel="stylesheet" type="text/css" href="css/selectize.css"/>
 
-    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css"/>
 
     <!-- Custom  Css -->
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
-    <script src="js/header.js" ></script>
+    <script src="js/header.js"></script>
     <script>
-        function saveProposal(amountProposal, proposal_id){
+        function saveProposal(amountProposal, proposal_id) {
             const param = {
                 proposal_id: proposal_id,
                 paymentAmount: amountProposal,
@@ -65,17 +64,19 @@
                     window.localStorage.setItem('job_id', res.result.chatKeyUser.jobId);
                     window.localStorage.setItem('room_key', res.result.chatKeyUser.chatRoomKey);
                     window.location.href = "/live-exch";
-},
+
+                },
                 error() {
                     console.log("sai");
                 },
             })
         }
-        function deleteProposal(proposal_id){
+
+        function deleteProposal(proposal_id) {
 
             $.ajax({
                 type: "DELETE",
-                url: baseUrl + "/api/v1/proposals/"+ proposal_id ,
+                url: baseUrl + "/api/v1/proposals/" + proposal_id,
                 contentType: "application/json; charset=utf-8",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
@@ -93,7 +94,9 @@
                 },
             })
 
-            }
+        }
+
+
 
     </script>
 
@@ -155,7 +158,6 @@
 </section>
 
 
-
 <!-- JOB DETAILS END -->
 
 <!-- footer start -->
@@ -177,8 +179,6 @@
 <script src="js/jquery.validate.js"></script>
 
 
-
-
 <!-- selectize js -->
 <script src="js/selectize.min.js"></script>
 
@@ -189,13 +189,11 @@
 <script src="js/job-detail.js"></script>
 
 
-
-
 <!--<script src="cljs/jquery.min.js"></script>-->
 </body>
 </html>
 <style>
-    .modal-header{
+    .modal-header {
         text-align: center;
         color: #2F55D4;
     }
