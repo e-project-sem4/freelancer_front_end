@@ -126,7 +126,7 @@ function loadJobDetails() {
                                         <input type="text" class="form-control" id="amount" name="amount">
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Message:</label>
+                                        <label class="col-form-label">Description:</label>
                                         <textarea class="form-control" id="description" name="description"></textarea>
                                     </div>
                                 </form>
