@@ -45,7 +45,7 @@ function loadJobDetails() {
                         </li>
 
                         <li class="list-inline-item">
-                            <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i>${jobDetails.paymentAmount}</p>
+                            <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i><strong>${jobDetails.paymentAmount}</strong></p>
                         </li>
                     </ul>
                     <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>

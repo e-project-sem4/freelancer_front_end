@@ -5,6 +5,7 @@ $(document).ready(function() {
     
     if ( localStorage.getItem("user-info") === null)   {
         document.getElementById("seclectProfile").remove();
+        document.getElementById('dropdownMessage').remove();
         document.getElementById("logout").innerHTML="Login";
         document.getElementById("logout").setAttribute("href", "/login");
         

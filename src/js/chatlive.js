@@ -1,25 +1,28 @@
 var user_business_id;
+var jobId = JSON.parse(localStorage.job_id)
+var url = baseUrl + `/api/v1/job/` + jobId;
+
 // var userName_Business ;
 // var userName_freelancer ;
 var proposal_id;
-var jobId =JSON.parse(localStorage.job_id)
-const urlJobDetail = baseUrl + `/api/v1/job/` + jobId ;
-const firebaseConfig = {
-    apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
-    authDomain: "august-list-328603.firebaseapp.com",
-    databaseURL: "https://august-list-328603-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "august-list-328603",
-    storageBucket: "august-list-328603.appspot.com",
-    messagingSenderId: "948951260730",
-    appId: "1:948951260730:web:241f74606e09ee93135f03",
-    measurementId: "G-GS4LMG5QB1"
-};
+var jobId = JSON.parse(localStorage.job_id)
+const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
 var person;
 var person2;
 var room_key;
 var chat_room_id;
 var fileAttachment;
 $(document).ready(function () {
+    const firebaseConfig = {
+        apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
+        authDomain: "august-list-328603.firebaseapp.com",
+        databaseURL: "https://august-list-328603-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "august-list-328603",
+        storageBucket: "august-list-328603.appspot.com",
+        messagingSenderId: "948951260730",
+        appId: "1:948951260730:web:241f74606e09ee93135f03",
+        measurementId: "G-GS4LMG5QB1"
+    };
     person = localStorage.getItem('sender_id');
     person2 = localStorage.getItem('receiver_id');
     room_key = localStorage.getItem('room_key');
@@ -34,13 +37,12 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
-    var itemHtmlButton =``
-    var itemHtmlChatTitle =``
+    var itemHtmlButton = ``
+    var itemHtmlChatTitle = ``
     obj.chatKeyUsers.forEach(item => {
-        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
-        console.log(item);      
+        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>${item.jobName}</p>  </div></a>`;
         //check user type   
-        proposal_id = item.proposalId       
+        proposal_id = item.proposalId
         if (user_business_id == item.senderId) {
             itemHtmlButton = `            
             <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
@@ -62,47 +64,44 @@ $(document).ready(function () {
         const param = {
             // id : jobId,
             id: proposal_id,
-            proposal_status_catalog_id : status
-          }
-        console.log(param)
+            proposal_status_catalog_id: status
+        }
         swal({
             title: "Are you sure?",
             text: "Once click, you will not be able to recover this!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-                $.ajax({
-                    type: 'PATCH',
-                    url: url,
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(param),
-                    dataType: "JSON",       
-                    async: false,
-                    success: function (res) {
-                        swal("Poof! Your job is over!", {               
-                            icon: "success",                       
-                          });
-                          setTimeout(() =>window.location.href='/home', 2000);
-                    },
-                    error() {
-                        swal("Something was wrong !", {               
-                            icon: "warning",                       
-                          });
-                    },
-                            
-                 })
-              
-            } 
-          });
-        
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'PATCH',
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(param),
+                        dataType: "JSON",
+                        async: false,
+                        success: function (res) {
+                            swal("Poof! Your job is over!", {
+                                icon: "success",
+                            });
+                            setTimeout(() => window.location.href = '/home', 2000);
+                        },
+                        error() {
+                            swal("Something was wrong !", {
+                                icon: "warning",
+                            });
+                        },
+
+                    })
+
+                }
+            });
+
     })
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
-    
-
 
 });
 //get job_detail to check user type
@@ -112,22 +111,46 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     dataType: "JSON",
     async: false,
-    success: function (res) {      
+    success: function (res) {
         // var listProposal = res.result.proposals  
         // const pid = proposal_id;
-       
+
         // for (let i = 0; i < listProposal.length; i++) { 
         //     if(listProposal[i].id == pid ){
         //          userName_freelancer = listProposal[i].freeLancerName                 
         //     }   
         // } 
         // userName_Business = res.result.userBusiness.user.fullName;
-        user_business_id =  res.result.user_business_id;
+        user_business_id = res.result.user_business_id;
     }
 })
-   
 
 
+function ButtonDrop() {
+    const status = ($(".buttonDrop").val())
+    const proposal_id = 1
+    const url = baseUrl + `/api/v1/proposals/` + proposal_id;
+    const param = {
+        id: jobId,
+        proposal_id: proposal_id,
+        proposal_status_catalog_id: status
+    }
+    $.ajax({
+        type: 'PATCH',
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(param),
+        dataType: "JSON",
+        async: false,
+        success: function (res) {
+            window.location.href = '/home'
+        },
+        error() {
+            console.log("ko ok");
+        },
+
+    })
+}
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
@@ -140,9 +163,6 @@ function onLoadMessage() {
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
-    // console.log(person);
-    // console.log(person2);
-    // console.log(room_key);
     $('#chat-content').html('');
     // document.getElementById("chat-content").html = '';
     var size = 10;
@@ -231,12 +251,6 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     person = senderId;
     person2 = receiverId;
     room_key = roomKeyId;
-    var chat_list = document.getElementById('chat-list');
-    var btns = chat_list.getElementsByClassName('chat-list-item');
-    console.log(btns);
-    // for (var i = 0; i < btns.length; i++) {
-    //     btns[i].addClass('active');
-    // }
     $('.chat-list-item').removeClass('active');
     var element = document.getElementById(id);
     element.classList.add("active");
@@ -246,3 +260,6 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
+window.onbeforeunload = function () {
+    localStorage.setItem('room_key', null);
+};

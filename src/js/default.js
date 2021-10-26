@@ -28,3 +28,4 @@ $(document).ready(function() {
 //     $('#default_message_wrap').fadeOut(250);
 // }
 const baseUrl = 'https://freelancer-chat.herokuapp.com';
+// const baseUrl = 'http://localhost:8081';
