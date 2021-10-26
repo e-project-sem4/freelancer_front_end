@@ -1,22 +1,23 @@
 var user_business_id;
-var jobId =JSON.parse(localStorage.job_id)
-var url = baseUrl + `/api/v1/job/` + jobId ;
-const firebaseConfig = {
-    apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
-    authDomain: "august-list-328603.firebaseapp.com",
-    databaseURL: "https://august-list-328603-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "august-list-328603",
-    storageBucket: "august-list-328603.appspot.com",
-    messagingSenderId: "948951260730",
-    appId: "1:948951260730:web:241f74606e09ee93135f03",
-    measurementId: "G-GS4LMG5QB1"
-};
+var jobId = JSON.parse(localStorage.job_id)
+var url = baseUrl + `/api/v1/job/` + jobId;
+
 var person;
 var person2;
 var room_key;
 var chat_room_id;
 var fileAttachment;
 $(document).ready(function () {
+    const firebaseConfig = {
+        apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
+        authDomain: "august-list-328603.firebaseapp.com",
+        databaseURL: "https://august-list-328603-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "august-list-328603",
+        storageBucket: "august-list-328603.appspot.com",
+        messagingSenderId: "948951260730",
+        appId: "1:948951260730:web:241f74606e09ee93135f03",
+        measurementId: "G-GS4LMG5QB1"
+    };
     person = localStorage.getItem('sender_id');
     person2 = localStorage.getItem('receiver_id');
     room_key = localStorage.getItem('room_key');
@@ -31,11 +32,11 @@ $(document).ready(function () {
         document.getElementById("logout").setAttribute("href", "/login");
     }
     var html = '';
-    var itemHtmlButton =``
-    var itemHtmlChatTitle =``
+    var itemHtmlButton = ``
+    var itemHtmlChatTitle = ``
     obj.chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;
-        console.log(item);      
+        
         //check user type
         if (user_business_id == item.senderId) {
             itemHtmlButton = ` <button class="btn btn-danger buttonDrop" href="#" data-abc="true" onclick="ButtonDrop()" value = 4 >Layoff</button>`
@@ -51,7 +52,6 @@ $(document).ready(function () {
     $('#chat-list').html(html);
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
-
 
 });
 
@@ -72,25 +72,25 @@ function ButtonDrop() {
     const proposal_id = 1
     const url = baseUrl + `/api/v1/proposals/` + proposal_id;
     const param = {
-        id : jobId,
+        id: jobId,
         proposal_id: proposal_id,
-        proposal_status_catalog_id : status
-      }
+        proposal_status_catalog_id: status
+    }
     $.ajax({
         type: 'PATCH',
         url: url,
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
-        dataType: "JSON",       
+        dataType: "JSON",
         async: false,
         success: function (res) {
-            window.location.href='/home'
+            window.location.href = '/home'
         },
         error() {
             console.log("ko ok");
         },
-                
-     })
+
+    })
 }
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
@@ -104,9 +104,6 @@ function onLoadMessage() {
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
-    // console.log(person);
-    // console.log(person2);
-    // console.log(room_key);
     $('#chat-content').html('');
     // document.getElementById("chat-content").html = '';
     var size = 10;
@@ -197,7 +194,7 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     room_key = roomKeyId;
     var chat_list = document.getElementById('chat-list');
     var btns = chat_list.getElementsByClassName('chat-list-item');
-    console.log(btns);
+    
     // for (var i = 0; i < btns.length; i++) {
     //     btns[i].addClass('active');
     // }
