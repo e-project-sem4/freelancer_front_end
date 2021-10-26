@@ -5,8 +5,8 @@ var url = baseUrl + `/api/v1/job/` + jobId;
 // var userName_Business ;
 // var userName_freelancer ;
 var proposal_id;
-var jobId =JSON.parse(localStorage.job_id)
-const urlJobDetail = baseUrl + `/api/v1/job/` + jobId ;
+var jobId = JSON.parse(localStorage.job_id)
+const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
 var person;
 var person2;
 var room_key;
@@ -40,9 +40,9 @@ $(document).ready(function () {
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
     obj.chatKeyUsers.forEach(item => {
-        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>'${item.jobName}'</p>  </div></a>`;    
+        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>${item.jobName}</p>  </div></a>`;
         //check user type   
-        proposal_id = item.proposalId       
+        proposal_id = item.proposalId
         if (user_business_id == item.senderId) {
             itemHtmlButton = `            
             <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
@@ -64,45 +64,44 @@ $(document).ready(function () {
         const param = {
             // id : jobId,
             id: proposal_id,
-            proposal_status_catalog_id : status
-          }
+            proposal_status_catalog_id: status
+        }
         swal({
             title: "Are you sure?",
             text: "Once click, you will not be able to recover this!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-                $.ajax({
-                    type: 'PATCH',
-                    url: url,
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(param),
-                    dataType: "JSON",       
-                    async: false,
-                    success: function (res) {
-                        swal("Poof! Your job is over!", {               
-                            icon: "success",                       
-                          });
-                          setTimeout(() =>window.location.href='/home', 2000);
-                    },
-                    error() {
-                        swal("Something was wrong !", {               
-                            icon: "warning",                       
-                          });
-                    },
-                            
-                 })
-              
-            } 
-          });
-        
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: 'PATCH',
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(param),
+                        dataType: "JSON",
+                        async: false,
+                        success: function (res) {
+                            swal("Poof! Your job is over!", {
+                                icon: "success",
+                            });
+                            setTimeout(() => window.location.href = '/home', 2000);
+                        },
+                        error() {
+                            swal("Something was wrong !", {
+                                icon: "warning",
+                            });
+                        },
+
+                    })
+
+                }
+            });
+
     })
     var element = document.getElementById(chat_room_id);
     element.classList.add("active");
-    
 
 });
 //get job_detail to check user type
@@ -112,20 +111,19 @@ $.ajax({
     contentType: "application/json; charset=utf-8",
     dataType: "JSON",
     async: false,
-    success: function (res) {      
+    success: function (res) {
         // var listProposal = res.result.proposals  
         // const pid = proposal_id;
-       
+
         // for (let i = 0; i < listProposal.length; i++) { 
         //     if(listProposal[i].id == pid ){
         //          userName_freelancer = listProposal[i].freeLancerName                 
         //     }   
         // } 
         // userName_Business = res.result.userBusiness.user.fullName;
-        user_business_id =  res.result.user_business_id;
+        user_business_id = res.result.user_business_id;
     }
 })
-   
 
 
 function ButtonDrop() {
@@ -253,12 +251,6 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     person = senderId;
     person2 = receiverId;
     room_key = roomKeyId;
-    var chat_list = document.getElementById('chat-list');
-    var btns = chat_list.getElementsByClassName('chat-list-item');
-    
-    // for (var i = 0; i < btns.length; i++) {
-    //     btns[i].addClass('active');
-    // }
     $('.chat-list-item').removeClass('active');
     var element = document.getElementById(id);
     element.classList.add("active");
@@ -268,3 +260,6 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
+window.onbeforeunload = function () {
+    localStorage.setItem('room_key', null);
+};
