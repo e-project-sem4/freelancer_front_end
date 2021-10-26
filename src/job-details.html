@@ -53,8 +53,13 @@
                 dataType: "JSON",
                 async: false,
                 success: function (res) {
-                    // window.location.reload();
-                },
+                    window.localStorage.setItem('chat_room_id', res.result.chatKeyUser.id);
+                    window.localStorage.setItem('sender_id', res.result.chatKeyUser.senderId);
+                    window.localStorage.setItem('receiver_id', res.result.chatKeyUser.receiverId);
+                    window.localStorage.setItem('job_id', res.result.chatKeyUser.jobId);
+                    window.localStorage.setItem('room_key', res.result.chatKeyUser.chatRoomKey);
+                    window.location.href = "/live-exch";
+},
                 error() {
                     console.log("sai");
                 },
@@ -83,17 +88,7 @@
             })
 
             }
-        function applyProposal(payment_amount_proposal,proposal_id){
 
-            // window.localStorage.setItem('chat_room_id', id);
-            // window.localStorage.setItem('sender_id', sender_id);
-            // window.localStorage.setItem('receiver_id', receiver_id);
-            // window.localStorage.setItem('job_id', job_id);
-            // window.localStorage.setItem('room_key', room_key);
-            // window.location.href = "/live-exch";
-
-
-        }
     </script>
 
 </head>
