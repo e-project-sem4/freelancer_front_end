@@ -8,6 +8,7 @@ const firebaseConfig = {
     appId: "1:948951260730:web:241f74606e09ee93135f03",
     measurementId: "G-GS4LMG5QB1"
 };
+var chat_room_id;
 $(document).ready(function () {
 
     if (firebase.apps.length === 0) {
@@ -40,10 +41,14 @@ $(document).ready(function () {
                     if (status == 0) {
                         countMess = true;
                         var tempHtml = `<span style="color: red; font-size: 20px">&bull;</span>`;
-                        $('#'+sender).prepend(tempHtml);
+                        $('#' + sender).prepend(tempHtml);
                     }
-                    if (countMess != 0) {
-                        $('#dot-alert').html(`<span style="color: red">&bull;</span>`);
+                    if (localStorage.getItem('room_key') == item.chatRoomKey) {
+                        updateStatusChat(item.chatRoomKey);
+                    } else {
+                        if (countMess != 0) {
+                            $('#dot-alert').html(`<span style="color: red">&bull;</span>`);
+                        }
                     }
                 });
                 html += item.jobName + `</a>`;
@@ -68,12 +73,15 @@ function goToChat(id, sender_id, receiver_id, job_id, room_key) {
     localStorage.setItem('receiver_id', receiver_id);
     localStorage.setItem('job_id', job_id);
     localStorage.setItem('room_key', room_key);
+    updateStatusChat(room_key);
+    setTimeout(function () {
+        location.href = "/live-exch";
+    }, 1000);
+}
+function updateStatusChat(room_key) {
     firebase.database().ref(room_key).on("child_added", function (snapshot) {
         firebase.database().ref().child('/' + room_key + '/' + snapshot.key).update({
             status: 1
         });
     });
-    setTimeout(function () {
-        location.href = "/live-exch";
-    }, 1000);
 }
