@@ -202,4 +202,10 @@ router.get("/admin/job-details", (req, res) => {
         res.send(data);
     });
 });
+router.get("/admin/transaction-management", (req, res) => {
+    fs.readFile("./src/admin/src/transaction-management.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 module.exports = router;
