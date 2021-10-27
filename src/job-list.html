@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - Responsive Job Board HTML Template</title>
+    <title>TOPWORK JOBS</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -13,6 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -72,27 +77,7 @@
         <div class="home-form-position">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3">
-                        <form class="registration-form">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-12">
-                                    <div class="registration-form-box">
-                                        <i class="fa fa-briefcase"></i>
-                                        <input type="text" id="exampleInputName1"
-                                            class="form-control rounded registration-input-box"
-                                            placeholder="Job keyboards...">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="registration-form-box">
-                                        <button type="button" id="search-key"
-                                            class="submitBnt btn btn-primary btn-block">Search</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -103,7 +88,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="section-title text-center mb-4 pb-2">
+                    <div class="section-title text-center mb-4 pb-2 mt-5">
                         <h4 class="title title-line pb-5">Available job for you</h4>
                         <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll
                             quickly match you with the right freelancers.</p>
@@ -150,26 +135,14 @@
                             <!-- collapse one end -->
                         </div>
                     </div>
-                    
+
                 </div>
 
-                <div class="col-lg-9 mt-4 pt-2">
+                <div class="col-lg-9 mt-3 pt-2">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <div class="show-results">
-                                <div class="float-left">
-                                    <h5 class="text-dark mb-0 pt-2 f-18">Showing results <span id="totalResult"></span>
-                                    </h5>
-                                </div>
-                                <div class="sort-button float-right ml-3">
-                                    <select id="dropdown-page" class="nice-select rounded" onchange="changePage()">
-                                        <option data-display="Size" value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                    </select>
-                                </div>
-                                <div class="sort-button float-right">
+                                <div class="sort-button float-left">
                                     <select id="dropdown-sort" class="nice-select rounded" onchange="changeSort()">
                                         <option data-display="Sort" value="0">All</option>
                                         <option value="1"> Create Date ↑</option>
@@ -178,7 +151,38 @@
                                         <option value="4"> Price ↓</option>
                                     </select>
                                 </div>
+                                <div class="sort-button float-left ml-3">
+                                    <select id="dropdown-page" class="nice-select rounded" onchange="changePage()">
+                                        <option data-display="Size" value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
 
+                                <div class="col-md-9 float-right pr-0">
+                                    <!-- <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3"> -->
+                                    <form class="registration-form">
+                                        <div class="row">
+                                            <div class="col-lg-9 col-md-12">
+                                                <div class="registration-form-box">
+                                                    <i class="fa fa-user-circle "></i>
+                                                    <input type="text" id="exampleInputName1"
+                                                        class="form-control rounded registration-input-box"
+                                                        placeholder="Keyboards...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-6">
+                                                <div class="registration-form-box">
+                                                    <button type="button" id="search-key"
+                                                        class="submitBnt btn btn-primary btn-block">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -186,16 +190,33 @@
                     <div id="job-list" class="row">
 
                     </div>
+                    <div class="row ml-0">
+                        <div class="float-left mt-3">
+                            <h5 class="text-dark mb-0 pt-2 f-18">Showing results <span id="totalResult"></span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button class="btn-prev btn-primary">Prev</button>
+                                    <button class="btn-next btn-primary">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="float-right nav-pagination mt-3">
+                        </div> -->
+                    </div>
+
                 </div>
             </div>
         </div>
         </div>
     </section>
 
-<div  class="nav-pagination ">
-    <button class="btn-prev btn-primary" >Prev</button>
-    <button class="btn-next btn-primary">Next</button>
-</div>
+
     <!-- JOB LIST START -->
 
     <!-- subscribe start -->

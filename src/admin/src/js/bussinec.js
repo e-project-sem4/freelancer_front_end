@@ -9,7 +9,11 @@ var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
 
 $(document).ready(function () {
+  if(localStorage.getItem("access-token-admin")==null){
+    location.href="/admin/login"
+  }
   loadAllJob(search, page, pageSize, sort, complexity, skill);
+
   // loadAllSkill();
   // loadAllComplexity();
   // $('#totalResult').html(`${start}-${end}`)

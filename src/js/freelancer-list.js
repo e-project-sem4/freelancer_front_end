@@ -6,9 +6,12 @@ var sort = 0;
 var skill = "";
 var start = page * pageSize - pageSize + 1;
 var end = pageSize * page;
+var totals = 0;
 $(document).ready(function () {
     loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
+    pagination(totalRow);
+    $('#totalResult').html(`${start}-${end}`)
 });
 function loadAllSkill() {
     const url = baseUrl + `/api/v1/skills/search?status=1`;
@@ -131,6 +134,24 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
         },
     });
 }
+function changeSkill(){
+    const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
+    loadAllFreelancer(search, page, pageSize, sort,arrSkill)
+}
+function changeSort(){
+    page =1;
+    sort = $('#dropdown-sort').val();
+    loadAllFreelancer(search, page, pageSize, sort,skill);
+
+}
+function changePage() {
+    page = 1;
+    pageSize = $("#dropdown-page").val();
+    start = page * pageSize - pageSize + 1;
+    end = pageSize * page;
+    $('#totalResult').html(`${start}-${end}`)
+    loadAllFreelancer(search, page, pageSize, sort,skill);
+}
 $(".btn-prev").on("click", function () {
     if (page > 0) {
         page--;
@@ -151,21 +172,13 @@ $(".btn-next").on("click", function () {
         loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
     }
 });
-function changeSkill(){
-    const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-    loadAllFreelancer(search, page, pageSize, sort,arrSkill)
-}
-function changeSort(){
-    page =1;
-    sort = $('#dropdown-sort').val();
-    loadAllFreelancer(search, page, pageSize, sort,skill);
-
-}
-function changePage() {
-    page = 1;
-    pageSize = $("#dropdown-page").val();
-    start = page * pageSize - pageSize + 1;
-    end = pageSize * page;
-    $('#totalResult').html(`${start}-${end}`)
-    loadAllFreelancer(search, page, pageSize, sort,skill);
+function pagination(totalRow){
+    var totals = Math.ceil(totalRow / pageSize);
+    $('#pagination-demo').twbsPagination({
+        totalPages: totals,
+        visiblePages: pageSize,
+        onPageClick: function (event,page){
+            loadAllFreelancer(search, page, pageSize, sort,skill);
+        }
+    });
 }
