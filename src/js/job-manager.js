@@ -199,8 +199,8 @@ function loadAllJobJobmn() {
                                                                               <ul class="list-inline mb-0">
                                                                               
                                                                                     <div class="list-inline-item mr-3">
-                                                                                                <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
-                                                                                          </div>
+                                                                                                <p class="text-muted mb-0 limit"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                                          </div> 
 
                                                                                     <div class="list-inline-item mr-3">
                                                                                                   <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
