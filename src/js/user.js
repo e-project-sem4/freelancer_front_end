@@ -14,7 +14,6 @@ $(document).ready(function () {
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
-
     const data = localStorage.getItem('user-info')
     if (data != null) {
         const output = document.getElementById('username')

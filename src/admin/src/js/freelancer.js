@@ -7,6 +7,9 @@ var sort = 0;
 var skill = "";
 var totals = 0;
 $(document).ready(function () {
+  if(localStorage.getItem("access-token-admin")==null){
+    location.href="/admin/login"
+  }
   loadAll(search, page, pageSize, sort, skill);
   pagination(totalRow);
 
