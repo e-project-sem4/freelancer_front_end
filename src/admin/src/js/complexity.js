@@ -1,6 +1,10 @@
 var status = 1;
 $(document).ready(function () {
+  if(localStorage.getItem("access-token-admin")==null){
+    location.href="/admin/login"
+  }
   loadAllcomplexity(status);
+  
   // loadAllSkill();
   // loadAllComplexity();
   // $('#totalResult').html(`${start}-${end}`)

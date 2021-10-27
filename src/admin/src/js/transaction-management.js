@@ -1,23 +1,27 @@
+
+var totals = 0;
+var totalPage = 0;
 var pageSize = 5;
 var page = 1;
-var totalPage = 0;
-var complexity = "";
-var search = "";
 var sort = 0;
-var skill = "";
-var totals = 0;
+
+var username = "";
+var jobName = "";
+var type = "";
+var startAt = "";
+var endAt = "";
 $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
   pagination(totalRow);
 });
 
-function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/transactions/search?page=${page}&size=${pageSize}&sort=${sort}&username=${username}&jobName=${jobName}&type=${type}&startAt=${startAt}&endAt=${endAt}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -27,36 +31,43 @@ function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
     success: function (res) {
       const lists = res.result;
       totalRow = res.total;
+      console.log(lists);
+
       let itemTempHtml = "";
       for (let i = 0; i < lists.length; i++) {
         var d = new Date(lists[i].createAt).toLocaleDateString();
-        if (lists[i].isPaymentStatus == 1) {
-          payment = '<span class="badge badge-pill badge-primary">Paid</span>'
-        } else {
-          payment = '<span class="badge badge-pill badge-danger">Unpaid</span>'
+        if (lists[i].type == "RECHARGE") { // nạp tiền
+          payment = '<span class="badge badge-pill badge-secondary">RECHARGE</span>'
+        } else if(lists[i].type == "WITHDRAW"){ // rút tiền
+          payment = '<span class="badge badge-pill badge-primary">WITHDRAW</span>'
         }
-        if (lists[i].status == 1 || lists[i].status == 2) {
-          statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
-        } else if (lists[i].status == 3){
-          statusJob = '<span class="badge badge-pill badge-danger">Complete</span>'
-        } else
-        {
-          statusJob = '<span class="badge badge-pill badge-danger">Close</span>'
+        else if(lists[i].type == "PAYMENT"){// nạp tiền tạo job paypal
+          payment = '<span class="badge badge-pill badge-info">PAYMENT</span>'
         }
+        else if(lists[i].type == "WAGE"){ // thanh toán tiền sau khi hoàn thành job
+          payment = '<span class="badge badge-pill badge-success">WAGE</span>'
+        }
+    
+        // if (lists[i].status == 1 || lists[i].status == 2) {
+        //   statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
+        // } else if (lists[i].status == 3){
+        //   statusJob = '<span class="badge badge-pill badge-danger">Complete</span>'
+        // } else
+        // {
+        //   statusJob = '<span class="badge badge-pill badge-danger">Close</span>'
+        // }
 
-        ;
+        // ;
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                 <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/job-details?id=${lists[i].id}">
-                                ${lists[i].name}
+                                ${lists[i].content}
                                 </a>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].userBusiness.user.fullName} </p>
                                 <p class="mb-1  w-15 w-xs-100">${d}</p>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-200">`+ payment + `</div>
-                                <div class="w-15 w-xs-100">`+ statusJob + `</div>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].price} USD</p>
+                                <p class="mb-1  w-15 w-xs-100">${payment} </p>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
@@ -80,7 +91,7 @@ function pagination(totalRow) {
     totalPages: totals,
     visiblePages: pageSize,
     onPageClick: function (event, page) {
-      loadAll(search, page, pageSize, sort, complexity, skill)
+      loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
     }
   });
 }
@@ -93,23 +104,9 @@ function changePage() {
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
 }
 $("#search-input").change(function () {
   search = $("#search-input").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
 });
-
-// function changeComplexity(data) {
-//   complexity = data;
-//   if (data === null) {
-//     complexity = "";
-//   }
-//   loadAll(search, page, pageSize, sort, complexity, skill);
-// }
-// function changeSkill() {
-//   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-//   loadAll(search, page, pageSize, sort, complexity, arrSkill)
-// }
-
-
