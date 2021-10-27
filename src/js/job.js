@@ -55,7 +55,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                                                       <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">  
                                                                              <div class="list-inline-item mr-3">
-                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
+                                                                             <p  class="text-break limit"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
                                                                              <span style="max-width: 100px;
                                                                              word-break: break-all;">${jobList[i].description}</span>
                                                                        </div>                                                                                

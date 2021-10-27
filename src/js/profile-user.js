@@ -408,7 +408,7 @@ $(function load() {
                                 job=``;
                                 jobList = ProfileList.business?.listJob
                                 for (let i = 0; i < jobList?.length; i++) {
-                                    if(jobList[i].status == 2){                                     
+                                    if(jobList[i].status == 3){                                     
                                         job+= `<div class="col-lg-12 mt-4 pt-2">
                                     <div class="job-list-box border rounded">
                                         <div class="p-3">                           
@@ -424,7 +424,7 @@ $(function load() {
                                                                               <ul class="list-inline mb-0">
                                                                                    <li class="list-inline-item mr-3">
                                                                                    <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                                                             
+                                                                                  
                                                                                          </li>
                         
                                                                                     `;
