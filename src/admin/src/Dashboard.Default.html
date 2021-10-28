@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/admin/src/css/vendor/nouislider.min.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
     <link rel="stylesheet" href="/admin/src/css/main.css" />
+
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -219,6 +220,14 @@
             <div class="row">
                 <div class="col-12 mb-4">
                     <div class="card">
+                        <div class="float-right col-4 form-group mb-3">
+                            <label>Date Range</label>
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input id="startDay" type="text" class="input-sm form-control" name="start" placeholder="Start"/>
+                                <span class="input-group-addon"></span>
+                                <input id="endDay" type="text" class="input-sm form-control" name="end" placeholder="End" />
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div>
                                 <div id="container"></div>
@@ -546,7 +555,6 @@
 
         </div>
     </main>
-
 
     <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
