@@ -11,12 +11,13 @@ var editor = CKEDITOR.replace('description' );
 $(document).ready(function () {
   $("#job_name").val("");
   $("#payment_amount").val("");
-  $(".js-example-basic-multiple").select2({
+  $("#multipleSelect").select2({
     placeholder: "Choose event type",
   });
   toastr.options.timeOut=1000;
   toastr.options.fadeIn = 0;
-  toastr.options.positionClass = "toast-top-left"
+  toastr.options.positionClass = "toast-top-left";
+  // $('#multipleSelect').multiselect();
 })
 
   $("#post-job").on("click", function (event) {
@@ -25,12 +26,12 @@ $(document).ready(function () {
     const expectedDuration = $(".duration").val();
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
-    const otherSkill = $(".js-example-basic-multiple").val().map((item) => {
+    const otherSkill = $("#multipleSelect").val().map((item) => {
       return {
         skill_id: item,
       };
     });
-   
+    // const otherSkill = $("#multipleSelect option:selected").toArray().map(item => item.value).join();
     const description = CKEDITOR.instances.description.getData();
     const param = {
       name: jobName,
