@@ -1,17 +1,14 @@
-var pageSize = 10;
+var pageSize = 5;
 var page = 1;
 var totalPage = 0;
 var search = "";
 var sort = 0;
 var skill = "";
-var start = page * pageSize - pageSize + 1;
-var end = pageSize * page;
 var totals = 0;
 $(document).ready(function () {
     loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
     pagination(totalRow);
-    $('#totalResult').html(`${start}-${end}`)
 });
 function loadAllSkill() {
     const url = baseUrl + `/api/v1/skills/search?status=1`;
@@ -37,6 +34,9 @@ function loadAllSkill() {
     });
 }
 function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
+    var current_user_id;
+    if (localStorage.getItem('user-info') != null)
+        current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
     const url =
 
         baseUrl +
@@ -55,30 +55,31 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
         async: false,
         success: function (res) {
             const freelancerList = res.result;
-            totalPage = res.total;
+            totalRow = res.total;
             let itemHtml = "";
             let itemTempHtml = "";
             for (let i = 0; i < freelancerList.length; i++) {
-              var thumbnail = freelancerList[i].user.thumbnail
+                if(current_user_id != freelancerList[i].user_account_id){
+                    var thumbnail = freelancerList[i].user.thumbnail
                     itemTempHtml = `
     <div class="col-lg-12 mt-4 pt-2">
         <div class="job-list-box border rounded">
             <div class="p-3">
                 <div class="row align-items-center">`
-                if(thumbnail =! null){
-                    itemTempHtml+=
-                        `<div class="col-lg-2">
+                    if(thumbnail =! null){
+                        itemTempHtml+=
+                            `<div class="col-lg-2">
                         <div class="company-logo-img">
                             <img src="${thumbnail}" alt="" class="img-fluid mx-auto d-block">
                         </div>
                     </div>`
-                }else {
-                    itemTempHtml+= `  <div class="col-lg-2">
+                    }else {
+                        itemTempHtml+= `  <div class="col-lg-2">
                         <div class="company-logo-img">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" class="img-fluid mx-auto d-block">
                         </div>
                     </div>`
-                }
+                    }
                     itemTempHtml +=
                         `<div class="col-lg-7 col-md-9">
                         <div class="job-list-desc">
@@ -129,6 +130,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                 `;
 
                     itemHtml += itemTempHtml;
+                }
             }
             $("#freelancer-list").html(itemHtml);
         },
@@ -144,41 +146,20 @@ function changeSort(){
     loadAllFreelancer(search, page, pageSize, sort,skill);
 
 }
-function changePage() {
-    page = 1;
-    pageSize = $("#dropdown-page").val();
-    start = page * pageSize - pageSize + 1;
-    end = pageSize * page;
-    $('#totalResult').html(`${start}-${end}`)
-    loadAllFreelancer(search, page, pageSize, sort,skill);
-}
-$(".btn-prev").on("click", function () {
-    if (page > 0) {
-        page--;
-        start = page * pageSize - pageSize + 1;
-        end = pageSize * page;
-        $('#totalResult').html(`${start}-${end}`)
 
-        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
-    }
-});
-$(".btn-next").on("click", function () {
-    if (page * pageSize < totalPage) {
-        page++;
-        start = page * pageSize - pageSize + 1;
-        end = pageSize * page;
-        $('#totalResult').html(`${start}-${end}`)
-
-        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
-    }
-});
 function pagination(totalRow){
     var totals = Math.ceil(totalRow / pageSize);
     $('#pagination-demo').twbsPagination({
         totalPages: totals,
         visiblePages: pageSize,
-        onPageClick: function (event,page){
-            loadAllFreelancer(search, page, pageSize, sort,skill);
+        onPageClick: function (event, page) {
+            loadAllFreelancer(search, page, pageSize, sort, skill)
         }
     });
+}
+function changePage() {
+    page = 1;
+    pageSize = $("#dropdown-page").val();
+    $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+    pagination(totalRow);
 }
