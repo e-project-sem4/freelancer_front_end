@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
     <link rel="stylesheet" href="/admin/src/css/main.css" />
 </head>
+
 <body id="app-container" class="menu-default show-spinner">
 
     <!-- header start-->
@@ -63,7 +64,7 @@
 
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
-        
+
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
@@ -166,7 +167,7 @@
                             <i class="simple-icon-calculator"></i> List Business
                         </a>
                     </li>
-                
+
                 </ul>
                 <ul class="list-unstyled" data-link="ui">
                     <li>
@@ -179,7 +180,7 @@
                             <i class="simple-icon-control-play"></i>Revenue management
                         </a>
                     </li>
-                    
+
                 </ul>
                 <ul class="list-unstyled" data-link="landingPage">
                     <li>
@@ -187,7 +188,7 @@
                             <i class="simple-icon-docs"></i> Multipage Home
                         </a>
                     </li>
-                   
+
                 </ul>
             </div>
         </div>
@@ -219,14 +220,40 @@
 
             
             <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="container"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="multipleLineChart"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-6 col-sm-12 mb-4">
 
                     <div class="icon-cards-row">
                         <div class="owl-container">
                             <div id="count-account" class="owl-carousel dashboard-numbers">
-                                
-                <!-- call api -->
-                
+
+                                <!-- call api -->
+
                             </div>
                         </div>
                     </div>
@@ -422,7 +449,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Profile Status</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -437,7 +465,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Work Progress</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -452,7 +481,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Tasks Completed</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -467,7 +497,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Payments Done</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -514,8 +545,6 @@
             </div>
 
 
-
-            
         </div>
     </main>
 
