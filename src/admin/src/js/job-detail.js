@@ -3,6 +3,9 @@ var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
 
 $(document).ready(function () {
+    if(localStorage.getItem("access-token-admin")==null){
+        location.href="/admin/login"
+      }
     loadJobDetails();
 
 });

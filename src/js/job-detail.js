@@ -190,7 +190,7 @@ function loadJobDetails() {
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
                                                         class="mdi mdi-animation mr-2">                
-                                                    </i>Message:
+                                                    </i>Comment:
                                                     ${proposals[j].description}</p>
                                             </div>
                                             <div class="list-inline-item mr-3">

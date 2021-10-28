@@ -6,6 +6,11 @@ $(document).ready(function() {
         var phone = $("#phone").val();
         var password = $("#password").val();
         var confirm_password = $("#confirm_password").val();
+        if(!$('#customCheck1').is(":checked")){
+            alert('chưa đồng ý điều khoản');
+            return;
+        }
+        
         const registerForm = {
             username: username,
             password: password,

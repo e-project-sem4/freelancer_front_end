@@ -316,32 +316,35 @@ $(function load() {
                                 let ListProposals =""
                                 proposals = ProfileList.freelancer.proposals
                                 
-                                for (let i = 0; i < proposals?.length; i++) {                                   
-                                    ListProposals+=`<div class="col-md-6 mt-3 mt-md-0 pt-3">
+                                for (let i = 0; i < proposals?.length; i++) {     
+                                    if(proposals[i].proposal_status_catalog_id == 2 || proposals[i].proposal_status_catalog_id == 3 ){
+                                        ListProposals+=`<div class="col-md-6 mt-3 mt-md-0 pt-3">
                                                             
-                                    <div class="border rounded job-list-box p-4">
-                                        <div class="row">
-                                        <div class="col-lg-3">
-                                                <div class="company-brand-logo text-center mb-4">
-                                                    <img src="images/featured-job/img-2.png" alt="" class="img-fluid mx-auto d-block">
+                                        <div class="border rounded job-list-box p-4">
+                                            <div class="row">
+                                            <div class="col-lg-3">
+                                                    <div class="company-brand-logo text-center mb-4">
+                                                        <img src="images/featured-job/img-2.png" alt="" class="img-fluid mx-auto d-block">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            
-                                           
-                                            <div class="col-lg-9 ">
-                                                <div class="job-list-desc candidates-profile-exp-desc">
-                                                    <h5   class="f-19 mb-2"><a href="#"  class="text-dark"> ${proposals[i].jobName}</a></h5>           
-                                                    <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-tooltip"></i> Des: ${proposals[i].description}</h6>
-                                                    <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-message-processing"></i> Comment: ${proposals[i].clientComment}</h6>
-                                                    <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-star-circle"></i> Rate: ${proposals[i].clientGrade}</h6>
-                                                    
-                                                    ${proposals[i].proposal_status_catalog_id == 2 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status: InProgress' : proposals[i].proposal_status_catalog_id == 3 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:Done':'<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:null'}
-
+                                                
+                                               
+                                                <div class="col-lg-9 ">
+                                                    <div class="job-list-desc candidates-profile-exp-desc">
+                                                        <h5   class="f-19 mb-2"><a href="#"  class="text-dark"> ${proposals[i].jobName}</a></h5>           
+                                                        <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-tooltip"></i> Des: ${proposals[i].description}</h6>
+                                                        <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-message-processing"></i> Comment: ${proposals[i].clientComment}</h6>
+                                                        <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-star-circle"></i> Rate: ${proposals[i].clientGrade}</h6>
+                                                        
+                                                        ${proposals[i].proposal_status_catalog_id == 2 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status: InProgress' : proposals[i].proposal_status_catalog_id == 3 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:Done':'<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:null'}
+    
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>                                       
-                                    </div>                                 
-                                </div>`;
+                                            </div>                                       
+                                        </div>                                 
+                                    </div>`;
+                                    }
+                                    
                                 
                                 }      
                             itemHtmltempFreelancer += ListProposals;
@@ -405,7 +408,7 @@ $(function load() {
                                 job=``;
                                 jobList = ProfileList.business?.listJob
                                 for (let i = 0; i < jobList?.length; i++) {
-                                    if(jobList[i].status == 2){                                     
+                                    if(jobList[i].status == 3){                                     
                                         job+= `<div class="col-lg-12 mt-4 pt-2">
                                     <div class="job-list-box border rounded">
                                         <div class="p-3">                           
@@ -421,7 +424,7 @@ $(function load() {
                                                                               <ul class="list-inline mb-0">
                                                                                    <li class="list-inline-item mr-3">
                                                                                    <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                                                             
+                                                                                  
                                                                                          </li>
                         
                                                                                     `;

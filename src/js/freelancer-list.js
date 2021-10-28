@@ -9,6 +9,7 @@ $(document).ready(function () {
     loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
     pagination(totalRow);
+    $('#totalResult').html(`${start}-${end}`)
 });
 function loadAllSkill() {
     const url = baseUrl + `/api/v1/skills/search?status=1`;
@@ -146,7 +147,26 @@ function changeSort(){
     loadAllFreelancer(search, page, pageSize, sort,skill);
 
 }
+$(".btn-prev").on("click", function () {
+    if (page > 0) {
+        page--;
+        start = page * pageSize - pageSize + 1;
+        end = pageSize * page;
+        $('#totalResult').html(`${start}-${end}`)
 
+        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
+    }
+});
+$(".btn-next").on("click", function () {
+    if (page * pageSize < totalPage) {
+        page++;
+        start = page * pageSize - pageSize + 1;
+        end = pageSize * page;
+        $('#totalResult').html(`${start}-${end}`)
+
+        loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
+    }
+});
 function pagination(totalRow){
     var totals = Math.ceil(totalRow / pageSize);
     $('#pagination-demo').twbsPagination({
