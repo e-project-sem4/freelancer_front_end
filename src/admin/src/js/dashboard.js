@@ -61,7 +61,7 @@ function loadCountAccout() {
 function loadLineCharts(){
   const url =
   baseUrl +
-  '/api/v1/admin/dashboard/line-chart';
+  '/api/v1/admin/dashboard/day';
   $.ajax({
     type: "GET",
     url: url,
@@ -75,11 +75,13 @@ function loadLineCharts(){
     dataType: "JSON",
     async: false,
     success: function (res) {
-    var days = res.day;
-   
-    console.log(days)
-    var prices = res.price;
-    drawLineChart(days,prices);
+      var month = [];
+      var price = [];
+        for(var i = 0; i < res.length; i++){
+          month.push(res[i].day);
+          price.push(res[i].price);
+      }
+    drawLineChart(month,price);
     },
   });
 }
@@ -139,13 +141,17 @@ function drawLineChart(category, series){
 	    },
 	    
 	    title: {
-	        text: 'Thống kê Giao dịch'
+	        text: 'Revenue'
 	    },
 	
 	    xAxis: {
 	        categories: category
 	    },
-	    
+	    yAxis: {
+        title: {
+            text: 'Amount of money'
+        }
+    },
 	    tooltip: {
 	        formatter: function() {
 	          return '<strong>'+this.x+': </strong>'+ this.y;
@@ -162,16 +168,12 @@ function drawMultipleLineChart(formatteddata,category){
 	Highcharts.chart('multipleLineChart', {
 
 	    title: {
-	        text: 'Solar Employment Growth by Sector, 2010-2019'
-	    },
-
-	    subtitle: {
-	        text: 'Source: thesolarfoundation.com'
+	        text: 'Transaction'
 	    },
 
 	    yAxis: {
 	        title: {
-	            text: 'Number of Employees'
+	            text: 'Amount of money'
 	        }
 	    },
       xAxis: {
