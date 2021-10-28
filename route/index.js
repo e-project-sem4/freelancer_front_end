@@ -9,18 +9,6 @@ router.get("/login", (req, res) => {
         res.send(data);
     });
 });
-router.get("/test", (req, res) => {
-    fs.readFile("./src/test.html", "utf-8", (err, data) => {
-        res.type("text/html");
-        res.send(data);
-    });
-});
-router.get("/test", (req, res) => {
-    fs.readFile("./src/test.html", "utf-8", (err, data) => {
-        res.type("text/html");
-        res.send(data);
-    });
-});
 router.get("/post-a-job", (req, res) => {
     fs.readFile("./src/post-a-job.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -53,7 +41,7 @@ router.get("/job-list", (req, res) => {
         res.send(data);
     });
 });
-router.get("/job-details", (req, res) => {
+router.get('/job-details', (req, res) => {
     fs.readFile("./src/job-details.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);

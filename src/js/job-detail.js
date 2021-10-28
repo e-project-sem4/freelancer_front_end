@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    const url = baseUrl + `/api/v1/job/1`;
+    var url_string = window.location.href
+    var url123 = new URL(url_string);
+    var c = url123.searchParams.get("id");
+    const url = baseUrl + `/api/v1/job/`+ c;
     $.ajax({
         type: 'GET',
         url: url,
@@ -8,7 +11,13 @@ $(document).ready(function () {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
-            var date = timeConverter(jobDetails.updateAt);
+            var timestamp = (jobDetails.createAt)
+            var date = new Date(timestamp);
+            var dateView = (date.getDate()+
+                "/"+(date.getMonth()+1)+
+                "/"+date.getFullYear()+
+                " "+date.getHours()+
+                ":"+date.getMinutes());
             let itemTempHtml =
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
@@ -17,9 +26,9 @@ $(document).ready(function () {
                             <img src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
                             <div class="job-detail-com-desc overflow-hidden d-block">
                                 <h4 class="mb-2"><a class="job-name text-dark">${jobDetails.name}</a></h4>
-                                <h4 class="mb-2"><a class="job-name text-dark">${jobDetails.name}</a></h4>
-                                <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i>Freelancers</p>
-                                <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>${date}</p>
+                                <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i></p>
+                                <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>${dateView}</p>
+                                <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-2"></i>${jobDetails.paymentAmount}</p>
                             </div>
                         </div>
                     </div>
@@ -89,43 +98,31 @@ $(document).ready(function () {
                                 <div class="float-left mr-2">
                                     <i class="mdi mdi-bank text-muted"></i>
                                 </div>
-                                <p class="text-muted mb-2">: Web Themes.pvt.Ltd</p>
+                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
                             <div class="">
                                 <div class="float-left mr-2">
                                     <i class="mdi mdi-email text-muted"></i>
                                 </div>
-                                <p class="text-muted mb-2">: Webthemescom@gmail.com</p>
+                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
                             <div class="">
                                 <div class="float-left mr-2">
                                     <i class="mdi mdi-web text-muted"></i>
                                 </div>
-                                <p class="text-muted mb-2">: https://www.WebThemes.com</p>
+                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
                             <div class="">
                                 <div class="float-left mr-2">
                                     <i class="mdi mdi-cellphone-iphone text-muted"></i>
                                 </div>
-                                <p class="text-muted mb-2">: 1987 6543 21</p>
+                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-currency-usd text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: ${jobDetails.paymentAmount} </p>
-                            </div>
 
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-security text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: 1 To 3 Years.</p>
-                            </div>
 
 
                             <h6 class="text-dark f-17 mt-3 mb-0">Share Job :</h6>
@@ -217,20 +214,10 @@ $(document).ready(function () {
                 skillTemp +=temp
             }
             $('.job-details-desc-item').html(skillTemp)
+
         }
     })
 
 });
-function timeConverter(UNIX_timestamp){
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-    return time;
-    }
+
 
