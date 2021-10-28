@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - Responsive Job Board HTML Template</title>
+    <title>TOPWORK JOBS</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -13,6 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -26,8 +31,8 @@
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/job-list.css" />
-    <script src="js/jquery.min.js" > </script>
-    <script src="js/header.js" ></script>
+    <script src="js/jquery.min.js"> </script>
+    <script src="js/header.js"></script>
 </head>
 
 <body>
@@ -45,9 +50,9 @@
     <!-- Navigation Bar-->
     <header id="header"></header>
     <!-- Navbar End -->
-    
+
     <!-- Start home -->
-    <section class="bg-half page-next-level"> 
+    <section class="bg-half page-next-level">
         <div class="bg-overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -56,9 +61,9 @@
                         <h4 class="text-uppercase title mb-4">Job List view</h4>
                         <ul class="page-next d-inline-block mb-0">
                             <li><a href="/home" class="text-uppercase font-weight-bold">Home</a></li>
-                            <li><a href="#" class="text-uppercase font-weight-bold">Jobs</a></li> 
+                            <li><a href="#" class="text-uppercase font-weight-bold">Jobs</a></li>
                             <li>
-                                <span class="text-uppercase text-white font-weight-bold">Job Listing</span> 
+                                <span class="text-uppercase text-white font-weight-bold">Job Listing</span>
                             </li>
                         </ul>
                     </div>
@@ -72,24 +77,7 @@
         <div class="home-form-position">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3">
-                        <form class="registration-form">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-12">
-                                    <div class="registration-form-box">
-                                        <i class="fa fa-briefcase"></i>
-                                        <input type="text" id="exampleInputName1" class="form-control rounded registration-input-box" placeholder="Job keyboards...">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="registration-form-box">
-                                        <button type="button" id="search-key"  class="submitBnt btn btn-primary btn-block" >Search</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -100,9 +88,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="section-title text-center mb-4 pb-2">
+                    <div class="section-title text-center mb-4 pb-2 mt-5">
                         <h4 class="title title-line pb-5">Available job for you</h4>
-                        <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll quickly match you with the right freelancers.</p>
+                        <p class="text-muted para-desc mx-auto mb-1">Post a job to tell us about your project. We'll
+                            quickly match you with the right freelancers.</p>
                     </div>
                 </div>
             </div>
@@ -114,25 +103,22 @@
 
                             <!-- collapse one end -->
                             <div class="card rounded mt-4">
-                                <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true" aria-controls="collapsetwo">
+                                <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true"
+                                    aria-controls="collapsetwo">
                                     <div class="card-header" id="headingtwo">
                                         <h6 class="mb-0 text-dark f-18">Complexity </h6>
                                     </div>
                                 </a>
                                 <div id="collapsetwo" class="collapse show" aria-labelledby="headingtwo">
                                     <div id="LevelsList" class="card-body p-0">
-<!--                                        <div class="custom-control custom-radio">-->
-<!--                                            <input type="radio" id="customRadio7" name="customRadio1" class="custom-control-input">-->
-<!--                                            <label class="custom-control-label ml-1 text-muted f-15" for="customRadio7">Digital & Creative</label>-->
-<!--                                        </div>-->
-
 
                                     </div>
                                 </div>
                             </div>
                             <!-- collapse one end -->
                             <div class="card rounded mt-4">
-                                <a data-toggle="collapse" href="#collapsethree" class="job-list" aria-expanded="true" aria-controls="collapsethree">
+                                <a data-toggle="collapse" href="#collapsethree" class="job-list" aria-expanded="true"
+                                    aria-controls="collapsethree">
                                     <div class="card-header" id="headingthree">
                                         <h6 class="mb-0 text-dark f-18">Skills</h6>
                                     </div>
@@ -144,17 +130,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card rounded mt-4">
+                                <a data-toggle="collapse" href="#collapse" class="job-list" aria-expanded="true"
+                                   aria-controls="collapse">
+                                    <div class="card-header" id="heading">
+                                        <h6 class="mb-0 text-dark f-18">Suitable Jobs</h6>
+                                    </div>
+                                </a>
+                                <div id="collapse" class="collapse show" aria-labelledby="heading">
+                                    <div id="suitableList" class="card-body p-0">
+
+
+                                    </div>
+                                </div>
+                            </div>
                             <!-- collapse one end -->
 
                             <!-- collapse one end -->
                         </div>
                     </div>
+
                 </div>
 
-                <div class="col-lg-9 mt-4 pt-2">
+                <div class="col-lg-9 mt-3 pt-2">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <div class="show-results">
+<<<<<<< HEAD
                                 <div class="float-left">
                                     <h5 class="text-dark mb-0 pt-2 f-18">Showing results 0-20</h5>
                                 </div>
@@ -170,114 +172,105 @@
                                 <div class="sort-button float-right">
                                     <select class="nice-select rounded">
                                         <option data-display="Sort" value="" >All</option>                                
+=======
+                                <div class="sort-button float-left">
+                                    <select id="dropdown-sort" class="nice-select rounded" onchange="changeSort()">
+                                        <option data-display="Sort" value="0">All</option>
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
                                         <option value="1"> Create Date ↑</option>
                                         <option value="2"> Create Date ↓</option>
                                         <option value="3"> Price ↑</option>
                                         <option value="4"> Price ↓</option>
                                     </select>
                                 </div>
-                                
+                                <div class="sort-button float-left ml-3">
+                                    <select id="dropdown-page" class="nice-select rounded" onchange="changePage()">
+                                        <option data-display="Size" value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-9 float-right pr-0">
+                                    <!-- <div class="home-registration-form job-list-reg-form bg-light shadow p-4 mb-3"> -->
+                                    <form class="registration-form">
+                                        <div class="row">
+                                            <div class="col-lg-9 col-md-12">
+                                                <div class="registration-form-box">
+                                                    <i class="fa fa-user-circle "></i>
+                                                    <input type="text" id="exampleInputName1"
+                                                        class="form-control rounded registration-input-box"
+                                                        placeholder="Keyboards...">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-md-6">
+                                                <div class="registration-form-box">
+                                                    <button type="button" id="search-key"
+                                                        class="submitBnt btn btn-primary btn-block">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div id="job-list" class="row">
-<!--                        <div class="col-lg-12 mt-4 pt-2">-->
-<!--                            <div class="job-list-box border rounded">-->
-<!--                                <div class="p-3">-->
-<!--                                    <div class="row align-items-center">-->
-<!--                                        <div class="col-lg-2">-->
-<!--                                            <div class="company-logo-img">-->
-<!--                                                <img src="images/featured-job/img-7.png" alt="" class="img-fluid mx-auto d-block">-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-lg-7 col-md-9">-->
-<!--                                            <div class="job-list-desc">-->
-<!--                                                <h6 class="mb-2"><a href="#" class="text-dark">Frontend/Backendd Developer</a></h6>-->
-<!--                                                <p class="text-muted mb-0"><i class="mdi mdi-bank mr-2"></i>Design Code.pvt.Ltd</p>-->
-<!--                                                <ul class="list-inline mb-0">-->
-<!--                                                    <li class="list-inline-item mr-3">-->
-<!--                                                        <p class="text-muted mb-0"><i class="mdi mdi-map-marker mr-2"></i>Rosemont Avenue Orlando, FL 32811</p>-->
-<!--                                                    </li>-->
 
-<!--                                                    <li class="list-inline-item">-->
-<!--                                                        <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>11 Minute ago</p>-->
-<!--                                                    </li>-->
-<!--                                                </ul>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-lg-3 col-md-3">-->
-<!--                                            <div class="job-list-button-sm text-right">-->
-<!--                                                <span class="badge badge-success">Full-Time</span>-->
-
-<!--                                                <div class="mt-3">-->
-<!--                                                    <a href="#" class="btn btn-sm btn-primary">Apply</a>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                        </div>
-                        
-<!--                        <div class="col-lg-12 mt-4 pt-2">-->
-<!--                            <nav aria-label="Page navigation example">-->
-<!--                                <ul class="pagination job-pagination mb-0 justify-content-center">-->
-<!--                                    <li class="page-item disabled">-->
-<!--                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">-->
-<!--                                            <i class="mdi mdi-chevron-double-left"></i>-->
-<!--                                        </a>-->
-<!--                                    </li>-->
-<!--                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">4</a></li>-->
-<!--                                    <li class="page-item">-->
-<!--                                        <a class="page-link" href="#">-->
-<!--                                            <i class="mdi mdi-chevron-double-right"></i>-->
-<!--                                        </a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </nav>-->
-<!--                        </div>-->
                     </div>
+                    <div class="row ml-0">
+                        <div class="float-left mt-3">
+                            <h5 class="text-dark mb-0 pt-2 f-18">Showing results <span id="totalResult"></span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button class="btn-prev btn-primary">Prev</button>
+                                    <button class="btn-next btn-primary">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="float-right nav-pagination mt-3">
+                        </div> -->
+                    </div>
+
                 </div>
             </div>
         </div>
+        </div>
     </section>
-<div  class="nav-pagination">
-    <button class="btn-prev btn-primary" >Prev</button>
-    <button class="btn-next btn-primary">Next</button>
-</div>
+
+
     <!-- JOB LIST START -->
 
     <!-- subscribe start -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="row">
-
-            </div>
-        </div>
-    </section>
     <!-- subscribe end -->
 
     <!-- footer start -->
-  <footer id="footer"></footer>
+    <footer id="footer"></footer>
     <!-- footer end -->
     <hr>
 
     <!-- Footer End -->
 
     <!-- Back to top -->
-    <a href="#" class="back-to-top rounded text-center" id="back-to-top"> 
-        <i class="mdi mdi-chevron-up d-block"> </i> 
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top">
+        <i class="mdi mdi-chevron-up d-block"> </i>
     </a>
     <!-- Back to top -->
 
     <!-- javascript -->
     <!-- <script src="js/jquery.min.js"></script> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
@@ -292,4 +285,5 @@
     <script src="js/default.js"></script>
     <script src="js/job.js"></script>
 </body>
+
 </html>

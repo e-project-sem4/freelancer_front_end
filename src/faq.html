@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>f.a.q</title>
+    <title>TOPWORK FAQ</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -13,6 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -78,14 +84,14 @@
                         <div class="faq-content mt-3">
                             <div class="accordion" id="accordionExample">
                                 <div class="card border rounded shadow mb-3">
-                                    <a data-toggle="collapse" href="#collapseOne" class="faq position-relative" aria-expanded="true" aria-controls="collapseOne">
+                                    <a data-toggle="collapse" href="#collapseOne" class="faq position-relative collapsed" aria-expanded="true" aria-controls="collapseOne">
                                         <div class="card-header bg-light p-3" id="headingOne">
-                                            <h4 class="title mb-0 faq-question"> Ut feugiat eleifend metus ?</h4>
+                                            <h4 class="title mb-0 faq-question"> What is Topwork.com?</h4>
                                         </div>
                                     </a>
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
+                                            <p class="text-muted mb-0 faq-ans">Topwork.com is an effective and safe freelance job website in Vietnam. We provide an online working tool that allows both parties to work and exchange directly, minimizing unnecessary disputes and risks.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,12 +99,13 @@
                                 <div class="card border rounded shadow mb-3">
                                     <a data-toggle="collapse" href="#collapseTwo" class="faq position-relative collapsed" aria-expanded="false" aria-controls="collapseTwo">
                                         <div class="card-header bg-light p-3" id="headingTwo">
-                                            <h4 class="title mb-0 faq-question"> Vitae sapien libero faucibus ? </h4>
+                                            <h4 class="title mb-0 faq-question"> How to post a job and find a freelancer like that? </h4>
                                         </div>
                                     </a>
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
+                                            <p class="text-muted mb-0 faq-ans">After successfully creating an account and activating it, you just need to click on “Create job”, choose the type of job, the name of the job you need to perform. Continue to enter the amount of money you can pay for the job in the “Payment Amount” field. You can add skill requirements for freelancers at “Add skills”. Finish the job posting by clicking “Post a job”.
+                                                After your work is posted, you can choose the right freelancer based on the freelancers' offers, profiles and customer reviews. Alternatively you can choose to find a freelancer in our list of available freelancers by clicking “Hire freelancer” and using the “Search” mode.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -106,12 +113,12 @@
                                 <div class="card border rounded shadow mb-3">
                                     <a data-toggle="collapse" href="#collapsethree" class="faq position-relative collapsed" aria-expanded="false" aria-controls="collapsethree">
                                         <div class="card-header bg-light p-3" id="headingthree">
-                                            <h4 class="title mb-0 faq-question"> Feugiat viverra varius ? </h4>
+                                            <h4 class="title mb-0 faq-question">What is the difference between Topwork.com and traditional job websites in Vietnam today? </h4>
                                         </div>
                                     </a>
                                     <div id="collapsethree" class="collapse" aria-labelledby="headingthree" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
+                                            <p class="text-muted mb-0 faq-ans">Topwork.com is a freelance job website, which means that as long as you have passion, you can completely get a job and do it besides your main job. We focus on projects that can be completed within a certain period of time and are not long term jobs, so anyone can participate in the activities on our website. Besides, vLance.vn also created an online website for users to work and resolve all disputes right on the system.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -119,108 +126,22 @@
                                 <div class="card border rounded shadow mb-3">
                                     <a data-toggle="collapse" href="#collapsefour" class="faq position-relative collapsed" aria-expanded="false" aria-controls="collapsefour">
                                         <div class="card-header bg-light p-3" id="headingfour">
-                                            <h4 class="title mb-0 faq-question"> Tincidunt Cras a semper ? </h4>
+                                            <h4 class="title mb-0 faq-question"> What are the benefits when I join Topwork.com?</h4>
                                         </div>
                                     </a>
                                     <div id="collapsefour" class="collapse" aria-labelledby="headingfour" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
+                                            <p class="text-muted mb-0 faq-ans">JobSign will help you make money through freelance work. The platform will be expanded to countries in Southeast Asia and Asia will help you to showcase your freelancer skills to many countries. In addition, JobSign commits that the system is always transparent, clear and safe in transactions for sellers as well as shoppers.</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card rounded shadow mb-0">
-                                    <a data-toggle="collapse" href="#collapsefive" class="faq position-relative collapsed" aria-expanded="false" aria-controls="collapsefive">
-                                        <div class="card-header bg-light p-3" id="headingfive">
-                                            <h4 class="title mb-0 faq-question"> Feugiat viverra varius ? </h4>
-                                        </div>
-                                    </a>
-                                    <div id="collapsefive" class="collapse" aria-labelledby="headingfive" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
 
-                    <div class="faq-content mt-5">
-                        <h4 class="text-dark">Career Faq :</h4>
-
-                        <div class="faq-content mt-3">
-                            <div class="accordion" id="accordionExample2">
-                                <div class="card border rounded shadow mb-3">
-                                    <a data-toggle="collapse" href="#collapsesix" class="faq collapsed position-relative" aria-expanded="true" aria-controls="collapsesix">
-                                        <div class="card-header bg-light p-3" id="headingsix">
-                                            <h6 class="title mb-0 faq-question">Quisque condimentum tempor ?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapsesix" class="collapse" aria-labelledby="headingsix" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- collapse one end -->
-
-                                <div class="card border rounded shadow mb-3">
-                                    <a data-toggle="collapse" href="#collapsesevan" class="faq collapsed position-relative" aria-expanded="false" aria-controls="collapsesevan">
-                                        <div class="card-header bg-light p-3" id="headingsevan">
-                                            <h6 class="title mb-0 faq-question">Etiam us imperdiet orci ?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapsesevan" class="collapse" aria-labelledby="headingsevan" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- collapse two end -->
-
-                                <div class="card border rounded shadow mb-3">
-                                    <a data-toggle="collapse" href="#collapseeight" class="faq collapsed position-relative" aria-expanded="false" aria-controls="collapseeight">
-                                        <div class="card-header bg-light p-3" id="headingeight">
-                                            <h6 class="title mb-0 faq-question">Sed posuere vulputate ?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapseeight" class="collapse" aria-labelledby="headingeight" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- collapse three end -->
-
-                                <div class="card border rounded shadow mb-3">
-                                    <a data-toggle="collapse" href="#collapsenine" class="faq collapsed position-relative" aria-expanded="false" aria-controls="collapsenine">
-                                        <div class="card-header bg-light p-3" id="headingnine">
-                                            <h6 class="title mb-0 faq-question">Fusce at felis luctus ?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapsenine" class="collapse" aria-labelledby="headingnine" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- collapse four end -->
-
-                                <div class="card border rounded shadow mb-0">
-                                    <a data-toggle="collapse" href="#collapseten" class="faq collapsed position-relative" aria-expanded="false" aria-controls="collapseten">
-                                        <div class="card-header bg-light p-3" id="headingten">
-                                            <h6 class="title mb-0 faq-question">Vestibulum a aliquam leo ?</h6>
-                                        </div>
-                                    </a>
-                                    <div id="collapseten" class="collapse" aria-labelledby="headingten" data-parent="#accordionExample2">
-                                        <div class="card-body">
-                                            <p class="text-muted mb-0 faq-ans">Temporibus autem quibusdam aut officiis debitis aut rerum necessitatibus saepe eveniet voluptates repudiandae sint et molestiae non recusandae that Itaque earum rerum sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis was doloribus asperiores repellat sed ut perspiciatis unde omnis iste natus error at accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

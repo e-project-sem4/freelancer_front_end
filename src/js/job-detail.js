@@ -1,8 +1,25 @@
+var url_string = window.location.href
+var url123 = new URL(url_string);
+var c = url123.searchParams.get("id");
+
 $(document).ready(function () {
+<<<<<<< HEAD
     var url_string = window.location.href
     var url123 = new URL(url_string);
     var c = url123.searchParams.get("id");
     const url = baseUrl + `/api/v1/job/`+ c;
+=======
+    loadJobDetails();
+});
+
+function loadJobDetails() {
+
+    var current_user_id;
+    if (localStorage.getItem('user-info') != null)
+        current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
+
+    const url = baseUrl + `/api/v1/job/` + c;
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
     $.ajax({
         type: 'GET',
         url: url,
@@ -11,6 +28,7 @@ $(document).ready(function () {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
+<<<<<<< HEAD
             var timestamp = (jobDetails.createAt)
             var date = new Date(timestamp);
             var dateView = (date.getDate()+
@@ -31,8 +49,37 @@ $(document).ready(function () {
                                 <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-2"></i>${jobDetails.paymentAmount}</p>
                             </div>
                         </div>
-                    </div>
+=======
+            var proposals = jobDetails.proposals;
+            const job_user_id = jobDetails.userBusiness.user.id;
+            var itemHtml = "";
+            let itemTempHtml = "";
+            var d = new Date(jobDetails.createAt).toLocaleDateString();
 
+            itemTempHtml =
+                `<div class="row" id="job-description">
+                <div class="col-lg-8 col-md-7">
+                    <div class="job-detail text-center job-single border rounded p-4">
+                    <div class="job-single-img mb-2">
+                        <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
+                    </div>
+                    <h4 class=""><a href="#" class="text-dark">${jobDetails.name}</a></h4>
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mr-3">
+                            <p class="text-muted mb-2"><i class="mdi mdi-bank mr-1"></i>${jobDetails.userBusiness.location}</p>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <p class="text-muted mb-2"><i class="mdi mdi-clock-outline mr-2"></i>${d}</p>
+                        </li>
+
+                        <li class="list-inline-item">
+                            <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i><strong>${jobDetails.paymentAmount}</strong></p>
+                        </li>
+                    </ul>
+                    <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>
+                </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Complexity :</h5>
@@ -52,13 +99,11 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5 class="text-dark mt-4">Skill Responsibilities :</h5>
+                            <h5 class="text-dark mt-4">Require Skills :</h5>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="job-detail border rounded mt-2 p-4">
@@ -71,8 +116,6 @@ $(document).ready(function () {
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Job Description :</h5>
@@ -86,25 +129,57 @@ $(document).ready(function () {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>`
+            var hiennutapply = 1
+            if (job_user_id != current_user_id) {
+                for (let y = 0; y < proposals.length; y++) {
+                    if (proposals[y].userAccountId == current_user_id) {
+                        if (proposals[y].proposal_status_catalog_id == 1) {
+                            hiennutapply = 0;
+                        }
+                    }
+
+                }
+                if (hiennutapply == 1) {
+                    itemTempHtml += `<div class="row d-flex justify-content-center">
+                <div class="job-detail border rounded mt-4">
+                    <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal" id="apply-job">Apply For Job</button>
                 </div>
+            </div>`
+                }
 
-                <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
-                    <div class="job-detail border rounded p-4">
-                        <h5 class="text-muted text-center pb-2"><i class="mdi mdi-account"></i>Hidden User</h5>
-
+<<<<<<< HEAD
                         <div class="job-detail-location pt-4 border-top">
                             <div class="">
                                 <div class="float-left mr-2">
                                     <i class="mdi mdi-bank text-muted"></i>
                                 </div>
                                 <p class="text-muted mb-2">: Apply Job for Unlock</p>
+=======
+                itemTempHtml += ` 
+                <div id="apply-form">
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 >Apply To Proposal</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
                             </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-email text-muted"></i>
+                            <div class="modal-body">
+                                <div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="amount" name="amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Message:</label>
+                                        <textarea class="form-control" id="description-apply" name="description"></textarea>
+                                    </div>
                                 </div>
+<<<<<<< HEAD
                                 <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
@@ -113,30 +188,203 @@ $(document).ready(function () {
                                     <i class="mdi mdi-web text-muted"></i>
                                 </div>
                                 <p class="text-muted mb-2">: Apply Job for Unlock</p>
+=======
                             </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-primary" id="apply-proposal" onclick="applyJob()">Apply</button>
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                `;
+            }
+            // else {
+            //     itemTempHtml += `
+            // <div class="row d-flex justify-content-center">
+            //     <div class="job-detail border rounded mt-4" >
+            //         <button class="btn btn-primary btn-block" id="complete-job">Complete Job</button>
+            //     </div>
+            // </div>`
+            //
+            // }
+            itemTempHtml += `<div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="text-dark mt-4">Proposals :</h5>
+                        </div>
+                    </div>`
+            for (let j = 0; j < proposals.length; j++) {
 
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-cellphone-iphone text-muted"></i>
+                var paymentAmountProposal = proposals[j].paymentAmount;
+                var proposal_catalog_id = proposals[j].proposal_status_catalog_id;
+                if (proposal_catalog_id == 1 || proposal_catalog_id == 2) {
+                    itemTempHtml += `
+<div class="row">
+    <div className="col-lg-12">
+            <div class="job-detail-desc">
+                <div class="col-lg-12 mt-4 pt-2">
+                    <div class="job-list-box border rounded">
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-2">
+                                    <div class="company-logo-img">
+                                        <img src="images/featured-job/img-1.png" alt=""
+                                             class="img-fluid mx-auto d-block">
+                                    </div>
                                 </div>
+<<<<<<< HEAD
                                 <p class="text-muted mb-2">: Apply Job for Unlock</p>
                             </div>
 
 
+=======
+                                <div class="col-lg-7 col-md-9">
+                                    <div class="job-list-desc">
+                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
+                                        <ul class="list-inline mb-0">
+                                            <div class="list-inline-item mr-3">
+                                                <p  class="text-break mb-0"><i
+                                                        class="mdi mdi-animation mr-2">                
+                                                    </i>Comment:
+                                                    ${proposals[j].description}</p>
+                                            </div>
+                                            <div class="list-inline-item mr-3">
+                                                <p class="text-break mb-0" id="payment-amount-proposal">
+                                                <i class="mdi mdi-currency-usd mr-2"></i>Payment
+                                                    : ${paymentAmountProposal}</p>
+                                            </div>
+                                            <div class="list-inline-item mr-3">
+                                                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2">
+                                                    </i>Date
+                                                    : ${new Date(proposals[j].createAt).toLocaleDateString()}</p>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>`
+                    if (proposals[j].userAccountId == current_user_id) {
+                        itemTempHtml += `
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <button class="btn btn-sm btn-primary" id="apply-freelancer" onclick="deleteProposal(${proposals[j].id});">Retrieve</button>
+                                        </div>
+                                    </div>
+                                </div>`
+                    }
+                    if (job_user_id == current_user_id) {
+                        if (proposal_catalog_id == 2) {
+                            itemTempHtml += `
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <label class="text-primary">Applied</label>
+                                        </div>
+                                    </div>
+                                </div>`
+                        } else {
+                            itemTempHtml += `
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="job-list-button-sm text-right">                     
+                                        <div class="mt-3">
+                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
+                                        </div>
+                                    </div>
+                                </div>`
+                        }
 
+                    }
+                    itemTempHtml += `
+                                </div> 
+                             </div>
+                          </div>   
+                      </div>    
+                  </div>
+              </div>
+</div>`
+                }
+            }
+            itemTempHtml += `
+                </div>
+                <div class="col-lg-4 col-md-5 mt-4 mt-sm-0">
+                    <div class="company-brand-logo text-center">
+                    <img src="images/featured-job/img-2.png" alt="" class="img-fluid mx-auto d-block mb-3">
+                    <h5 class="text-muted mb-0"><a href="#" class="text-muted"><i class="mdi mdi-bank mr-1"></i>${jobDetails.userBusiness.location}</a></h5>
+                </div>
 
-                            <h6 class="text-dark f-17 mt-3 mb-0">Share Job :</h6>
-                            <ul class="social-icon list-inline mt-3 mb-0">
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-facebook"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-twitter"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-google-plus"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-whatsapp"></i></a></li>
-                                <li class="list-inline-item"><a href="#" class="rounded"><i class="mdi mdi-linkedin"></i></a></li>
-                            </ul>
+                <div class="job-detail rounded border job-overview mt-4 mb-4">
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-security text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Experience</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
+                        </div>
+                    </div>
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-currency-usd text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Salary</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.paymentAmount}</h6>
                         </div>
                     </div>
 
-                    <div class="job-detail border rounded mt-4 p-4">
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-apps text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Category</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">Developer</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-human-male-female text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Gender</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">Male & Female</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-calendar-today text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Date Posted</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${d}</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item mb-4">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-email text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Email</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.userBusiness.user.email}</h6>
+                        </div>
+                    </div>
+
+                    <div class="single-post-item">
+                        <div class="float-left mr-3">
+                            <i class="mdi mdi-phone-classic text-muted mdi-24px"></i>
+                        </div>
+                        <div class="overview-details">
+                            <h6 class="text-muted mb-0">Contact No</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">+${jobDetails.userBusiness.user.phone}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="job-detail border rounded mt-4 p-4">
                         <h5 class="text-muted text-center pb-2"><i class="mdi mdi-clock-outline mr-2"></i>Opening Hours</h5>
 
                         <div class="job-detail-time border-top pt-4">
@@ -192,17 +440,40 @@ $(document).ready(function () {
                             </ul>
                         </div>
                     </div>
-
-                    <div class="job-detail border rounded mt-4">
-                        <a href="#" class="btn btn-primary btn-block">Apply For Job</a>
-                    </div>
+                <h5 class="text-dark">Job Location</h5>
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d465.5129686623197!2d105.78123742468962!3d21.028534344292176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4cd0c66f05%3A0xea31563511af2e54!2zOCBUw7RuIFRo4bqldCBUaHV54bq_dCwgTeG7uSDEkMOsbmgsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1634395902856!5m2!1svi!2s" class="rounded" style="border: 0" allowfullscreen=""></iframe>
                 </div>
-            </div>`;
-            $('#job-description').html(itemTempHtml);
+                <ul class="social-icon list-inline mb-0 mt-4">
+                    <li class="list-inline-item">Share :</li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-whatsapp"></i></a></li>
+                    <li class="list-inline-item"><a href="#" class=" rounded"><i class="mdi mdi-linkedin"></i></a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="job-single-social-icon text-center mt-4">
+                            <a href="" class="text-white"><i class="mdi mdi-facebook facebook"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="job-single-social-icon text-center mt-4">
+                            <a href="" class="text-white"><i class="mdi mdi-google-plus google"></i></a>
+                        </div>
+                    </div>
+                </div>   
+               </div>
+            </div>`
+            itemHtml += itemTempHtml;
+            $('#job-description').html(itemHtml);
             let arrSkill = jobDetails.otherSkills
             let skillTemp = '';
-            let temp = '';
-            for (i = 0; i < arrSkill.length;i++){
+            let temp =
+                '';
+            for (i = 0; i < arrSkill.length; i++) {
 
                 temp = `  <div class="">
   
@@ -211,13 +482,86 @@ $(document).ready(function () {
                                                    </div>
                                             
                           </div>`
-                skillTemp +=temp
+                skillTemp += temp
             }
             $('.job-details-desc-item').html(skillTemp)
 
         }
     })
 
+<<<<<<< HEAD
 });
+=======
+    $('#apply-job').on('click', function () {
+        if (localStorage.getItem('user-info') == null) {
+            location.href = "/login"
+        }
+    })
+    // $("#apply-form").validate({
+    //     rules: {
+    //         amount: {
+    //             required: true,
+    //         },
+    //         description: {
+    //             required: true,
+    //             minlength: 10
+    //         }
+    //     },
+    //     messages: {
+    //         amount: {
+    //             required: "Please enter a amount",
+    //         },
+    //         description: {
+    //             required: "Please provide a description",
+    //             minlength: "Your description must be at least 10 characters long"
+    //         }
+    //     }
+    // });
+}
+
+function applyJob() {
+    if ($('#description-apply').val().length < 10) {
+        swal("Error!", "Your description must be at least 10 characters long!", "warning");
+        return;
+    }
+    var url_string = window.location.href
+    var url123 = new URL(url_string);
+    var c = url123.searchParams.get("id");
+    var job_id = c;
+    var amount = $('#amount').val();
+    var description = $("#description-apply").val();
+    const proposalForm = {
+        job_id: job_id,
+        paymentAmount: amount,
+        description: description,
+    };
+    $.ajax({
+        type: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization",
+                String(localStorage.getItem("access-token"))
+            );
+        },
+        url: baseUrl + "/api/v1/proposals",
+        contentType: "application/json",
+        data: JSON.stringify(proposalForm),
+        dataType: "JSON",
+        async: false,
+        success: function () {
+            window.location.reload()
+        },
+        error() {
+            console.log("sai");
+        },
+    });
+}
+
+
+
+
+
+
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
 
 

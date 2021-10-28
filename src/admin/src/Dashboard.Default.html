@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
+
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/datatables.responsive.bootstrap4.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/select2.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/nouislider.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
+</head>
+
+<body id="app-container" class="menu-default show-spinner">
+
+    <!-- header start-->
+
+    <nav class="navbar fixed-top">
+        <div class="d-flex align-items-center navbar-left">
+            <a href="#" class="menu-button d-none d-md-block">
+                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                    <rect x="0.48" y="0.5" width="7" height="1" />
+                    <rect x="0.48" y="7.5" width="7" height="1" />
+                    <rect x="0.48" y="15.5" width="7" height="1" />
+                </svg>
+                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                    <rect x="1.56" y="0.5" width="16" height="1" />
+                    <rect x="1.56" y="7.5" width="16" height="1" />
+                    <rect x="1.56" y="15.5" width="16" height="1" />
+                </svg>
+            </a>
+
+            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                    <rect x="0.5" y="0.5" width="25" height="1" />
+                    <rect x="0.5" y="7.5" width="25" height="1" />
+                    <rect x="0.5" y="15.5" width="25" height="1" />
+                </svg>
+            </a>
+
+            <div class="search" data-search-path="Layouts.Search.html?q=">
+                <input placeholder="Search...">
+                <span class="search-icon">
+                    <i class="simple-icon-magnifier"></i>
+                </span>
+            </div>
+        </div>
+
+
+        <a class="navbar-logo" href="dashboard">
+            <span class="logo d-none d-xs-block"></span>
+            <span class="logo-mobile d-block d-xs-none"></span>
+        </a>
+
+        <div class="navbar-right">
+            <div class="header-icons d-inline-block align-middle">
+
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                    <i class="simple-icon-size-fullscreen"></i>
+                    <i class="simple-icon-size-actual"></i>
+                </button>
+
+            </div>
+
+            <div class="user d-inline-block">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">ADMIN</span>
+                    <span>
+                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" />
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                    <a class="dropdown-item" href="#" id="signout">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- header end -->
+
+
+    <!-- menu start -->
+    <div class="sidebar">
+        <div class="main-menu">
+            <div class="scroll">
+                <ul class="list-unstyled">
+                    <li class="active">
+                        <a href="dashboard">
+                            <i class="iconsmind-Shop-4"></i>
+                            <span>Dashboards</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#layouts">
+                            <i class="iconsmind-Digital-Drawing"></i> Manage Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#applications">
+                            <i class="iconsmind-Air-Balloon"></i> Manage User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#ui">
+                            <i class="iconsmind-Pantone"></i>Transaction
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#landingPage">
+                            <i class="iconsmind-Space-Needle"></i> Manage Message
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sub-menu">
+            <div class="scroll">
+                <ul class="list-unstyled" data-link="dashboard">
+                </ul>
+
+                <ul class="list-unstyled" data-link="layouts">
+                    <li>
+                        <a href="list-job">
+                            <i class="simple-icon-credit-card"></i> List Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-skill">
+                            <i class="simple-icon-list"></i> List Skill
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-complexity">
+                            <i class="simple-icon-grid"></i> List Complexity
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-expected-duration">
+                            <i class="simple-icon-book-open"></i> List Expected Duration
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-unstyled" data-link="applications">
+                    <li>
+                        <a href="list-user">
+                            <i class="simple-icon-picture"></i> List User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-freelancer">
+                            <i class="simple-icon-check"></i> List Freelancer
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-business">
+                            <i class="simple-icon-calculator"></i> List Business
+                        </a>
+                    </li>
+
+                </ul>
+                <ul class="list-unstyled" data-link="ui">
+                    <li>
+                        <a href="transaction-management">
+                            <i class="simple-icon-badge"></i> Transaction management
+                        </a>
+                    </li>
+                    <li>
+                        <a href="revenue-management">
+                            <i class="simple-icon-control-play"></i>Revenue management
+                        </a>
+                    </li>
+
+                </ul>
+                <ul class="list-unstyled" data-link="landingPage">
+                    <li>
+                        <a target="_blank" href="LandingPage.Home.html">
+                            <i class="simple-icon-docs"></i> Multipage Home
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- menu end -->
+
+    <main>
+        <div class="container-fluid">
+            <div class="row  ">
+                <div class="col-12">
+
+                    <h1>Dashboard Analytics</h1>
+                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                        <ol class="breadcrumb pt-0">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Library</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                    <div class="separator mb-5"></div>
+                </div>
+            </div>
+            <div id="multipleLineChart"></div>
+            <div id="container"></div>
+
+            
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="container"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="multipleLineChart"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-4">
+
+                    <div class="icon-cards-row">
+                        <div class="owl-container">
+                            <div id="count-account" class="owl-carousel dashboard-numbers">
+
+                                <!-- call api -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashboard-filled-line-chart">
+                        <div class="card-body ">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <h5 class="d-inline">Website Visits</h5>
+                                    <span class="text-muted text-small d-block">Unique Visitors</span>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart card-body pt-0">
+                            <canvas id="visitChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <div class="card dashboard-filled-line-chart">
+                        <div class="card-body ">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <h5 class="d-inline">Conversion Rates</h5>
+                                    <span class="text-muted text-small d-block">Per Session</span>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right mt-2 float-none-xs">
+                                <button class="btn btn-outline-secondary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart card-body pt-0">
+                            <canvas id="conversionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12 col-lg-6 col-xl-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Categories</h5>
+                            <div class="dashboard-donut-chart">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-6 col-xl-4 mb-4">
+                    <div class="card dashboard-progress">
+                        <div class="position-absolute card-top-buttons">
+                            <button class="btn btn-header-light icon-button">
+                                <i class="simple-icon-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Profile Status</h5>
+                            <div class="mb-4">
+                                <p class="mb-2">Basic Information
+                                    <span class="float-right text-muted">12/18</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Portfolio
+                                    <span class="float-right text-muted">1/8</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Billing Details
+                                    <span class="float-right text-muted">2/6</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Interests
+                                    <span class="float-right text-muted">0/8</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p class="mb-2">Legal Documents
+                                    <span class="float-right text-muted">1/2</span>
+                                </p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-4">
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart-analytics">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart-analytics">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart2"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart-analytics">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart3"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-4">
+                            <div class="card dashboard-small-chart-analytics">
+                                <div class="card-body">
+                                    <p class="lead color-theme-1 mb-1 value"></p>
+                                    <p class="mb-0 label text-small"></p>
+                                    <div class="chart">
+                                        <canvas id="smallChart4"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row sortable">
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Profile Status</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40"
+                                data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Work Progress</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64"
+                                data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Tasks Completed</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75"
+                                data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 mb-4">
+                    <div class="card">
+                        <div class="card-header p-0 position-relative">
+                            <div class="position-absolute handle card-icon">
+                                <i class="simple-icon-shuffle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Payments Done</h6>
+                            <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32"
+                                data-show-percent="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Order - Stock</h5>
+                            <div class="chart-container">
+                                <canvas id="radarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Categories</h5>
+                            <div class="chart-container">
+                                <canvas id="polarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Sales</h5>
+                            <div class="dashboard-line-chart">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/Chart.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/chartjs-plugin-datalabels.js"></script>
+    <script src="/admin/src/js/vendor/moment.min.js"></script>
+    <script src="/admin/src/js/vendor/datatables.min.js"></script>
+    <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
+    <script src="/admin/src/js/vendor/owl.carousel.min.js"></script>
+    <script src="/admin/src/js/vendor/progressbar.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/select2.full.js"></script>
+    <script src="/admin/src/js/vendor/nouislider.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap-datepicker.js"></script>
+    <script src="/admin/src/js/vendor/Sortable.js"></script>
+    <script src="/admin/src/js/vendor/mousetrap.min.js"></script>
+    <script src="/admin/src/js/dore.script.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
+    <script src="/admin/src/js/dashboard.js"></script>
+    <script src="/admin/src/js/header.js"></script>
+    <script src="/admin/src/js/highcharts.js"></script>
+
+
+</body>
+
+</html>

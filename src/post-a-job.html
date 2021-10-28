@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - Responsive Job Board HTML Template</title>
+    <title>TOPWORK</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -13,6 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -27,15 +33,27 @@
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/post-a-job.css" />
-    <script src="js/jquery.min.js" > </script>
-    <script src="js/header.js" ></script>
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+    
+    
+    
+    
+    <script src="js/selectize.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/header.js" ></script>
+    <script src="js/app.js"></script>
+    <script src="js/default.js"></script>
+    <script src="js/post-a-job.js"></script>
+
 </head>
 
 <body>
@@ -78,12 +96,15 @@
 <!-- POST A JOB START -->
 <section class="section">
     <div class="container">
+        <div id="success" class="row justify-content-center">
+           
+        </div>
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="rounded shadow bg-white p-4">
                     <div class="custom-form">
                         <div id="message3"></div>
-                        <form method="post" action="php/contact.php" name="contact-form" id="contact-form3">
+                        <form name="contact-form" id="contact-form3">
                             <h4 class="text-dark mb-3">Post a New Job :</h4>
                             <div class="row">
                                 <div class="col-md-12">
@@ -145,7 +166,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-2">
-                                    <a href="#" class="btn btn-primary" id="post-job">Post a Job</a>
+
+                                    <button type="submit"  class="btn btn-primary" id="post-job">Post a Job</button>
+
                                 </div>
                             </div>
                         </form>
@@ -155,35 +178,6 @@
         </div>
     </div>
 </section>
-<!-- POST A JOB END -->
-
-<!-- subscribe start -->
-<!-- <section class="section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-5">
-                <div class="float-left position-relative notification-icon mr-2">
-                    <i class="mdi mdi-bell-outline text-primary"></i>
-                    <span class="badge badge-pill badge-danger">1</span>
-                </div>
-                <h5 class="mt-2 mb-0">Your Job Notification</h5>
-            </div>
-            <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
-                <form>
-                    <div class="form-group mb-0">
-                        <div class="input-group mb-0">
-                            <input name="email" id="email" type="email" class="form-control col-md-9" placeholder="Your email :" required="" aria-describedby="newssubscribebtn">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" id="newssubscribebtn" style="margin-left: 10px;height: 42px "  >Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section> -->
-<!-- subscribe end -->
 
 <!-- footer start -->
 <footer class="footer">
@@ -259,6 +253,8 @@
 
 <!-- javascript -->
 <!--    <script src="js/jquery.min.js"></script>-->
+
+<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery.easing.min.js"></script>
@@ -266,13 +262,6 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-
-selectize js
-<script src="js/selectize.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/default.js"></script>
-<script src="js/post-a-job.js"></script>
 
 </body>
 <style>

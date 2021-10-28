@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - Responsive Job Board HTML Template</title>
+    <title>TOPWORK SIGNUP</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -27,118 +27,195 @@
 </head>
 
 <body>
-<!-- Loader -->
-<div id="preloader">
-    <div id="status">
-        <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
         </div>
     </div>
-</div>
-<!-- Loader -->
+    <!-- Loader -->
 
-<div class="back-to-home rounded d-none d-sm-block">
-    <a href="index.html" class="text-white rounded d-inline-block text-center"><i class="mdi mdi-home"></i></a>
-</div>
+    <div class="back-to-home rounded d-none d-sm-block">
+        <a href="index.html" class="text-white rounded d-inline-block text-center"><i class="mdi mdi-home"></i></a>
+    </div>
 
-<!-- Hero Start -->
-<section class="vh-100" style="background: url('http://santuyensinh.net/wp-content/uploads/2018/04/bo-tui-bi-quyet-chon-nganh-nghe-phu-hop-voi-ban-than-ngay-hom-nay-3.jpg') center center;">
-    <div class="home-center">
-        <div class="home-desc-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="login_page bg-white shadow rounded p-4">
-                            <div class="text-center">
-                                <h4 class="mb-4">Signup</h4>
-                            </div>
-                            <form class="login-form">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group position-relative">
-                                            <label>Username <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Username" name="username" id="username" required="" minlength="4">
+    <!-- Hero Start -->
+    <section class="vh-100"
+        style="background: url('http://santuyensinh.net/wp-content/uploads/2018/04/bo-tui-bi-quyet-chon-nganh-nghe-phu-hop-voi-ban-than-ngay-hom-nay-3.jpg') center center;">
+        <div class="home-center">
+            <div class="home-desc-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="login_page bg-white shadow rounded p-4">
+                                <div class="text-center">
+                                    <h4 class="mb-4">Signup</h4>
+                                </div>
+                                <form id="register-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <label>Username <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    name="username" id="username">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group position-relative">
+                                                <label>Full name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Full Name"
+                                                    name="fullName" id="fullName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group position-relative">
+                                                <label>Your Email <span class="text-danger">*</span></label>
+                                                <input type="email" class="form-control" placeholder="Email"
+                                                    name="email" id="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group position-relative">
+                                                <label>Your Phone <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Phone" name="phone"
+                                                    id="phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group position-relative">
+                                                <label>Password <span class="text-danger">*</span></label>
+                                                <input type="password" class="form-control" placeholder="Password"
+                                                    name="password" id="password">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group position-relative">
+                                                <label>Confirm Password <span class="text-danger">*</span></label>
+                                                <input type="password" class="form-control"
+                                                    placeholder="Confirm Password" id="confirm_password"
+                                                    name="confirm_password">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="custom-control m-0 custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">I Accept <a
+                                                            href="#" data-toggle="modal" data-target="#conditionModal"
+                                                            class="text-primary">Terms And Condition</a></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary w-100" id="register"
+                                                type="submit">Register</button>
+                                        </div>
+                                        <div class="col-lg-12 mt-4 text-center">
+                                            <h6>Or Signup With</h6>
+                                            <ul class="list-unstyled social-icon mb-0 mt-3">
+                                                <li class="list-inline-item"><a href="javascript:void(0)"
+                                                        class="rounded"><i class="mdi mdi-facebook"
+                                                            title="Facebook"></i></a></li>
+                                                <li class="list-inline-item"><a href="javascript:void(0)"
+                                                        class="rounded"><i class="mdi mdi-google-plus"
+                                                            title="Google"></i></a></li>
+                                                <li class="list-inline-item"><a href="javascript:void(0)"
+                                                        class="rounded"><i class="mdi mdi-github-circle"
+                                                            title="Github"></i></a></li>
+                                            </ul>
+                                            <!--end icon-->
+                                        </div>
+                                        <div class="mx-auto">
+                                            <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account
+                                                    ?</small> <a href="login.html"
+                                                    class="text-dark font-weight-bold">Sign in</a></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group position-relative">
-                                            <label>Full name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Full Name" name="full_name" id="fullName"required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group position-relative">
-                                            <label>Your Email <span class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" placeholder="Email" name="email" id = "email" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group position-relative">
-                                            <label>Your Phone <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Phone" name="phone" id="phone" required="" minlength="10" maxlength="12">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group position-relative">
-                                            <label>Password <span class="text-danger">*</span></label>
-                                            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group position-relative">
-                                            <label>Confirm Password <span class="text-danger">*</span></label>
-                                            <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" name="confirm_password">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="custom-control m-0 custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                <label class="custom-control-label" for="customCheck1">I Accept <a href="#" class="text-primary">Terms And Condition</a></label>
+                                    <div class="modal fade" id="conditionModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalLongTitle">Terms And Condition</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="max-height: 600px; overflow: scroll;">
+                                                    <p>Users must accept and comply with the following terms when
+                                                        becoming a member of Top Work:</p>
+                                                    <p>1. Each user is a business and freelancer, has the right to post
+                                                        work or work for other users.</p>
+                                                    <p>2. Employers have the right to post jobs after updating their
+                                                        Business information in the Profile section.</p>
+                                                    <p>3. Members of Top Work must have a paypal account to make
+                                                        transactions related to money, funds, and prices.</p>
+                                                    <p>4. When posting jobs, businesses must have enough balance in
+                                                        their paypal account to pay the freelancer's
+                                                        salary after completing the job. The system will deduct the
+                                                        money in the paypal account of the business according to the
+                                                        amount
+                                                        recorded in the job. After completing the work, 20% of the money
+                                                        will be kept by the system, the remaining 80% will be
+                                                        transferred
+                                                        to the freelancer's account.</p>
+                                                    <p>5. After completing the work, businesses and freelancers must
+                                                        evaluate and comment for partners</p>
+                                                    <p>6. During the working process, the two parties will exchange
+                                                        information and upload the source through a personal chat
+                                                        channel
+                                                        in the system. If there is a dispute or complaint between the
+                                                        two parties, we will intervene and check the information
+                                                        exchange
+                                                        process between the business and the freelancer to make a
+                                                        decision.</p>
+                                                    <p>7. We will not be responsible for any disadvantages to users if
+                                                        the two parties do not use the system's chat channel to exchange
+                                                        information during the working process.</p>
+                                                    <p>8. The above terms are to ensure the interests and needs of Top
+                                                        Work members. Please read carefully before joining the system
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <button class="btn btn-primary w-100" id="register" type="submit">Register</button>
-                                    </div>
-                                    <div class="col-lg-12 mt-4 text-center">
-                                        <h6>Or Signup With</h6>
-                                        <ul class="list-unstyled social-icon mb-0 mt-3">
-                                            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-facebook" title="Facebook"></i></a></li>
-                                            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-google-plus" title="Google"></i></a></li>
-                                            <li class="list-inline-item"><a href="javascript:void(0)" class="rounded"><i class="mdi mdi-github-circle" title="Github"></i></a></li>
-                                        </ul><!--end icon-->
-                                    </div>
-                                    <div class="mx-auto">
-                                        <p class="mb-0 mt-3"><small class="text-dark mr-2">Already have an account ?</small> <a href="login.html" class="text-dark font-weight-bold">Sign in</a></p>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div> <!--end col-->
-                </div><!--end row-->
-            </div> <!--end container-->
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div>
+                <!--end container-->
+            </div>
         </div>
-    </div>
-</section><!--end section-->
-<!-- Hero End -->
+    </section>
+    <!--end section-->
+    <!-- Hero End -->
 
-<!-- javascript -->
-<!--<script src="js/jquery.min.js"></script>-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/plugins.js"></script>
+    <!-- javascript -->
+    <!--<script src="js/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/jquery.validate.js"></script>
 
 
-<!-- selectize js -->
-<script src="js/selectize.min.js"></script>
 
-<script src="js/jquery.nice-select.min.js"></script>
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
 
-<script src="js/app.js"></script>
-<script src="js/register.js"></script>
-<script src="js/default.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/register.js"></script>
+    <script src="js/default.js"></script>
 </body>
+
 </html>

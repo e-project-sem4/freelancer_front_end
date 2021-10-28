@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dore jQuery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
+
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-float-label.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-stars.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
+</head>
+
+
+<body class="show-spinner">
+    <div class="landing-page">
+        <div class="mobile-menu">
+            <a href="/admin/login" class="logo-mobile">
+                <span></span>
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                   
+                </li>
+                <li class="nav-item">
+                    
+                </li>
+                <li class="nav-item">
+                    
+                <li class="nav-item mb-2">
+                    
+                </li>
+                <li class="nav-item">
+                    <div class="separator"></div>
+                </li>
+                <li class="nav-item mt-2">
+                    
+                </li>
+                <li class="nav-item">
+                    
+                </li>
+            </ul>
+        </div>
+        <div class="main-container">
+            <nav class="landing-page-nav">
+                <div class="container d-flex align-items-center justify-content-between">
+                    <a class="navbar-logo pull-left" href="/admin/login">
+                        <span class="white"></span>
+                        <span class="dark"></span>
+                    </a>
+                    <ul class="navbar-nav d-none d-lg-flex flex-row">
+                       
+                        <li class="nav-item ">
+                           
+                        </li>
+                        <li class="nav-item">
+                            
+                        </li>
+                        <li class="nav-item">
+                            
+                        <li class="nav-item mr-3 active">
+                            
+                        </li>
+                        <li class="nav-item pl-2">
+                           
+                        </li>
+                    </ul>
+                    <a href="#" class="mobile-menu-button">
+                        <i class="simple-icon-menu"></i>
+                    </a>
+                </div>
+            </nav>
+            <div class="content-container">
+                <div class="section home subpage-long">
+                    <div class="container">
+                        <div class="row home-row mb-0">
+                            <div class="col-12 col-lg-6 col-xl-4 col-md-12">
+                                <div class="home-text">
+                                    <div class="display-1">
+                                        Login
+                                    </div>
+                                    <p class="white mb-5">
+                                        Please use your credentials to login.<br>
+                                
+                                    </p>
+
+                                    <div class="alert alert-danger rounded" role="alert" id="errorAccount">
+                                        Username or password wrong
+                                    </div>
+
+
+                                    <form class="dark-background">
+                                        <label class="form-group has-top-label">
+                                            <input class="form-control" id="username" />
+                                            <span>USERNAME</span>
+                                        </label>
+
+                                        <label class="form-group has-top-label">
+                                            <input class="form-control" id="password" type="password" />
+                                            <span>PASSWORD</span>
+                                        </label>
+
+
+                                        <button class="btn btn-outline-semi-light btn-xl mt-4" id="login">LOGIN</button>
+
+                                    </form>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/owl.carousel.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.barrating.min.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/headroom.min.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/jQuery.headroom.js"></script>
+    <script src="/admin/src/js/vendor/landing-page/jquery.scrollTo.min.js"></script>
+    <script src="/admin/src/js/dore.scripts.landingpage.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
+</body>
+<script>
+ $(document).ready(function() {
+     $('#errorAccount').hide();
+    $('#login').on("click", function(event) {
+        
+        const name = $("#username").val();
+        const pass = $("#password").val();
+        
+        const url = baseUrl + `/api/v1/users/admin/login?username=${name}&password=${pass}`;
+    
+        if($("#username").val()==""&&$("#password").val()=="" ){
+
+            $('#errorAccount').text("Username, Password require");
+            $('#errorAccount').show();
+        }
+        else if($("#username").val()==""){
+            $('#errorAccount').text("Username is require");
+            $('#errorAccount').show();
+        }else if($("#password").val()==""){
+            $('#errorAccount').text("Password is require");
+            $('#errorAccount').show();
+        }
+        else(
+
+            $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function(res) {
+                if (res.status == '-1') {
+                    $('#errorAccount').show();
+                    $("#error").html(template)
+                    $('.alert-login').show();
+                    return;
+                }
+                if (res.status != '-1') {
+                    
+                    localStorage.setItem('access-token-admin', res.message)
+                    localStorage.setItem('user-info-admin', JSON.stringify(res.result))
+                    location.href="/admin/dashboard"
+                }
+            },
+            
+        
+        })
+
+        )
+    
+        event.preventDefault()
+  });
+         
+    });
+
+ 
+</script>
+
+</html>

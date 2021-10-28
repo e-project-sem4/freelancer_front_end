@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Freelancer ADMIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/jquery.contextMenu.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
+</head>
+
+<body id="app-container" class="menu-default show-spinner">
+
+
+   <!-- header start-->
+
+   <nav class="navbar fixed-top">
+    <div class="d-flex align-items-center navbar-left">
+        <a href="#" class="menu-button d-none d-md-block">
+            <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                <rect x="0.48" y="0.5" width="7" height="1" />
+                <rect x="0.48" y="7.5" width="7" height="1" />
+                <rect x="0.48" y="15.5" width="7" height="1" />
+            </svg>
+            <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                <rect x="1.56" y="0.5" width="16" height="1" />
+                <rect x="1.56" y="7.5" width="16" height="1" />
+                <rect x="1.56" y="15.5" width="16" height="1" />
+            </svg>
+        </a>
+
+        <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                <rect x="0.5" y="0.5" width="25" height="1" />
+                <rect x="0.5" y="7.5" width="25" height="1" />
+                <rect x="0.5" y="15.5" width="25" height="1" />
+            </svg>
+        </a>
+
+        <div class="search" data-search-path="Layouts.Search.html?q=">
+            <input placeholder="Search...">
+            <span class="search-icon">
+                <i class="simple-icon-magnifier"></i>
+            </span>
+        </div>
+    </div>
+
+
+    <a class="navbar-logo" href="dashboard">
+        <span class="logo d-none d-xs-block"></span>
+        <span class="logo-mobile d-block d-xs-none"></span>
+    </a>
+
+    <div class="navbar-right">
+        <div class="header-icons d-inline-block align-middle">
+    
+            <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                <i class="simple-icon-size-fullscreen"></i>
+                <i class="simple-icon-size-actual"></i>
+            </button>
+
+        </div>
+
+        <div class="user d-inline-block">
+            <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="name">ADMIN</span>
+                <span>
+                    <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" />
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right mt-3">
+                <a class="dropdown-item" href="#" id="signout">Sign out</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- header end -->
+    <div class="sidebar">
+        <div class="main-menu">
+            <div class="scroll">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="dashboard">
+                            <i class="iconsmind-Shop-4"></i>
+                            <span>Dashboards</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#layouts">
+                            <i class="iconsmind-Digital-Drawing"></i> Manage Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#applications">
+                            <i class="iconsmind-Air-Balloon"></i> Manage User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#ui">
+                            <i class="iconsmind-Pantone"></i>Transaction
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#landingPage">
+                            <i class="iconsmind-Space-Needle"></i> Manage Message
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sub-menu">
+            <div class="scroll">
+                <ul class="list-unstyled" href="dashboard">
+                </ul>
+
+                <ul class="list-unstyled" data-link="layouts">
+                    <li>
+                        <a href="list-job">
+                            <i class="simple-icon-credit-card"></i> List Job
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-skill">
+                            <i class="simple-icon-list"></i> List Skill
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-complexity">
+                            <i class="simple-icon-grid"></i> List Complexity
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-expected-duration">
+                            <i class="simple-icon-book-open"></i> List Expected Duration
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-unstyled" data-link="applications">
+                    <li>
+                        <a href="list-user">
+                            <i class="simple-icon-picture"></i> List User
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-freelancer">
+                            <i class="simple-icon-check"></i> List Freelancer
+                        </a>
+                    </li>
+                    <li>
+                        <a href="list-business">
+                            <i class="simple-icon-calculator"></i> List Business
+                        </a>
+                    </li>
+
+                </ul>
+                <ul class="list-unstyled" data-link="ui">
+                    <li>
+                        <a href="transaction-management">
+                            <i class="simple-icon-badge"></i> Transaction management
+                        </a>
+                    </li>
+                    <li>
+                        <a href="revenue-management">
+                            <i class="simple-icon-control-play"></i>Revenue management
+                        </a>
+                    </li>
+                    
+                </ul>
+                <ul class="list-unstyled" data-link="landingPage">
+                    <li>
+                        <a target="_blank" href="LandingPage.Home.html">
+                            <i class="simple-icon-docs"></i> Multipage Home
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container-fluid disable-text-selection">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <h1>Layout Expected Duration</h1>
+                        <div class="float-sm-right text-zero">
+                            <button type="button" class="btn btn-primary btn-lg top-right-button mr-1">ADD NEW</button>
+
+                            <div class="btn-group ">
+                                <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
+                                    <label class="custom-control custom-checkbox mb-0 d-inline-block">
+                                        <input type="checkbox" class="custom-control-input" id="checkAll">
+                                        <span class="custom-control-label"></span>
+                                    </label>
+                                </div>
+                                <button type="button"
+                                    class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split pl-2 pr-2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                            <ol class="breadcrumb pt-0">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Expected Duration Manager</a>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn pt-0 pl-0 d-inline-block d-md-none" data-toggle="collapse" href="#displayOptions"
+                            role="button" aria-expanded="true" aria-controls="displayOptions">
+                            Display Options
+                            <i class="simple-icon-arrow-down align-middle"></i>
+                        </a>
+                        <div class="collapse d-md-block" id="displayOptions">
+                            <span class="mr-3 mb-2 d-inline-block float-md-left">
+                                <a href="#" class="mr-2 view-icon active">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+                                        <path class="view-icon-svg" d="M17.5,3H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
+                                        <path class="view-icon-svg" d="M17.5,10H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
+                                        <path class="view-icon-svg" d="M17.5,17H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z" />
+                                    </svg>
+                                </a>
+
+                            </span>
+                            <div class="d-block d-md-inline-block">
+                                <div class="btn-group float-md-left mr-1 mb-1">
+                                    <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Order By
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                    </div>
+                                </div>
+                                <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                                    <input type="search" id="search-input" placeholder="Search Duration name..." onchange="changeSearch()">
+                                </div>
+                            </div>
+                            <div class="float-md-right">
+                                <select id="dropdown-page" class="form-control select2-single" onchange="changePage()">
+                                    <option data-display="Size" value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                            <div class="float-md-right">
+                                <select id="dropdown-sort" onchange="changeSort()" class="form-control select2-single">
+                                    <option data-display="Sort"  value="0">All</option>
+                                    <option value="1"> Create Date ↑</option>
+                                    <option value="2"> Create Date ↓</option>
+                                    <option value="3"> Price ↑</option>
+                                    <option value="4"> Price ↓</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator mb-5"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-12 list" data-check-all="checkAll">
+
+                    <div id="durations-list">
+                        <!-- call api -->
+                    </div>
+                    <nav class="mt-4 mb-3">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item ">
+                                <a class="page-link first" href="#">
+                                    <i class="simple-icon-control-start"></i>
+                                </a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link prev" href="#">
+                                    <i class="simple-icon-arrow-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link next" href="#" aria-label="Next">
+                                    <i class="simple-icon-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item ">
+                                <a class="page-link last" href="#">
+                                    <i class="simple-icon-control-end"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
+    <script src="/admin/src/js/vendor/mousetrap.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.contextMenu.min.js"></script>
+    <script src="/admin/src/js/dore.script.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
+    <script src="/admin/src/js/expected-duration.js"></script>
+    <script src="/admin/src/js/header.js"></script>
+</body>
+
+</html>

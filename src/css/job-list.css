@@ -7,3 +7,7 @@
     padding: 8px 22px;
     border-radius: 5px;
 }
+
+.list-inline-item{
+    width: 100% !important;
+}
