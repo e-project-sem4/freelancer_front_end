@@ -30,7 +30,7 @@ $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
-    if (person != null)
+    if(person != null)
         reloadKeyChat(person);
     var chatKeyUsers = JSON.parse(localStorage.getItem('chatKeyUsers'));
     if (localStorage.getItem("access-token") === null) {
@@ -270,7 +270,6 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
-
 function reloadKeyChat(sender_id) {
     $.ajax({
         type: "POST",

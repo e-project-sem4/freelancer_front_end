@@ -8,8 +8,6 @@ $(document).ready(function () {
   loadLineCharts();
   loadMultipleLineChart();
 
-  
-
 });
 
 $('#datepicker').on('changeDate', function() {
@@ -70,9 +68,6 @@ function loadCountAccout() {
   });
 }
 function loadLineCharts(){
-
-  
-
   const url =
   baseUrl +
   `/api/v1/admin/dashboard/day?start=${start}&end=${end}`;
