@@ -9,6 +9,8 @@ router.get("/login", (req, res) => {
         res.send(data);
     });
 });
+<<<<<<< HEAD
+=======
 router.get("/test", (req, res) => {
     fs.readFile("./src/test.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -33,6 +35,7 @@ router.get("/Jobmanager", (req, res) => {
         res.send(data);
     });
 });
+>>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
 router.get("/post-a-job", (req, res) => {
     fs.readFile("./src/post-a-job.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -65,7 +68,7 @@ router.get("/job-list", (req, res) => {
         res.send(data);
     });
 });
-router.get("/job-details", (req, res) => {
+router.get('/job-details', (req, res) => {
     fs.readFile("./src/job-details.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);
