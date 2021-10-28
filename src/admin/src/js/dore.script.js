@@ -1080,7 +1080,7 @@ $.dore = function(element, options) {
             tooltips: chartTooltip
           },
           data: {
-            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            labels: ["23", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
             datasets: [
               {
                 label: "",

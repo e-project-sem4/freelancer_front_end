@@ -7,9 +7,9 @@ var url = baseUrl + `/api/v1/job/` + jobId;
 var proposal_id;
 var jobId = JSON.parse(localStorage.job_id)
 const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
-var person;
-var person2;
-var room_key;
+// var person;
+// var person2;
+// var room_key;
 var chat_room_id;
 var fileAttachment;
 $(document).ready(function () {
@@ -30,8 +30,9 @@ $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
-    const data = localStorage.getItem('user-info');
-    const obj = JSON.parse(data);
+    if(person != null)
+        reloadKeyChat(person);
+    var chatKeyUsers = JSON.parse(localStorage.getItem('chatKeyUsers'));
     if (localStorage.getItem("access-token") === null) {
         document.getElementById("logout").innerHTML = "Login";
         document.getElementById("logout").setAttribute("href", "/login");
@@ -39,7 +40,7 @@ $(document).ready(function () {
     var html = '';
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
-    obj.chatKeyUsers.forEach(item => {
+    chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>${item.jobName}</p>  </div></a>`;
         //check user type   
         proposal_id = item.proposalId
@@ -49,8 +50,7 @@ $(document).ready(function () {
             <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> 
                                `
             itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
-        }
-        else {
+        } else {
             itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
             itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
         }
@@ -101,7 +101,10 @@ $(document).ready(function () {
 
     })
     var element = document.getElementById(chat_room_id);
-    element.classList.add("active");
+    console.log(document.getElementById(chat_room_id))
+    if (element != null)
+        element.classList.add("active");
+
 
 });
 //get job_detail to check user type
@@ -151,23 +154,29 @@ function ButtonDrop() {
 
     })
 }
+
 var person = localStorage.getItem('sender_id');
 var person2 = localStorage.getItem('receiver_id');
 var room_key = localStorage.getItem('room_key');
 var fileAttachment;
+
 function onLoadPage() {
     onLoadMessage();
 }
-
-function onLoadMessage() {
+var sizeOfData = 10;
+function onLoadMessage(sizeOfPage) {
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
     $('#chat-content').html('');
     // document.getElementById("chat-content").html = '';
     var size = 10;
+    if (sizeOfPage != null)
+        size = sizeOfPage;
+    sizeOfData = 0;
     firebase.database().ref(room_key).limitToLast(size).on("child_added", function (snapshot) {
         var html = '';
+        sizeOfData++;
         var senderJob = snapshot.val().sender;
         var messageJob = snapshot.val().message;
         if (senderJob == person)
@@ -204,6 +213,7 @@ function sendmessage(mess) {
         return false;
     }
 }
+
 $("#input-message").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
         sendmessage();
@@ -260,6 +270,59 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
+function reloadKeyChat(sender_id) {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" + sender_id,
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization",
+                String(localStorage.getItem("access-token"))
+            );
+        },
+        dataType: "JSON",
+        async: false,
+        success: function (res) {
+            localStorage.setItem("chatKeyUsers", JSON.stringify(res.result));
+        },
+        error() {
+            console.log("sai");
+        },
+    })
+}
 window.onbeforeunload = function () {
     localStorage.setItem('room_key', null);
 };
+var sizeOfOnePageChat = 10;
+$('#chat-content').scroll(function () {
+    if ($('#chat-content').scrollTop() == 0) {
+        if (sizeOfData >= sizeOfOnePageChat) {
+            sizeOfOnePageChat += 10;
+            onLoadMessage(sizeOfOnePageChat);
+        }
+    }
+});
+function loadMoreMessage() {
+    if (firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    // $('#chat-content').html('');
+    // document.getElementById("chat-content").html = '';
+    var size = 10;
+
+    firebase.database().ref(room_key).endAt(11).limitToLast(10).on("child_added", function (snapshot) {
+        var html = '';
+        var senderJob = snapshot.val().sender;
+        var messageJob = snapshot.val().message;
+        console.log(messageJob)
+        if (senderJob == person)
+            html += '<div class="media media-chat media-chat-reverse"><div class="media-body"><p>' + messageJob + '</p></div></div>';
+        else if (senderJob == person2)
+            html += '<div class="media media-chat"><div class="media-body"><p>' + messageJob + '</p></div></div>';
+        $('#chat-content').prepend(html);
+        // ('#' + sender).prepend(tempHtml);
+        // var objDiv = document.getElementById("chat-content");
+        // objDiv.scrollTop = objDiv.scrollHeight;
+    });
+}

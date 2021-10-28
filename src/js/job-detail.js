@@ -190,7 +190,7 @@ function loadJobDetails() {
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
                                                         class="mdi mdi-animation mr-2">                
-                                                    </i>Message:
+                                                    </i>Comment:
                                                     ${proposals[j].description}</p>
                                             </div>
                                             <div class="list-inline-item mr-3">
@@ -231,7 +231,7 @@ function loadJobDetails() {
                                 <div class="col-lg-3 col-md-3">
                                     <div class="job-list-button-sm text-right">                     
                                         <div class="mt-3">
-                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="applyProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
+                                            <button class="btn btn-sm btn-primary" id="apply-proposal" onclick="saveProposal(${paymentAmountProposal},${proposals[j].id});">Recruit</button>
                                         </div>
                                     </div>
                                 </div>`

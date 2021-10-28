@@ -2,6 +2,7 @@ var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
+var suitableJob = "";
 var PaymentStatus = 1;
 var search = "";
 var sort = 0;
@@ -55,7 +56,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                                                       <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">  
                                                                              <div class="list-inline-item mr-3">
-                                                                             <p id="limit" class="text-break"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
+                                                                             <p  class="text-break limit"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
                                                                              <span style="max-width: 100px;
                                                                              word-break: break-all;">${jobList[i].description}</span>
                                                                        </div>                                                                                
@@ -63,7 +64,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
                                                                                      </div>
                                                                                      <div class="list-inline-item mr-3">
-                                                                                                 <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount}</p>
+                                                                                                 <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount} $</p>
                                                                                      </div>
                                                                                      <div class="list-inline-item mr-3">
                                                                                      <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
@@ -162,42 +163,37 @@ function loadAllComplexity() {
   });
 }
 
-// function loadSuitableJob() {
-//   const url = baseUrl + `/api/v1/job/suitable`;
-//   const token = localStorage.getItem('access-token')
-//   $.ajax({
-//     type: "GET",
-//     url: url,
-//     contentType: "application/json; charset=utf-8",
-//     beforeSend: function (xhr) {
-//       xhr.setRequestHeader(
-//         "Authorization", token
-//       );
-//     },
-//     dataType: "JSON",
-//     async: false,
-//     success: function (res) {
+function loadSuitableJob() {
+  const url = baseUrl + `/api/v1/job/suitable`;
+  const token = localStorage.getItem('access-token')
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization", token
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
       
-//       const ComplexityList = res.result;
+      const suitableList = res.result;
       
-//       let itemHtml = "";
-//       let itemTempHtml = "";
-//       for (let i = 0; i < ComplexityList.length; i++) {
-//         itemTempHtml = `<div class="custom-control custom-radio">
-//                                             <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
-//                                             <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
-//                                         </div>`;
-//         itemHtml += itemTempHtml;
-//       }
-
-//       $("#LevelsList").html(itemHtml);
-//       $("#LevelsList").append(`<div class="custom-control custom-radio">
-//       <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
-//       <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
-//       </div>`);
-//     },
-//   });
-// }  
+      let itemHtml = "";
+      let itemTempHtml = "";
+      for (let i = 0; i < suitableList.length; i++) {
+        itemTempHtml = `<div id = "select-skill" class="custom-control custom-checkbox">
+                                            <input type="checkbox" value="${suitableList[i].otherSkills.skill_id}"  id="customCheckbox${i}" onclick="changeSuitableJob()"  name="customCheckbox" class="custom-control-input checkbox-d">
+                                            <label id="CheckboxSkills" class="custom-control-label ml-1 text-muted f-15" for="customCheckbox${i}">${suitableList[i].otherSkills.skill.skillName}</label>
+                                        </div>`;
+        itemHtml += itemTempHtml;
+      }
+      $("#suitableList").html(itemHtml);
+    },
+  });
+}
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();
@@ -220,6 +216,10 @@ function changeComplexity(data) {
     complexity = "";
   }
   loadAllJob(search, page, pageSize, sort, complexity,skill,PaymentStatus);
+}
+function changeSuitableJob() {
+  const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
+  loadAllJob(search, page, pageSize, sort, complexity,arrSkill,PaymentStatus)
 }
 function changeSort() {
   page = 1;

@@ -3,14 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Freelancer ADMIN</title>
+    <title>ADMIN</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
     <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
 
     <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="/admin/src/css/vendor/fullcalendar.min.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/datatables.responsive.bootstrap4.min.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/select2.min.css" />
@@ -23,6 +22,8 @@
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
+
+    <!-- header start-->
 
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
@@ -63,7 +64,7 @@
 
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
-        
+
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
@@ -80,12 +81,15 @@
                     </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    <a class="dropdown-item" href="#">Sign out</a>
+                    <a class="dropdown-item" href="#" id="signout">Sign out</a>
                 </div>
             </div>
         </div>
     </nav>
+    <!-- header end -->
+
+
+    <!-- menu start -->
     <div class="sidebar">
         <div class="main-menu">
             <div class="scroll">
@@ -163,20 +167,20 @@
                             <i class="simple-icon-calculator"></i> List Business
                         </a>
                     </li>
-                
+
                 </ul>
                 <ul class="list-unstyled" data-link="ui">
                     <li>
-                        <a href="money-received">
-                            <i class="simple-icon-badge"></i> Money received
+                        <a href="transaction-management">
+                            <i class="simple-icon-badge"></i> Transaction management
                         </a>
                     </li>
                     <li>
-                        <a href="money-deposits">
-                            <i class="simple-icon-control-play"></i>Money deposits
+                        <a href="revenue-management">
+                            <i class="simple-icon-control-play"></i>Revenue management
                         </a>
                     </li>
-                    
+
                 </ul>
                 <ul class="list-unstyled" data-link="landingPage">
                     <li>
@@ -184,12 +188,12 @@
                             <i class="simple-icon-docs"></i> Multipage Home
                         </a>
                     </li>
-                   
+
                 </ul>
             </div>
         </div>
     </div>
-    
+    <!-- menu end -->
 
     <main>
         <div class="container-fluid">
@@ -211,6 +215,35 @@
                     <div class="separator mb-5"></div>
                 </div>
             </div>
+            <div id="multipleLineChart"></div>
+            <div id="container"></div>
+
+            
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="container"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <div id="multipleLineChart"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-6 col-sm-12 mb-4">
@@ -218,9 +251,9 @@
                     <div class="icon-cards-row">
                         <div class="owl-container">
                             <div id="count-account" class="owl-carousel dashboard-numbers">
-                                
-                <!-- call api -->
-                
+
+                                <!-- call api -->
+
                             </div>
                         </div>
                     </div>
@@ -416,7 +449,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Profile Status</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="40"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -431,7 +465,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Work Progress</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="64"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -446,7 +481,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Tasks Completed</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="75"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -461,7 +497,8 @@
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Payments Done</h6>
                             <div role="progressbar" class="progress-bar-circle position-relative" data-color="#922c88"
-                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32" data-show-percent="true">
+                                data-trailColor="#d7d7d7" aria-valuemax="100" aria-valuenow="32"
+                                data-show-percent="true">
                             </div>
                         </div>
                     </div>
@@ -506,6 +543,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </main>
 
@@ -515,7 +554,6 @@
     <script src="/admin/src/js/vendor/Chart.bundle.min.js"></script>
     <script src="/admin/src/js/vendor/chartjs-plugin-datalabels.js"></script>
     <script src="/admin/src/js/vendor/moment.min.js"></script>
-    <script src="/admin/src/js/vendor/fullcalendar.min.js"></script>
     <script src="/admin/src/js/vendor/datatables.min.js"></script>
     <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
     <script src="/admin/src/js/vendor/owl.carousel.min.js"></script>
@@ -530,6 +568,9 @@
     <script src="/admin/src/js/scripts.js"></script>
     <script src="/admin/src/js/default.js"></script>
     <script src="/admin/src/js/dashboard.js"></script>
+    <script src="/admin/src/js/header.js"></script>
+    <script src="/admin/src/js/highcharts.js"></script>
+
 
 </body>
 

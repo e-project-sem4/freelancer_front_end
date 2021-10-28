@@ -2451,7 +2451,7 @@ a.job-list[data-toggle=collapse].collapsed:before {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-#limit{
+.limit{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

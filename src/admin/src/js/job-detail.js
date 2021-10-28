@@ -3,6 +3,9 @@ var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
 
 $(document).ready(function () {
+    if(localStorage.getItem("access-token-admin")==null){
+        location.href="/admin/login"
+      }
     loadJobDetails();
 
 });
@@ -123,7 +126,7 @@ function loadJobDetails() {
                                         <input type="text" class="form-control" id="amount" name="amount">
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Message:</label>
+                                        <label class="col-form-label">Description:</label>
                                         <textarea class="form-control" id="description" name="description"></textarea>
                                     </div>
                                 </form>
