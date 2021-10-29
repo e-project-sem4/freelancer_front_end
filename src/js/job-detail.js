@@ -3,12 +3,10 @@ var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
 
 $(document).ready(function () {
-<<<<<<< HEAD
     var url_string = window.location.href
     var url123 = new URL(url_string);
     var c = url123.searchParams.get("id");
     const url = baseUrl + `/api/v1/job/`+ c;
-=======
     loadJobDetails();
 });
 
@@ -19,7 +17,6 @@ function loadJobDetails() {
         current_user_id = JSON.parse(localStorage.getItem('user-info')).id;
 
     const url = baseUrl + `/api/v1/job/` + c;
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
     $.ajax({
         type: 'GET',
         url: url,
@@ -28,41 +25,19 @@ function loadJobDetails() {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
-<<<<<<< HEAD
-            var timestamp = (jobDetails.createAt)
-            var date = new Date(timestamp);
-            var dateView = (date.getDate()+
-                "/"+(date.getMonth()+1)+
-                "/"+date.getFullYear()+
-                " "+date.getHours()+
-                ":"+date.getMinutes());
-            let itemTempHtml =
-                `<div class="row" id="job-description">
-                <div class="col-lg-8 col-md-7">
-                    <div class="job-detail border rounded p-4">
-                        <div class="job-detail-content">
-                            <img src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block">
-                            <div class="job-detail-com-desc overflow-hidden d-block">
-                                <h4 class="mb-2"><a class="job-name text-dark">${jobDetails.name}</a></h4>
-                                <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2"></i></p>
-                                <p class="text-muted mb-0"><i class="mdi mdi-clock-outline mr-2"></i>${dateView}</p>
-                                <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-2"></i>${jobDetails.paymentAmount}</p>
-                            </div>
-                        </div>
-=======
+
             var proposals = jobDetails.proposals;
             const job_user_id = jobDetails.userBusiness.user.id;
             var itemHtml = "";
             let itemTempHtml = "";
             var d = new Date(jobDetails.createAt).toLocaleDateString();
 
-            itemTempHtml =
+            itemTempHtml +=
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
                     <div class="job-single-img mb-2">
-                        <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
+                        <img src="images/logo-top-work2-ico.png" alt="" class="img-fluid mx-auto d-block">
                     </div>
                     <h4 class=""><a href="#" class="text-dark">${jobDetails.name}</a></h4>
                     <ul class="list-inline mb-0">
@@ -148,14 +123,6 @@ function loadJobDetails() {
             </div>`
                 }
 
-<<<<<<< HEAD
-                        <div class="job-detail-location pt-4 border-top">
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-bank text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
-=======
                 itemTempHtml += ` 
                 <div id="apply-form">
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,7 +133,6 @@ function loadJobDetails() {
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
                             </div>
                             <div class="modal-body">
                                 <div>
@@ -179,20 +145,9 @@ function loadJobDetails() {
                                         <textarea class="form-control" id="description-apply" name="description"></textarea>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
-                            </div>
-
-                            <div class="">
-                                <div class="float-left mr-2">
-                                    <i class="mdi mdi-web text-muted"></i>
-                                </div>
-                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
-=======
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-primary" id="apply-proposal" onclick="applyJob()">Apply</button>
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
+                                <button class="btn btn-primary" id="apply-proposal">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -200,15 +155,6 @@ function loadJobDetails() {
                 </div>
                 `;
             }
-            // else {
-            //     itemTempHtml += `
-            // <div class="row d-flex justify-content-center">
-            //     <div class="job-detail border rounded mt-4" >
-            //         <button class="btn btn-primary btn-block" id="complete-job">Complete Job</button>
-            //     </div>
-            // </div>`
-            //
-            // }
             itemTempHtml += `<div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Proposals :</h5>
@@ -233,12 +179,6 @@ function loadJobDetails() {
                                              class="img-fluid mx-auto d-block">
                                     </div>
                                 </div>
-<<<<<<< HEAD
-                                <p class="text-muted mb-2">: Apply Job for Unlock</p>
-                            </div>
-
-
-=======
                                 <div class="col-lg-7 col-md-9">
                                     <div class="job-list-desc">
                                     <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
@@ -322,8 +262,6 @@ function loadJobDetails() {
                             <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
                         </div>
                     </div>
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
-
                     <div class="single-post-item mb-4">
                         <div class="float-left mr-3">
                             <i class="mdi mdi-currency-usd text-muted mdi-24px"></i>
@@ -489,72 +427,50 @@ function loadJobDetails() {
         }
     })
 
-<<<<<<< HEAD
-});
-=======
     $('#apply-job').on('click', function () {
         if (localStorage.getItem('user-info') == null) {
             location.href = "/login"
         }
     })
-    // $("#apply-form").validate({
-    //     rules: {
-    //         amount: {
-    //             required: true,
-    //         },
-    //         description: {
-    //             required: true,
-    //             minlength: 10
-    //         }
-    //     },
-    //     messages: {
-    //         amount: {
-    //             required: "Please enter a amount",
-    //         },
-    //         description: {
-    //             required: "Please provide a description",
-    //             minlength: "Your description must be at least 10 characters long"
-    //         }
-    //     }
-    // });
-}
 
-function applyJob() {
-    if ($('#description-apply').val().length < 10) {
-        swal("Error!", "Your description must be at least 10 characters long!", "warning");
-        return;
-    }
-    var url_string = window.location.href
-    var url123 = new URL(url_string);
-    var c = url123.searchParams.get("id");
-    var job_id = c;
-    var amount = $('#amount').val();
-    var description = $("#description-apply").val();
-    const proposalForm = {
-        job_id: job_id,
-        paymentAmount: amount,
-        description: description,
-    };
-    $.ajax({
-        type: 'POST',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(
-                "Authorization",
-                String(localStorage.getItem("access-token"))
-            );
-        },
-        url: baseUrl + "/api/v1/proposals",
-        contentType: "application/json",
-        data: JSON.stringify(proposalForm),
-        dataType: "JSON",
-        async: false,
-        success: function () {
-            window.location.reload()
-        },
-        error() {
-            console.log("sai");
-        },
-    });
+    $('#apply-proposal').on('click',function (){
+        if ($('#description-apply').val().length < 20) {
+            swal("Error!", "Your description must be at least 20 characters long!", "warning");
+            return;
+        }
+        var url_string = window.location.href
+        var url123 = new URL(url_string);
+        var c = url123.searchParams.get("id");
+        var job_id = c;
+        var amount = $('#amount').val();
+        var description = $("#description-apply").val();
+        const proposalForm = {
+            job_id: job_id,
+            paymentAmount: amount,
+            description: description,
+        };
+        $.ajax({
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+            },
+            url: baseUrl + "/api/v1/proposals",
+            contentType: "application/json",
+            data: JSON.stringify(proposalForm),
+            dataType: "JSON",
+            async: false,
+            success: function () {
+                window.location.reload()
+            },
+            error() {
+                console.log("sai");
+            },
+        });
+    })
+
 }
 
 
@@ -562,6 +478,5 @@ function applyJob() {
 
 
 
->>>>>>> ed628eba37dcfac6079f0931c893c61fc21f924f
 
 
