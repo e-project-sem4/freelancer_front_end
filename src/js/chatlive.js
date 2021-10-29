@@ -270,10 +270,11 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
 }
-function reloadKeyChat(sender_id) {
+
+function reloadKeyChat(sender_id){
     $.ajax({
         type: "POST",
-        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" + sender_id,
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" +sender_id,
         contentType: "application/json; charset=utf-8",
         beforeSend: function (xhr) {
             xhr.setRequestHeader(
