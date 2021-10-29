@@ -180,7 +180,6 @@ function loadSuitableJob() {
     success: function (res) {
 
       const suitableList = res.result;
-      console.log(suitableList)
 
       let itemHtml = "";
       let itemTempHtml = "";
