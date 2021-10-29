@@ -122,3 +122,4 @@ $('#datepicker').on('changeDate', function() {
   
   loadAll(search, page, pageSize, sort, startAt, endAt,status);
 });
+

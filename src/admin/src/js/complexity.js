@@ -30,9 +30,9 @@ function loadAll(search,status,page,pageSize,sort) {
       let itemTempHtml = "";
       for (let i = 0; i < complexity.length; i++) {
         if(complexity[i].status ==1){
-          str = '<span class="badge badge-pill badge-primary">Đang mở</span>'
+          str = '<span class="badge badge-pill badge-primary">Open</span>'
         }else{
-          str = '<span class="badge badge-pill badge-danger">Đang đóng</span>'
+          str = '<span class="badge badge-pill badge-danger">Closed</span>'
         }
         ;
         itemTempHtml += `
