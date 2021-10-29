@@ -8,53 +8,33 @@
 // var start = page * pageSize - pageSize + 1;
 // var end = pageSize * page;
 // $('.JobModal').on('hidden.bs.modal', function () {
-      
+
 //   $('.js-example-basic-multiple').val(null);
 // });
 
+var name_job;
+var complexityId_job;
+var expectedDurationId_job;
+var otherSkill;
+var payAmount;
+var description_job;
+var $skillsControl;
+var currentIdSelected = -1;
+
 $(document).ready(function () {
   loadAllJobJobmn();
-  CKEDITOR.editorConfig = function( config ) {
+  toastr.options.timeOut=5000;
+  toastr.options.fadeIn = 0;
+  toastr.options.positionClass = "toast-top-left";
+  $skillsControl = $(".skillsJobmn").select2();
+  CKEDITOR.editorConfig = function (config) {
     config.language = 'en';  // Chọn ngôn ngữ
     config.uiColor = '#F7B42C'; // màu giao diện
-    config.height = 300; 
-    config.width = 500; 
+    config.height = 300;
+    config.width = 500;
     config.toolbarCanCollapse = true;
   };
-  
-  CKEDITOR.replace( 'descriptionJobmn' );
-
-  $(document).ready(function () {
-    
-    $(".skillsJobmn").select2({
-      placeholder: "Choose event type",
-    });
-    
-    $(".update_job").on("click", function (event) {
-      const job_id = $(this).val();
-       jobName = $("#job_nameJobmn").val();
-      const expectedDuration = $(".durationJobmn").val();
-      const complexity = $(".complexityJobmn").val();
-      const paymentAmount = $("#payment_amountJobmn").val();
-      const otherSkill = $(".js-example-basic-multiple").val().map((item) => {
-        return {
-          skill_id: item,
-        };
-      });
-      const description =$("#descriptionJobmn").val();
-      const param = {
-        job_id : job_id,
-        name: jobName,
-        expected_duration_id: expectedDuration,
-        complexity_id: complexity,
-        paymentAmount: paymentAmount,
-        otherSkills: otherSkill,
-        description: description,
-      };
-        console.log(otherSkill)    
-    });
-  }), jQuery(function () { });
-
+  CKEDITOR.replace('descriptionJobmn');
   function getExpectedComplexityJobmn(e, idx) {
     $.ajax({
       type: "GET",
@@ -85,11 +65,6 @@ $(document).ready(function () {
       },
     });
   }
-
-  function complexitySelectJobmn() {
-    return (value = $(".complexityJobmn").val());
-  }
-
   function getExpectedDurationJobmn() {
     $.ajax({
       type: "GET",
@@ -120,11 +95,6 @@ $(document).ready(function () {
       },
     });
   }
-
-  function durationSelectJobmn() {
-    return (value = $(".expected_durationJobmn").val());
-  }
-
   function getJobSkillJobmn() {
     $.ajax({
       type: "GET",
@@ -159,8 +129,62 @@ $(document).ready(function () {
   getExpectedDurationJobmn();
   getJobSkillJobmn();
 });
+function updateJob(index) {
+  const job_id = this.currentIdSelected;
+  const name_job = $(".job_nameJobmn").val();
+  const expectedDurationId_job = $(".durationJobmn").val();
+  const complexityId_job = $(".complexityJobmn").val();
+  const payAmount = $(".payment_amountJobmn").val();
+  const otherSkill = $skillsControl.val().map(item =>{
+    return {
+      skill_id: item,
+    };
+  });
+  const description_job = CKEDITOR.instances.descriptionJobmn.getData();
+  const param = {    
+    name: name_job,
+    expected_duration_id: expectedDurationId_job,
+    complexity_id: complexityId_job,
+    paymentAmount: payAmount,
+    otherSkills: otherSkill,
+    description: description_job,
+  };
+  
+  const url = baseUrl + `/api/v1/job/${job_id}`;
+  const token = localStorage.getItem('access-token')
+  $.ajax({
+    type: "PATCH",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization", token
+      );
+    },
+    dataType: "JSON",
+    data: JSON.stringify(param),
+    async: false,
+    success: function (res) {
+      if(res && res.status == '0' ){
+        toastr.success('Edit Job Completed!');
+        setTimeout(loadAllJobJobmn(),1000)
+      }
+      if(res && res.status == '-1'){
+        toastr.warning(res.message);
+      }
+    },
+    error: function (xhr){
+      if(xhr.status !== 200){
+        toastr.error('Edit Job Failed!')
+      }
+    }
+  })
 
-function loadAllJobJobmn() {  
+}
+var listSkills = [];
+var listSkillChild = [];
+var jobList = [];
+ function  loadAllJobJobmn() {  
   const url = baseUrl + `/api/v1/users/viewprofile`;
   const token = localStorage.getItem('access-token')
   $.ajax({
@@ -175,15 +199,16 @@ function loadAllJobJobmn() {
     dataType: "JSON",
     async: false,
     success: function (res) {
+     
       const ProfileList = res.result;
-      const jobList = ProfileList.business?.listJob;
+      jobList = ProfileList.business?.listJob;
       //   totalPage = res.total;
       let itemHtml = "";
       let itemTempHtml = "";
 
-      for (let i = 0; i < jobList.length; i++) {
+      for (let i = 0; i < jobList.length; i++) {        
         var d = new Date(jobList[i].createAt).toLocaleDateString();
-          itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
+        itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
                                     <div class="job-box bg-white overflow-hidden border rounded position-relative overflow-hidden">
                                         <div class="p-3">                           
                                             <div class="row align-items-center">                                 
@@ -196,9 +221,10 @@ function loadAllJobJobmn() {
                                                             <div class="job-list-desc">
                                                                         <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                               <ul class="list-inline mb-0">
+                                                                              
                                                                                     <div class="list-inline-item mr-3">
-                                                                                                <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
-                                                                                          </div>
+                                                                                                <p class="text-muted mb-0 limit"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                                          </div> 
 
                                                                                     <div class="list-inline-item mr-3">
                                                                                                   <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
@@ -209,16 +235,17 @@ function loadAllJobJobmn() {
                                                                                       <div class="list-inline-item mr-3">
                                                                                       <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
                                                                           </div>`;
-          itemTempHtml += `<li class="list-inline-item mr-3">
+        itemTempHtml += `<li class="list-inline-item mr-3">
                                                           <p class="text-break mb-0">
                                                           <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-          let listSkill = "";
-          for (let j = 0; j < jobList[i].otherSkills.length; j++) {
-            listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
-          }
-          listSkill = listSkill.substring(0, listSkill.length - 2);
-          itemTempHtml += listSkill;
-          itemTempHtml += `</p>
+        let listSkill = "";
+        for (let j = 0; j < jobList[i].otherSkills.length; j++) {
+          listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
+        }
+
+        listSkill = listSkill.substring(0, listSkill.length - 2);
+        itemTempHtml += listSkill;
+        itemTempHtml += `</p>
                                                       </li>
                                                   </ul>
                                                   
@@ -231,101 +258,9 @@ function loadAllJobJobmn() {
                                                       width: 100px;" id="detail-job">Detail</a>
                                                   </div>
                                                   <div class="mt-3">
-                                                  <button type="button"class="btn btn-sm btn-primary-outline" style="width: 100px;"  data-toggle="modal" data-target="#exampleModal${[i]}">
+                                                  <button type="button"class="btn btn-sm btn-primary-outline" style="width: 100px;" onClick="handleOpenModal(${jobList[i].id}, ${i})" data-toggle="modal" data-target="#exampleModal_x">
                                                   Edit 
-                                                  </button>
-                                      
-                                                  <div class="modal fade JobModal" id="exampleModal${[i]}"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                  <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="margin-left: -270px; width: 200%">
-                                                      <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Job</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                          <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                      </div>
-                                                      <div class="modal-body">
-                                                          <div class="row justify-content-center">
-                                                              <div class="col-lg-10">
-                                                                  
-                                                                      <div class="custom-form">
-                                                                          <div id="message3"></div>
-                                                                        
-                                                                              
-                                                                              <div class="row">
-                                                                                  <div class="col-md-12">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Job name</label>
-                                                                                          <input id="job_nameJobmn" type="text" class="form-control resume" value="${jobList[i].name}" >
-                                                                                          
-                                                                                      </div>
-                                                                                  </div>
-                                                                              </div>
-                                                  
-                                                                              <div class="row">
-                                                                                  <div class="col-md-6">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Job Expected Duration</label>
-                                                                                          <div class="form-button">
-                                                                                              <select class="durationJobmn" onchange="durationSelectJobmn()" val= id="expected_durationJobmn"></select>
-                                                                                          </div>
-                                                                                      </div>
-                                                                                  </div>
-                                                                                  <div class="col-md-6">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Job Complexity</label>
-                                                                                          <div class="form-button">
-                                                                                              <select class="complexityJobmn" onchange="complexitySelectJobmn()" id="complexityJobmn">
-                                                  
-                                                                                              </select>
-                                                                                          </div>
-                                                                                      </div>
-                                                                                  </div>
-                                                                              </div>
-                                                                              <div class="row">
-                                                                                  <div class="col-md-6">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Payment Amount</label>
-                                                                                          <input id="payment_amountJobmn" type="text" value= "${jobList[i].paymentAmount}"  class="form-control resume" >
-                                                                                          
-                                                                                      </div>
-                                                                                  </div>
-                                                                                  <div class="col-md-6">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Job Skill</label>
-                                                                                          <div class="form-button">
-                                                                                              <select  class="js-example-basic-multiple skillsJobmn" name="states[]" multiple="multiple">
-                                                  
-                                                                                              </select>
-                                                                                          </div>
-                                                                                      </div>
-                                                                                  </div>
-                                                                              </div>
-                                                  
-                                                                              <div class="row">
-                                                                                  <div class="col-md-12">
-                                                                                      <div class="form-group app-label mt-2">
-                                                                                          <label class="text-muted">Job Description</label>
-                                                                                          <textarea id="descriptionJobmn" rows="6" class="form-control resume" placeholder="">${jobList[i].description}</textarea>
-                                                                                      </div>
-                                                                                  </div>
-                                                                              </div>
-                                                                              
-                                                                        
-                                                                          
-                                                                      </div>
-                                                                  
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                      <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary update_job" value="${jobList[i].id}" >Save changes</button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                  
-                                                                    
+                                                  </button>              
                                               </div>
                                               <div class="mt-3">
                                               <a href="/job-details?id=${jobList[i].id}" type="button" id="btndelete" class="btn btn-sm btn-danger-outline"style="
@@ -339,12 +274,26 @@ function loadAllJobJobmn() {
                                   </div>
                               </div>
                           </div>`;
-
+                          
         itemHtml += itemTempHtml;
+        listSkills=jobList[i].otherSkills
       }
       $("#job-list").html(itemHtml);
     },
   });
 }
 
+
+
+function handleOpenModal(id, i){
+  currentIdSelected =id;
+  $('.job_nameJobmn').val(jobList[i].name);
+  $('.expected_durationJobmn').val(jobList[i].expected_duration_id);
+  $('.complexityJobmn').val(jobList[i].complexity_id);
+  $('.payment_amountJobmn').val(jobList[i].paymentAmount);
+  let skills= jobList[i].otherSkills.map((e)=>{return e.skill_id + ''});
+  $skillsControl.val(skills).trigger("change");
+  $('.descriptionJobmn').val(jobList[i].description);
+  CKEDITOR.instances.descriptionJobmn.setData( jobList[i].description );
+}
 

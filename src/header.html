@@ -1,11 +1,6 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
-<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script defer src="js/user.js"></script>
+
 <header id="topnav" class="defaultscroll scroll-active">
   <!-- Tagline STart -->
 
@@ -36,8 +31,8 @@
             </div>
           </div>
           <div class="dropdown mr-1" id="dropdownMessage">
-            <button type="button" class="btn btn-link  btn-sm dropdown-toggle" 
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+            <button type="button" class="btn btn-link  btn-sm dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" data-offset="10,20">
               <i style="font-size: 14px;" class="mdi mdi-wechat"></i>
               <a id="userNameChat" class="text-light" href="javascript:void(0);">Message<span id="dot-alert"></span></a>
             </button>
@@ -50,6 +45,9 @@
           <div class="btn-group">
             <button type="button" class="btn btn-link btn-sm">
               <a id="logout" class="text-light" href="/home">Logout</a>
+            </button>
+            <button type="button" class="btn btn-link btn-sm">
+              <a id="signup_register" class="text-light" href="/signup">Signup</a>
             </button>
           </div>
         </div>
@@ -83,7 +81,7 @@
     </div>
     <div id="navigation">
       <div id="logo-menu" style="width: 10%; height: 100%; position: absolute;">
-        <img src="images/logo-small-f-ico.png">
+        <img src="images/logo-top-work2-ico.png" height="100%">
       </div>
       <!-- Navigation Menu-->
       <ul class="navigation-menu">
@@ -92,21 +90,9 @@
         <li class="has-submenu">
           <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
           <ul class="submenu">
-            <li class="has-submenu"><a href="javascript:void(0)"> Freelancers</a><span class="submenu-arrow"></span>
-              <ul class="submenu">
-                <li><a href="./candidate-list">Freelancers Listing</a></li>
-              </ul>
-            </li>
-            <!-- <li class="has-submenu"><a href="javascript:void(0)"> Proposal</a><span class="submenu-arrow"></span>
-              <ul class="submenu">
-                <li><a href="./"> Proposal List</a></li>
-              </ul>
-            </li> -->
+            <li><a href="./candidate-list">Freelancers Listing</a></li>
             <li><a href="./about">About us</a></li>
-            <!-- <li><a href="./service">Services</a></li> -->
-            <!-- <li><a href="./team">Team</a></li> -->
             <li><a href="./faq">Faqs</a></li>
-            <!-- <li><a href="./pricing">Pricing plans</a></li> -->
           </ul>
         </li>
         <li>
@@ -120,6 +106,18 @@
   <!--end container-->
   <!--end end-->
 </header>
+
+
+
+<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script defer src="js/user.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 <script src="js/post-a-job.js"></script>
 <script src="js/logout.js"></script>
-<style>

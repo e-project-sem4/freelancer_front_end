@@ -13,7 +13,11 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
 
@@ -32,6 +36,24 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"/>
+    
+    <style>
+        .btn-group {
+            width: 100%;
+        }
+        .dropdown-toggle {
+            width: 100%;
+        }
+        .caret {
+            display: none;
+        }
+        .checkbox{
+            width: 430px;
+        }
+        .btn-group open show{
+            height: 40px;
+        }
+    </style>
 </head>
 
 <body>
@@ -146,6 +168,82 @@
 
     <!-- Footer End -->
 
+    <!-- Modal -->
+    <div class="modal fade JobModal" id="exampleModal_x" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="margin-left: -270px; width: 200%;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Job</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="custom-form">
+                                <div id="message3"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job name</label>
+                                            <input type="text" name="id" class="job_nameJobmn form-control resume" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Expected Duration</label>
+                                            <div class="form-button">
+                                                <select class="durationJobmn" id="expected_durationJobmn"> </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Complexity</label>
+                                            <div class="form-button">
+                                                <select class="complexityJobmn" id="complexityJobmn"> </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Payment Amount</label>
+                                            <input type="text" class="payment_amountJobmn form-control resume" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Skill</label>
+                                            <div class="form-button">
+                                                <select id="el${i}" class="js-example-basic-multiple skillsJobmn" name="states[]" multiple="multiple"> </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">Job Description</label>
+                                            <textarea id="descriptionJobmn" rows="6" class="form-control descriptionJobmn resume" placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="updateJob()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Back to top -->
     <a href="#" class="back-to-top rounded text-center" id="back-to-top"> 
         <i class="mdi mdi-chevron-up d-block"> </i> 
@@ -160,10 +258,14 @@
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     
     
     
-    selectize js
+    
+    <!-- selectize js -->
     <script src="js/selectize.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/header.js" ></script>
@@ -171,21 +273,5 @@
     <script src="js/default.js"></script>
      <script src="js/job-manager.js"></script>
 </body>
-<style>
-    .btn-group {
-        width: 100%;
-    }
-    .dropdown-toggle {
-        width: 100%;
-    }
-    .caret {
-        display: none;
-    }
-    .checkbox{
-        width: 430px;
-    }
-    .btn-group open show{
-        height: 40px;
-    }
-</style>
+
 </html>

@@ -9,6 +9,7 @@ router.get("/login", (req, res) => {
         res.send(data);
     });
 });
+
 router.get("/test", (req, res) => {
     fs.readFile("./src/test.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -65,7 +66,7 @@ router.get("/job-list", (req, res) => {
         res.send(data);
     });
 });
-router.get("/job-details", (req, res) => {
+router.get('/job-details', (req, res) => {
     fs.readFile("./src/job-details.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);
@@ -142,6 +143,12 @@ router.get("/live-exch", (req, res) => {
 
 
 //router admin
+router.get("/admin/login", (req, res) => {
+    fs.readFile("./src/admin/src/LandingPage.Auth.Login.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 router.get("/admin/dashboard", (req, res) => {
     fs.readFile("./src/admin/src/Dashboard.Default.html", "utf-8", (err, data) => {
         res.type("text/html");
@@ -192,6 +199,12 @@ router.get("/admin/list-business", (req, res) => {
 });
 router.get("/admin/job-details", (req, res) => {
     fs.readFile("./src/admin/src/job-details.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/admin/transaction-management", (req, res) => {
+    fs.readFile("./src/admin/src/transaction-management.html", "utf-8", (err, data) => {
         res.type("text/html");
         res.send(data);
     });

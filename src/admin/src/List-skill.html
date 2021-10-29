@@ -12,73 +12,77 @@
     <link rel="stylesheet" href="/admin/src/css/vendor/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/jquery.contextMenu.min.css" />
     <link rel="stylesheet" href="/admin/src/css/main.css" />
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
 
 
-    <nav class="navbar fixed-top">
-        <div class="d-flex align-items-center navbar-left">
-            <a href="#" class="menu-button d-none d-md-block">
-                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
-                    <rect x="0.48" y="0.5" width="7" height="1" />
-                    <rect x="0.48" y="7.5" width="7" height="1" />
-                    <rect x="0.48" y="15.5" width="7" height="1" />
-                </svg>
-                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
-                    <rect x="1.56" y="0.5" width="16" height="1" />
-                    <rect x="1.56" y="7.5" width="16" height="1" />
-                    <rect x="1.56" y="15.5" width="16" height="1" />
-                </svg>
-            </a>
+   <!-- header start-->
 
-            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
-                    <rect x="0.5" y="0.5" width="25" height="1" />
-                    <rect x="0.5" y="7.5" width="25" height="1" />
-                    <rect x="0.5" y="15.5" width="25" height="1" />
-                </svg>
-            </a>
-
-            <div class="search" data-search-path="Layouts.Search.html?q=">
-                <input placeholder="Search...">
-                <span class="search-icon">
-                    <i class="simple-icon-magnifier"></i>
-                </span>
-            </div>
-        </div>
-
-
-        <a class="navbar-logo" href="dashboard">
-            <span class="logo d-none d-xs-block"></span>
-            <span class="logo-mobile d-block d-xs-none"></span>
+   <nav class="navbar fixed-top">
+    <div class="d-flex align-items-center navbar-left">
+        <a href="#" class="menu-button d-none d-md-block">
+            <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                <rect x="0.48" y="0.5" width="7" height="1" />
+                <rect x="0.48" y="7.5" width="7" height="1" />
+                <rect x="0.48" y="15.5" width="7" height="1" />
+            </svg>
+            <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                <rect x="1.56" y="0.5" width="16" height="1" />
+                <rect x="1.56" y="7.5" width="16" height="1" />
+                <rect x="1.56" y="15.5" width="16" height="1" />
+            </svg>
         </a>
 
-        <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
+        <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                <rect x="0.5" y="0.5" width="25" height="1" />
+                <rect x="0.5" y="7.5" width="25" height="1" />
+                <rect x="0.5" y="15.5" width="25" height="1" />
+            </svg>
+        </a>
 
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
-                    <i class="simple-icon-size-fullscreen"></i>
-                    <i class="simple-icon-size-actual"></i>
-                </button>
+        <div class="search" data-search-path="Layouts.Search.html?q=">
+            <input placeholder="Search...">
+            <span class="search-icon">
+                <i class="simple-icon-magnifier"></i>
+            </span>
+        </div>
+    </div>
 
-            </div>
 
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">ADMIN</span>
-                    <span>
-                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" />
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    <a class="dropdown-item" href="#">Sign out</a>
-                </div>
+    <a class="navbar-logo" href="dashboard">
+        <span class="logo d-none d-xs-block"></span>
+        <span class="logo-mobile d-block d-xs-none"></span>
+    </a>
+
+    <div class="navbar-right">
+        <div class="header-icons d-inline-block align-middle">
+    
+            <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                <i class="simple-icon-size-fullscreen"></i>
+                <i class="simple-icon-size-actual"></i>
+            </button>
+
+        </div>
+
+        <div class="user d-inline-block">
+            <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="name">ADMIN</span>
+                <span>
+                    <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" />
+                </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right mt-3">
+                <a class="dropdown-item" href="#" id="signout">Sign out</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+<!-- header end -->
     <div class="sidebar">
         <div class="main-menu">
             <div class="scroll">
@@ -160,16 +164,16 @@
                 </ul>
                 <ul class="list-unstyled" data-link="ui">
                     <li>
-                        <a href="money-received">
-                            <i class="simple-icon-badge"></i> Money received
+                        <a href="transaction-management">
+                            <i class="simple-icon-badge"></i> Transaction management
                         </a>
                     </li>
                     <li>
-                        <a href="money-deposits">
-                            <i class="simple-icon-control-play"></i>Money deposits
+                        <a href="revenue-management">
+                            <i class="simple-icon-control-play"></i>Revenue management
                         </a>
                     </li>
-
+                    
                 </ul>
                 <ul class="list-unstyled" data-link="landingPage">
                     <li>
@@ -189,24 +193,62 @@
                 <div class="col-12">
                     <div class="mb-2">
                         <h1>Layout Skill</h1>
-                        <div class="float-sm-right text-zero">
-                            <button type="button" class="btn btn-primary btn-lg top-right-button mr-1">ADD NEW</button>
+                        <div class="float-md-right text-zero">
 
-                            <div class="btn-group ">
+                            <button type="button" class="btn btn-outline-primary btn-lg top-right-button  mr-1"
+                                data-toggle="modal" data-backdrop="static" data-target="#exampleModal">ADD NEW</button>
+                            <div class="btn-group">
                                 <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
                                     <label class="custom-control custom-checkbox mb-0 d-inline-block">
                                         <input type="checkbox" class="custom-control-input" id="checkAll">
                                         <span class="custom-control-label"></span>
                                     </label>
                                 </div>
-                                <button type="button"
-                                    class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split pl-2 pr-2"
+                                <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split pl-2 pr-2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="modal fade modal-right" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <div class="alert alert-danger rounded" role="alert" id="error">
+                                                    Empty name
+                                                </div>
+                                                <input id="name-data" type="text" class="form-control" placeholder="">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">Completed</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                                        <button id="create-data" type="s" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -280,44 +322,14 @@
                     <div id="skill-list">
                         <!-- call api -->
                     </div>
-                    <nav class="mt-4 mb-3">
-                        <ul class="pagination justify-content-center mb-0">
-                            <li class="page-item ">
-                                <a class="page-link first" href="#">
-                                    <i class="simple-icon-control-start"></i>
-                                </a>
-                            </li>
-                            <li class="page-item ">
-                                <a class="page-link prev" href="#">
-                                    <i class="simple-icon-arrow-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item ">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item ">
-                                <a class="page-link next" href="#" aria-label="Next">
-                                    <i class="simple-icon-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li class="page-item ">
-                                <a class="page-link last" href="#">
-                                    <i class="simple-icon-control-end"></i>
-                                </a>
-                            </li>
-                        </ul>
+                    <nav id="pagination-api" class="mt-4 mb-3">
+                        <ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>
                     </nav>
                 </div>
             </div>
         </div>
     </main>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
     <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
@@ -327,6 +339,9 @@
     <script src="/admin/src/js/scripts.js"></script>
     <script src="/admin/src/js/default.js"></script>
     <script src="/admin/src/js/skill.js"></script>
+    <script src="/admin/src/js/header.js"></script>
+    <script src="/admin/src/js/jquery.twbsPagination.js"></script>
+
 </body>
 
 </html>

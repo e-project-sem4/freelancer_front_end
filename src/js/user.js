@@ -10,11 +10,13 @@ const firebaseConfig = {
 };
 var chat_room_id;
 $(document).ready(function () {
+    if(localStorage.getItem('user-info')){
+        $('#signup_register').css("display", "none");
+    }
 
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
-
     const data = localStorage.getItem('user-info')
     if (data != null) {
         const output = document.getElementById('username')

@@ -17,11 +17,7 @@
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
 
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
 
@@ -32,8 +28,7 @@
 
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <script src="js/jquery.min.js"> </script>
-    <script src="js/header.js"></script>
+
 </head>
 
 <body>
@@ -125,10 +120,8 @@
                                 <div class="sort-button float-left">
                                     <select id="dropdown-sort" class="nice-select rounded" onchange="changeSort()">
                                         <option data-display="Sort" value="0">All</option>
-                                        <option value="1"> Create Date ↑</option>
-                                        <option value="2"> Create Date ↓</option>
-                                        <option value="3"> Price ↑</option>
-                                        <option value="4"> Price ↓</option>
+                                        <option value="1"> Grade ↑</option>
+                                        <option value="2"> Grade ↓</option>
                                     </select>
                                 </div>
                                 <div class="sort-button float-left ml-3">
@@ -149,7 +142,8 @@
                                                     <i class="fa fa-briefcase"></i>
                                                     <input type="text" id="exampleInputName1"
                                                            class="form-control rounded registration-input-box"
-                                                           placeholder="Job keyboards...">
+
+                                                           placeholder="Keyboards...">
                                                 </div>
                                             </div>
 
@@ -166,7 +160,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="freelancer-list">
+                    <div id="freelancer-list" class="row">
 
                     </div>
                     <div class="row ml-3">
@@ -205,10 +199,14 @@
     <!-- javascript -->
     <!--    <script src="js/jquery.min.js"></script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
+
+
+
+
+    <script src="js/freelancer-list.js"></script>
 
     <!-- selectize js -->
     <script src="js/selectize.min.js"></script>
@@ -217,11 +215,24 @@
     <script src="js/app.js"></script>
     <script src="js/footer.js"></script>
     <script src="admin/src/js/jquery.twbsPagination.js"></script>
+<<<<<<< HEAD
+
+=======
+>>>>>>> de77a679d19e70c870ceff888046699a3df34d65
+
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
 
 
 
-    <script src="js/freelancer-list.js"></script>
+    <script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+    <script src="js/header.js"></script>
+
 
 
 </body>
