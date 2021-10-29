@@ -1,58 +1,77 @@
+var status;
 var pageSize = 5;
 var page = 1;
-var totalPage = 0;
-var complexity = "";
 var search = "";
 var sort = 0;
-var skill = "";
 var totals = 0;
+var startAt = "";
+var endAt= "";
 $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, startAt, endAt,status);
   pagination(totalRow);
 });
 
-function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/users/searchList?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${search}&startAt=${startAt}&endAt=${endAt}&status=${status}`;
   $.ajax({
     type: "GET",
     url: url,
     contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
     dataType: "JSON",
     async: false,
     success: function (res) {
-      const jobList = res.result;
+      const lists = res.result;
+      console.log(lists)
       totalRow = res.total;
       let itemTempHtml = "";
-      for (let i = 0; i < jobList.length; i++) {
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
-        if (jobList[i].isPaymentStatus == 1) {
-          payment = '<span class="badge badge-pill badge-primary">Paid</span>'
+      for (let i = 0; i < lists.length; i++) {
+        var d = new Date(lists[i].createAt).toLocaleDateString();
+         //check ảnh
+         if (lists[i].thumbnail == null) {
+          avatar = 'https://res.cloudinary.com/trinhlh96/image/upload/v1634989584/fei7k5xyqsunvostz3yb.jpg'
         } else {
-          payment = '<span class="badge badge-pill badge-danger">Unpaid</span>'
+          avatar = lists[i].thumbnail
         }
-        if (jobList[i].status == 1) {
-          statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
+
+        if (lists[i].roles == "ROLE_ADMIN") {
+          rolesUser = '<span class="badge badge-pill badge-danger">ROLE_ADMIN</span>'
         } else {
-          statusJob = '<span class="badge badge-pill badge-danger">Closed</span>'
+          rolesUser = '<span class="badge badge-pill badge-primary">ROLE_USER</span>'
+        }
+        if (lists[i].status == 1) {
+          statusUser = '<span class="badge badge-pill badge-secondary ">Open</span>'
+        } else {
+          statusUser = '<span class="badge badge-pill badge-danger">Closed</span>'
         }
         ;
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
+                        <a class="d-flex w-10" href="/admin/list-job/${lists[i].id}">
+                          <img src="${avatar}" alt="Fat Rascal" class="list-thumbnail responsive border-0" />
+                        </a>
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${jobList[i].id}">
-                                ${jobList[i].name}
+                                <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${lists[i].id}">
+                                ${lists[i].username}
                                 </a>
-                                <p class="mb-1  w-15 w-xs-100">${jobList[i].userBusiness.user.fullName} </p>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].fullName} </p>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].email} </p>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].phone} </p>
                                 <p class="mb-1  w-15 w-xs-100">${d}</p>
-                                <p class="mb-1  w-15 w-xs-100">${jobList[i].paymentAmount} USD</p>
-                                <div class="w-15 w-xs-100">`+ payment + `</div>
-                                <div class="w-15 w-xs-100">`+ statusJob + `</div>
+                                <p class="mb-1  w-15 w-xs-100">${lists[i].balance} USD</p>
+                                <div class="w-15 w-xs-100">`+ rolesUser + `</div>
+                                <div class="w-15 w-xs-100">`+ statusUser + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
@@ -64,7 +83,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity, skill) {
                     </div>
         `;
       }
-      $("#job-list").html(itemTempHtml);
+      $("#user-list").html(itemTempHtml);
     },
   });
 }
@@ -75,7 +94,7 @@ function pagination(totalRow) {
     totalPages: totals,
     visiblePages: pageSize,
     onPageClick: function (event, page) {
-      loadAllJob(search, page, pageSize, sort, complexity, skill)
+      loadAll(search, page, pageSize, sort, startAt, endAt,status);
     }
   });
 }
@@ -88,21 +107,11 @@ function changePage() {
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, startAt, endAt,status);
 }
 $("#search-input").change(function () {
   search = $("#search-input").val();
-  loadAllJob(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, startAt, endAt,status);
 });
-// function changeComplexity(data) {
-//   complexity = data;
-//   if (data === null) {
-//     complexity = "";
-//   }
-//   loadAllJob(search, page, pageSize, sort, complexity, skill);
-// }
-// function changeSkill() {
-//   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-//   loadAllJob(search, page, pageSize, sort, complexity, arrSkill)
-// }
+
 
