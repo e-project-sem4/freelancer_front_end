@@ -113,5 +113,13 @@ $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAll(search, page, pageSize, sort, startAt, endAt,status);
 });
-
+$('#datepicker').on('changeDate', function() {
+  
+  start = new Date(document.getElementById("startDay").value);
+  end = new Date(document.getElementById("endDay").value + " 23:59:59")
+  startAt = start.getTime();
+  endAt = end.getTime();
+  
+  loadAll(search, page, pageSize, sort, startAt, endAt,status);
+});
 
