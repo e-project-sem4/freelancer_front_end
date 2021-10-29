@@ -110,3 +110,12 @@ $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
 });
+$('#datepicker').on('changeDate', function() {
+  
+  start = new Date(document.getElementById("startDay").value);
+  end = new Date(document.getElementById("endDay").value + " 23:59:59")
+  startAt = start.getTime();
+  endAt = end.getTime();
+  loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
+
+});
