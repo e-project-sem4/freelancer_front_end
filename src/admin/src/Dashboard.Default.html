@@ -218,20 +218,32 @@
             </div>
             <div class="row">
                 <div class="col-12 mb-4">
-                    <div class="card">          
-                        <div class="card-body" style="margin: 0px;">
-                            <div class="float-right col-4 form-group mb-3">
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input id="startDay" type="text" class="input-sm form-control" name="start" placeholder="Start"/>
-                                    <span class="input-group-addon"></span>
-                                    <input id="endDay" type="text" class="input-sm form-control" name="end" placeholder="End" />
+                    <div class="card">
+                        <div class="card-body" style="padding-top: 10px;">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                            placeholder="Start" />
+                                        <span class="input-group-addon"></span>
+                                        <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                            placeholder="End" />
+                                    </div>
                                 </div>
-                                
                             </div>
-                            <div>
-                                <div id="container"></div>
-
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
                             </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div id="container"></div>
                         </div>
                     </div>
                 </div>
@@ -239,16 +251,36 @@
             <div class="row">
                 <div class="col-12 mb-4">
                     <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div id="multipleLineChart"></div>
-
+                        <div class="card-body" style="padding-top: 10px;">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                            placeholder="Start" />
+                                        <span class="input-group-addon"></span>
+                                        <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                            placeholder="End" />
+                                    </div>
+                                </div>
                             </div>
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div id="multipleLineChart"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="col-md-6 col-sm-12 mb-4">
 
