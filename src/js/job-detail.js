@@ -53,7 +53,6 @@ function loadJobDetails() {
                             <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i><strong>${jobDetails.paymentAmount}</strong></p>
                         </li>
                     </ul>
-                    <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>
                 </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -258,8 +257,8 @@ function loadJobDetails() {
                             <i class="mdi mdi-security text-muted mdi-24px"></i>
                         </div>
                         <div class="overview-details">
-                            <h6 class="text-muted mb-0">Experience</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
+                            <h6 class="text-muted mb-0">Expected Duration</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.expectedDuration.durationText}</h6>
                         </div>
                     </div>
                     <div class="single-post-item mb-4">
@@ -299,26 +298,6 @@ function loadJobDetails() {
                         <div class="overview-details">
                             <h6 class="text-muted mb-0">Date Posted</h6>
                             <h6 class="text-black-50 pt-2 mb-0">${d}</h6>
-                        </div>
-                    </div>
-
-                    <div class="single-post-item mb-4">
-                        <div class="float-left mr-3">
-                            <i class="mdi mdi-email text-muted mdi-24px"></i>
-                        </div>
-                        <div class="overview-details">
-                            <h6 class="text-muted mb-0">Email</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.userBusiness.user.email}</h6>
-                        </div>
-                    </div>
-
-                    <div class="single-post-item">
-                        <div class="float-left mr-3">
-                            <i class="mdi mdi-phone-classic text-muted mdi-24px"></i>
-                        </div>
-                        <div class="overview-details">
-                            <h6 class="text-muted mb-0">Contact No</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">+${jobDetails.userBusiness.user.phone}</h6>
                         </div>
                     </div>
                 </div>
