@@ -20,6 +20,7 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -123,29 +124,36 @@
 <script src="js/app.js"></script>
 <script src="js/default.js"></script>
 <script src="js/job-detail-payment.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
 <script>
+   
+
     var current_id = localStorage.getItem('id_job')  
+    const urlCreate = baseUrl +`/api/v1/job/payment/create-payment?id=${current_id}`
+    const urlExecute = baseUrl +`/api/v1/job/payment/execute-payment?paymentId=`
     paypal.Button.render({
         env: 'sandbox', 
               
         payment: function(data, actions) {
             
-            return actions.request.post(`https://freelancer-chat.herokuapp.com/api/v1/job/payment/create-payment?id=${current_id}`)
+            return actions.request.post(urlCreate)
                 .then(function(res) {                    
                     return res.id;
                 });
         },      
         onAuthorize: function(data, actions) {          
-            return actions.request.get('https://freelancer-chat.herokuapp.com/api/v1/job/payment/execute-payment?paymentId='
-                + data.paymentID + '&PayerID='+ data.payerID + '&id='+ current_id,{
-                method : "GET"
+            return actions.request.get(baseUrl +`/api/v1/job/payment/execute-payment?paymentId=` + data.paymentID + '&PayerID='+ data.payerID,{
+                method : "GET",
+                headers: {
+			      'content-type': 'application/json',
+                  "Authorization": String(localStorage.getItem("access-token"))
+			    }
             })
                 .then(function(res) {
-                    window.scroll(0)
-                    $("#success").html(` <div class="alert alert-success" role="alert">
-                                  Post job successfull!
-                                </div>`);          
+                    Swal.fire('Checkout success!', '', 'success')
+                    setTimeout(2000);
+                    location.href = "/job-list"          
                 });
         }
     }, '#paypal-button');
