@@ -175,16 +175,14 @@ $(document).ready(function () {
                             param = {
                                 freelancerComment: cmt_rate,
                                 freelancerGrade: star_rating,
-                                id: proposal_id,
-                                proposal_status_catalog_id: 3
+                                id: proposal_id
                             }
                         }
                         else if (status == 7) {
                             param = {
                                 clientComment: cmt_rate,
                                 clientGrade: star_rating,
-                                id: proposal_id,
-                                proposal_status_catalog_id: 3
+                                id: proposal_id
                             }
                         }
                         console.log(param)
