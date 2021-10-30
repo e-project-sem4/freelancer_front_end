@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/admin/src/css/vendor/nouislider.min.css" />
     <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
     <link rel="stylesheet" href="/admin/src/css/main.css" />
+
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -215,36 +216,71 @@
                     <div class="separator mb-5"></div>
                 </div>
             </div>
-            <div id="multipleLineChart"></div>
-            <div id="container"></div>
-
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body" style="padding-top: 10px;">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                            placeholder="Start" />
+                                        <span class="input-group-addon"></span>
+                                        <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                            placeholder="End" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div id="container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body" style="padding-top: 10px;">
+                            <div class="float-left float-none-xs">
+                                <div class="d-inline-block">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                            placeholder="Start" />
+                                        <span class="input-group-addon"></span>
+                                        <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                            placeholder="End" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group float-right float-none-xs mt-2">
+                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    This Week
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div id="multipleLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div id="container"></div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>
-                                <div id="multipleLineChart"></div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-md-6 col-sm-12 mb-4">
 
@@ -545,9 +581,9 @@
             </div>
 
 
+
         </div>
     </main>
-
 
     <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>

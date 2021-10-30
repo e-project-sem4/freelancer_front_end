@@ -1,3 +1,5 @@
+var start ='';
+var end ='';
 $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
@@ -5,6 +7,13 @@ $(document).ready(function () {
   loadCountAccout();
   loadLineCharts();
   loadMultipleLineChart();
+
+});
+
+$('#datepicker').on('changeDate', function() {
+  start = document.getElementById("startDay").value;
+  end = document.getElementById("endDay").value;
+  loadLineCharts();
 });
 
 function loadCountAccout() {
@@ -61,7 +70,7 @@ function loadCountAccout() {
 function loadLineCharts(){
   const url =
   baseUrl +
-  '/api/v1/admin/dashboard/day';
+  `/api/v1/admin/dashboard/day?start=${start}&end=${end}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -75,13 +84,13 @@ function loadLineCharts(){
     dataType: "JSON",
     async: false,
     success: function (res) {
-      var month = [];
+      var days = [];
       var price = [];
         for(var i = 0; i < res.length; i++){
-          month.push(res[i].day);
+          days.push("Day " + res[i].day);
           price.push(res[i].price);
       }
-    drawLineChart(month,price);
+    drawLineChart(days,price);
     },
   });
 }

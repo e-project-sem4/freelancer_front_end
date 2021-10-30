@@ -1,9 +1,17 @@
-var user_business_id;
+
 var jobId = JSON.parse(localStorage.job_id)
 var url = baseUrl + `/api/v1/job/` + jobId;
-
-// var userName_Business ;
-// var userName_freelancer ;
+//check_button
+var user_business_id;
+var user_freelancer_id;
+var userName_Business;
+var userName_freelancer;
+var cmt_freelancer;
+var cmt_business;
+var grade_freelancer;
+var grade_business;
+var status_job;
+var star_rating;
 var proposal_id;
 var jobId = JSON.parse(localStorage.job_id)
 const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
@@ -12,7 +20,13 @@ const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
 // var room_key;
 var chat_room_id;
 var fileAttachment;
+function reply(value) {
+    alert(value);
+    value_int = Number(value)
+    star_rating = value_int
+}
 $(document).ready(function () {
+    
     const firebaseConfig = {
         apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
         authDomain: "august-list-328603.firebaseapp.com",
@@ -40,66 +54,173 @@ $(document).ready(function () {
     var html = '';
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
-    chatKeyUsers.forEach(item => {
-        html += `<div class="chat-list-item" id="${item.id}" onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}')"><p>${item.jobName}</p>  </div></a>`;
-        //check user type   
-        proposal_id = item.proposalId
-        if (user_business_id == item.senderId) {
-            itemHtmlButton = `            
+    
+    proposal_id = localStorage.getItem("proposal_id");
+    loadJobDetails();
+    //if you're business
+    const sender_id = Number(person)
+    console.log('status: '+status_job);
+    console.log('user_business_id: '+user_freelancer_id);
+    console.log('person: '+person);
+    console.log('person: '+user_freelancer_id == sender_id);
+    
+    
+    if (user_business_id == sender_id && status_job == 2) {
+        
+        itemHtmlButton = `            
             <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
-            <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> 
-                               `
-            itemHtmlChatTitle = `<strong>Chat with your Freelancer :</strong>`
-        } else {
-            itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
-            itemHtmlChatTitle = `<strong>Chat with your Business : </strong>`
+            <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> `
+        itemHtmlChatTitle = `<strong>Chat with your Freelancer : ${userName_freelancer} </strong>`
+    }
+    //if you're freelancer
+    else if (user_freelancer_id == sender_id && status_job == 2) {
+        itemHtmlButton = ` <button class="btn btn-sm btn-danger buttonStatus offset-md-8" href="#" data-abc="true"  value = 5 >Quit Job </button>`
+        itemHtmlChatTitle = `<strong>Chat with your Business : ${userName_Business} </strong>`
+    }
+    //if the bussiness layoff,done job or the freelancer quit job 
+    else if (status_job == 3) {
+        itemHtmlChatTitle = `<h5 class ="text-danger">The job is closed </h5>`
+        if (cmt_freelancer == null && grade_freelancer == null && user_freelancer_id == sender_id) {
+            itemHtmlButton = `<button class="btn btn-sm btn-warning  buttonStatus offset-md-5" href="#" data-abc="true" value = 6 > Rate business ★</button>`
         }
-    });
+        else if ((cmt_business == null && grade_business == null) && user_business_id == sender_id) {
+            itemHtmlButton = `<button class="btn btn-sm btn-warning buttonStatus offset-md-5" href="#" data-abc="true" value = 7 > Rate Freelancer ★</button>`
+        }
+        else {
+            itemHtmlButton = `<button class="btn btn-sm btn-warning buttonStatus offset-md-5" href="#" data-abc="true" type="button" disabled >Job is completed !</button>`
+        }
+    }
+    else {
+        itemHtmlButton = `            
+            <button class="btn btn-sm btn-success buttonStatus offset-md-8" href="#" data-abc="true" type="button"  disabled>????!</button> `
+        itemHtmlChatTitle = `<strong>Error ! </strong>`
+    }
     $("#Status").html(itemHtmlButton)
-    $('#chatTitle').html(itemHtmlChatTitle);
-    $('#chat-list').html(html);
     $(".buttonStatus").on("click", function () {
         const status = $(this).val()
         const url = baseUrl + `/api/v1/proposals/` + proposal_id;
-        const param = {
-            // id : jobId,
-            id: proposal_id,
-            proposal_status_catalog_id: status
-        }
+        let wrap = document.createElement('div');
+        wrap.setAttribute('class', 'row rating pt-3');
+        wrap.innerHTML = `   
+                   
+                    <div class="col-md-5 mr-3 rate">
+                    <input onclick="reply(this.id)"  type="radio" id="5" name="rate" value=5 />
+                    <label for="5" title="text">5 stars</label>
+                    <input onclick="reply(this.id)"  type="radio" id="4" name="rate" value=4 />
+                    <label for="4" title="text">4 stars</label>
+                    <input onclick="reply(this.id)" type="radio" id="3" name="rate" value=3 />
+                    <label for="3" title="text">3 stars</label>
+                    <input onclick="reply(this.id)"  type="radio" id="2" name="rate" value=2 />
+                    <label for="2" title="text">2 stars</label>
+                    <input onclick="reply(this.id)"  type="radio" id="1" name="rate" value=1  />
+                    <label for="1" title="text">1 star</label>
+                   </div>  
+                   <div class="pt-3 col-md-12">
+                   <div class="row">
+                   <label class="ml-3" for="exampleFormControlTextarea1">Comment</label>
+                   <textarea  class="form-control mr-3 ml-3 comment" id="exampleFormControlTextarea1" rows="3" ></textarea>
+                   </div>
+                   </div>
+                   <div class="alert alert-danger rounded" role="alert"  id="error" hidden>Empty name</div>`
+
         swal({
-            title: "Are you sure?",
-            text: "Once click, you will not be able to recover this!",
-            icon: "warning",
+            title: "Rated Capacity",
+            text: "Star rating with ? ",
+            icon: "info",
+            className: '',
             buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        type: 'PATCH',
-                        url: url,
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(param),
-                        dataType: "JSON",
-                        async: false,
-                        success: function (res) {
-                            swal("Poof! Your job is over!", {
-                                icon: "success",
-                            });
-                            setTimeout(() => window.location.href = '/home', 2000);
-                        },
-                        error() {
-                            swal("Something was wrong !", {
-                                icon: "warning",
-                            });
-                        },
+            closeOnClickOutside: false,
+            content: {
+                element: wrap
+            },
 
-                    })
+        }).then((value) => {
+            const cmt_rate = $(".comment").val();
+            if (cmt_rate == null || cmt_rate == "" || star_rating == null) {
+                swal("Comment and star are not empty !", {
+                    icon: "warning",
+                });
+            } else {
+                swal({
+                    title: "Are you sure?",
+                    text: "Once click, you will not be able to recover this!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
 
-                }
-            });
+                        swal("Hooray! thanks for rating!", {
+                            icon: "success",
+                            buttons: false
+                        });
 
+                        var param;
+                        if (status == 3 || status == 4) {
+                            param = {
+                                clientComment: cmt_rate,
+                                clientGrade: star_rating,
+                                id: proposal_id,
+                                proposal_status_catalog_id: status
+                            }
+                        } else if (status == 5) {
+                            param = {
+                                freelancerComment: cmt_rate,
+                                freelancerGrade: star_rating,
+                                id: proposal_id,
+                                proposal_status_catalog_id: status
+                            }
+                        }
+                        else if (status == 6) {
+                            param = {
+                                freelancerComment: cmt_rate,
+                                freelancerGrade: star_rating,
+                                id: proposal_id,
+                                proposal_status_catalog_id: 3
+                            }
+                        }
+                        else if (status == 7) {
+                            param = {
+                                clientComment: cmt_rate,
+                                clientGrade: star_rating,
+                                id: proposal_id,
+                                proposal_status_catalog_id: 3
+                            }
+                        }
+                        console.log(param)
+                        $.ajax({
+                            type: 'PATCH',
+                            url: url,
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(param),
+                            dataType: "JSON",
+                            async: false,
+                            success: function (res) {
+                                setTimeout(() => window.location.href = '/live-exch', 2000);
+                            },
+                            error() {
+                                swal("Something was wrong !", {
+                                    icon: "warning",
+                                });
+                            },
+                        })
+
+                    }
+
+                });
+            }
+
+        });
     })
+    
+    chatKeyUsers.forEach(item => {
+        html += `<div class="chat-list-item" id="${item.id}"  onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}', '${item.proposalId}')"><p>${item.jobName}</p>  </div></a>`;
+        //check user type   
+
+
+    });
+    $('#chatTitle').html(itemHtmlChatTitle);
+    $('#chat-list').html(html);
     var element = document.getElementById(chat_room_id);
     console.log(document.getElementById(chat_room_id))
     if (element != null)
@@ -107,51 +228,39 @@ $(document).ready(function () {
 
 
 });
-//get job_detail to check user type
-$.ajax({
-    type: 'GET',
-    url: urlJobDetail,
-    contentType: "application/json; charset=utf-8",
-    dataType: "JSON",
-    async: false,
-    success: function (res) {
-        // var listProposal = res.result.proposals  
-        // const pid = proposal_id;
-
-        // for (let i = 0; i < listProposal.length; i++) { 
-        //     if(listProposal[i].id == pid ){
-        //          userName_freelancer = listProposal[i].freeLancerName                 
-        //     }   
-        // } 
-        // userName_Business = res.result.userBusiness.user.fullName;
-        user_business_id = res.result.user_business_id;
-    }
-})
+// get job_detail to check user type
+function loadJobDetails() {
 
 
-function ButtonDrop() {
-    const status = ($(".buttonDrop").val())
-    const proposal_id = 1
-    const url = baseUrl + `/api/v1/proposals/` + proposal_id;
-    const param = {
-        id: jobId,
-        proposal_id: proposal_id,
-        proposal_status_catalog_id: status
-    }
     $.ajax({
-        type: 'PATCH',
-        url: url,
+        type: 'GET',
+        url: urlJobDetail,
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(param),
         dataType: "JSON",
         async: false,
         success: function (res) {
-            window.location.href = '/home'
-        },
-        error() {
-            console.log("ko ok");
-        },
+            var listProposal = res.result.proposals;
+            console.log(listProposal);
+            const pid = proposal_id;
 
+            for (let i = 0; i < listProposal.length; i++) {
+                if (listProposal[i].id == pid) {
+                    
+                    user_freelancer_id = listProposal[i].user_freelancer_id;
+                    userName_freelancer = listProposal[i].freeLancerName
+                    cmt_freelancer = listProposal[i].freelancerComment
+                    grade_freelancer = listProposal[i].freelancerGrade
+                    cmt_business = listProposal[i].clientComment
+                    grade_business = listProposal[i].clientGrade
+                }
+                else {
+                    // alert("sai vong lap")
+                }
+            }
+            userName_Business = res.result.userBusiness.user.fullName;
+            status_job = res.result.status;
+            user_business_id = res.result.user_business_id;
+        }
     })
 }
 
@@ -257,7 +366,7 @@ function onCloseAttachFile() {
     }
 }
 
-function clickItemChat(id, senderId, receiverId, roomKeyId) {
+function clickItemChat(id, senderId, receiverId, roomKeyId, proposalId) {
     person = senderId;
     person2 = receiverId;
     room_key = roomKeyId;
@@ -269,11 +378,15 @@ function clickItemChat(id, senderId, receiverId, roomKeyId) {
     localStorage.setItem('sender_id', senderId);
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
+    localStorage.setItem('proposal_id', proposalId);
+    sizeOfOnePageChat = 10;
+    loadJobDetails();
 }
-function reloadKeyChat(sender_id) {
+
+function reloadKeyChat(sender_id){
     $.ajax({
         type: "POST",
-        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" + sender_id,
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" +sender_id,
         contentType: "application/json; charset=utf-8",
         beforeSend: function (xhr) {
             xhr.setRequestHeader(

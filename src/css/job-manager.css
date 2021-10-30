@@ -33,3 +33,7 @@
     border-radius: 8px;
     outline: none;
 }
+
+#toast-container>div{
+    opacity: 1 !important;
+}
