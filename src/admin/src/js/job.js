@@ -1,6 +1,5 @@
 var pageSize = 5;
 var page = 1;
-var totalPage = 0;
 var complexity = "";
 var search = "";
 var sort = 0;
@@ -14,10 +13,10 @@ $(document).ready(function () {
   pagination(totalRow);
 });
 
-function loadAll(searchKey, page, pageSize, sort, complexity, skill) {
+function loadAll(search, page, pageSize, sort, complexity, skill) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${searchKey}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${search}&complexity_id=${complexity}&skill_id=${skill}`;
   $.ajax({
     type: "GET",
     url: url,

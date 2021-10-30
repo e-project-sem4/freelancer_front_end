@@ -2,6 +2,7 @@ var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
+var suitableJob = "";
 var PaymentStatus = 1;
 var search = "";
 var sort = 0;
@@ -47,7 +48,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                            <div class="row align-items-center">                                 
                                               <div class="col-lg-2">
                                                  <div class="company-logo-img">
-                                                   <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+                                                   <img src="images/logo-top-work2-ico.png" alt="" class="img-fluid mx-auto d-block">
                                                  </div>
                                                </div>                               
                                                    <div class="col-lg-7 col-md-9">
@@ -71,13 +72,13 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
         itemTempHtml += `<li class="list-inline-item mr-3">
                                                          <p class="text-break mb-0">
                                                          <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-        let listSkill = "";
-        for (let j = 0; j < jobList[i].otherSkills.length; j++) {
-          listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
-        }
-        listSkill = listSkill.substring(0, listSkill.length - 2);
-        itemTempHtml += listSkill;
-        itemTempHtml += `</p>
+                let listSkill = "";
+                for (let j = 0; j < jobList[i].otherSkills.length; j++) {
+                    listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
+                }
+                listSkill = listSkill.substring(0, listSkill.length - 2);
+                itemTempHtml += listSkill;
+                itemTempHtml += `</p>
                                                     </li>
                                                 </ul>
                                                 
@@ -126,11 +127,11 @@ function loadAllSkill() {
                                             <input type="checkbox" value="${SkillList[i].id}"  id="customCheckbox${i}" onclick="changeSkill()"  name="customCheckbox" class="custom-control-input checkbox-d">
                                             <label id="CheckboxSkills" class="custom-control-label ml-1 text-muted f-15" for="customCheckbox${i}">${SkillList[i].skillName}</label>
                                         </div>`;
-        itemHtml += itemTempHtml;
-      }
-      $("#skillsList").html(itemHtml);
-    },
-  });
+                itemHtml += itemTempHtml;
+            }
+            $("#skillsList").html(itemHtml);
+        },
+    });
 }
 function loadAllComplexity() {
   const url = baseUrl + `/api/v1/complexities/search?status=1`;
@@ -162,42 +163,86 @@ function loadAllComplexity() {
   });
 }
 
-// function loadSuitableJob() {
-//   const url = baseUrl + `/api/v1/job/suitable`;
-//   const token = localStorage.getItem('access-token')
-//   $.ajax({
-//     type: "GET",
-//     url: url,
-//     contentType: "application/json; charset=utf-8",
-//     beforeSend: function (xhr) {
-//       xhr.setRequestHeader(
-//         "Authorization", token
-//       );
-//     },
-//     dataType: "JSON",
-//     async: false,
-//     success: function (res) {
-      
-//       const ComplexityList = res.result;
-      
-//       let itemHtml = "";
-//       let itemTempHtml = "";
-//       for (let i = 0; i < ComplexityList.length; i++) {
-//         itemTempHtml = `<div class="custom-control custom-radio">
-//                                             <input type="radio" id="customRadio${i}" onclick="changeComplexity(${ComplexityList[i].id})" name="customRadio" class="custom-control-input">
-//                                             <label class="custom-control-label ml-1 text-muted f-15" for="customRadio${i}">${ComplexityList[i].complexityText}</label>
-//                                         </div>`;
-//         itemHtml += itemTempHtml;
-//       }
+function loadSuitableJob() {
+  const url = baseUrl + `/api/v1/job/suitable`;
+  const token = localStorage.getItem('access-token')
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization", token
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
 
-//       $("#LevelsList").html(itemHtml);
-//       $("#LevelsList").append(`<div class="custom-control custom-radio">
-//       <input type="radio" id="customRadio" onclick="changeComplexity(null)" name="customRadio" class="custom-control-input">
-//       <label class="custom-control-label ml-1 text-muted f-15" for="customRadio">All</label>
-//       </div>`);
-//     },
-//   });
-// }  
+      const suitableList = res.result;
+
+      let itemHtml = "";
+      let itemTempHtml = "";
+      for (let i = 0; i < suitableList.length; i++) {
+        var d = new Date(suitableList[i].createAt).toLocaleDateString();
+        itemTempHtml = `<div class="col-lg-12 mt-4 pt-1">
+                                        <div class="job-list-box border rounded">
+                                            <div class="p-3">
+                                                <div class="row align">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="job-list-desc">
+                                                            <h6 class="mb-2"><a href="/job-details?id=${suitableList[i].id}"
+                                                                                class="text-primary">${suitableList[i].name}</a>
+                                                            </h6>
+                                                            <hr>
+                                                            <ul class="list-inline mb-0">
+                                                                <div class="list-inline-item mr-3">
+                                                                    <p class="text-break limit"><i
+                                                                            class="mdi mdi-animation mr-2"></i>Description:
+                                                                    </p>
+                                                                    <span style="max-width: 100px;
+                                                                             word-break: break-all;">${suitableList[i].description}</span>
+                                                                </div>
+                                                                <div class="list-inline-item mr-3">
+                                                                    <p class="text-break mb-0"><i
+                                                                            class="mdi mdi-alarm-light mr-2"></i>Complexity
+                                                                        : ${suitableList[i].complexity.complexityText}</p>
+                                                                </div>
+                                                                <div class="list-inline-item mr-3">
+                                                                    <p class="text-break mb-0"><i
+                                                                            class="mdi mdi-currency-usd mr-2"></i>Payment
+                                                                        : ${suitableList[i].paymentAmount} $</p>
+                                                                </div>
+                                                                <div class="list-inline-item mr-3">
+                                                                    <p class="text-break mb-0"><i
+                                                                            class="mdi mdi-calendar-text mr-2"></i>Date
+                                                                        : ${d}</p>
+                                                                </div>`
+                                                                itemTempHtml += `
+                                                                <li class="list-inline-item mr-3">
+                                                         <p class="text-break mb-0">
+                                                         <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
+        let listSkill = "";
+        for (let j = 0; j < suitableList[i].otherSkills.length; j++) {
+          listSkill += suitableList[i].otherSkills[j].skill?.skillName + ", ";
+        }
+        listSkill = listSkill.substring(0, listSkill.length - 2);
+        itemTempHtml += listSkill;
+        itemTempHtml += `</p>
+                                                    </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+        itemHtml += itemTempHtml;
+      }
+      $("#suitableList").html(itemHtml);
+    },
+  });
+}
 
 $("#search-key").on("click", function (event) {
   search = $("#exampleInputName1").val();

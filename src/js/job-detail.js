@@ -3,6 +3,10 @@ var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
 
 $(document).ready(function () {
+    var url_string = window.location.href
+    var url123 = new URL(url_string);
+    var c = url123.searchParams.get("id");
+    const url = baseUrl + `/api/v1/job/`+ c;
     loadJobDetails();
 });
 
@@ -21,18 +25,19 @@ function loadJobDetails() {
         async: false,
         success: function (res) {
             const jobDetails = res.result;
+
             var proposals = jobDetails.proposals;
             const job_user_id = jobDetails.userBusiness.user.id;
             var itemHtml = "";
             let itemTempHtml = "";
             var d = new Date(jobDetails.createAt).toLocaleDateString();
 
-            itemTempHtml =
+            itemTempHtml +=
                 `<div class="row" id="job-description">
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
                     <div class="job-single-img mb-2">
-                        <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+                        <img src="images/logo-top-work2-ico.png" alt="" class="img-fluid mx-auto d-block">
                     </div>
                     <h4 class=""><a href="#" class="text-dark">${jobDetails.name}</a></h4>
                     <ul class="list-inline mb-0">
@@ -142,7 +147,7 @@ function loadJobDetails() {
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                                <button class="btn btn-primary" id="apply-proposal" onclick="applyJob()">Apply</button>
+                                <button class="btn btn-primary" id="apply-proposal">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -150,15 +155,6 @@ function loadJobDetails() {
                 </div>
                 `;
             }
-            // else {
-            //     itemTempHtml += `
-            // <div class="row d-flex justify-content-center">
-            //     <div class="job-detail border rounded mt-4" >
-            //         <button class="btn btn-primary btn-block" id="complete-job">Complete Job</button>
-            //     </div>
-            // </div>`
-            //
-            // }
             itemTempHtml += `<div class="row">
                         <div class="col-lg-12">
                             <h5 class="text-dark mt-4">Proposals :</h5>
@@ -266,7 +262,6 @@ function loadJobDetails() {
                             <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
                         </div>
                     </div>
-
                     <div class="single-post-item mb-4">
                         <div class="float-left mr-3">
                             <i class="mdi mdi-currency-usd text-muted mdi-24px"></i>
@@ -437,64 +432,45 @@ function loadJobDetails() {
             location.href = "/login"
         }
     })
-    // $("#apply-form").validate({
-    //     rules: {
-    //         amount: {
-    //             required: true,
-    //         },
-    //         description: {
-    //             required: true,
-    //             minlength: 10
-    //         }
-    //     },
-    //     messages: {
-    //         amount: {
-    //             required: "Please enter a amount",
-    //         },
-    //         description: {
-    //             required: "Please provide a description",
-    //             minlength: "Your description must be at least 10 characters long"
-    //         }
-    //     }
-    // });
-}
 
-function applyJob() {
-    if ($('#description-apply').val().length < 10) {
-        swal("Error!", "Your description must be at least 10 characters long!", "warning");
-        return;
-    }
-    var url_string = window.location.href
-    var url123 = new URL(url_string);
-    var c = url123.searchParams.get("id");
-    var job_id = c;
-    var amount = $('#amount').val();
-    var description = $("#description-apply").val();
-    const proposalForm = {
-        job_id: job_id,
-        paymentAmount: amount,
-        description: description,
-    };
-    $.ajax({
-        type: 'POST',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(
-                "Authorization",
-                String(localStorage.getItem("access-token"))
-            );
-        },
-        url: baseUrl + "/api/v1/proposals",
-        contentType: "application/json",
-        data: JSON.stringify(proposalForm),
-        dataType: "JSON",
-        async: false,
-        success: function () {
-            window.location.reload()
-        },
-        error() {
-            console.log("sai");
-        },
-    });
+    $('#apply-proposal').on('click',function (){
+        if ($('#description-apply').val().length < 20) {
+            swal("Error!", "Your description must be at least 20 characters long!", "warning");
+            return;
+        }
+        var url_string = window.location.href
+        var url123 = new URL(url_string);
+        var c = url123.searchParams.get("id");
+        var job_id = c;
+        var amount = $('#amount').val();
+        var description = $("#description-apply").val();
+        const proposalForm = {
+            job_id: job_id,
+            paymentAmount: amount,
+            description: description,
+        };
+        $.ajax({
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+            },
+            url: baseUrl + "/api/v1/proposals",
+            contentType: "application/json",
+            data: JSON.stringify(proposalForm),
+            dataType: "JSON",
+            async: false,
+            success: function () {
+                window.location.reload()
+            },
+            error() {
+                console.log("sai");
+            },
+        });
+    })
+
 }
 
 

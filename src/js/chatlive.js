@@ -44,7 +44,7 @@ $(document).ready(function () {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
-    if (person != null)
+    if(person != null)
         reloadKeyChat(person);
     var chatKeyUsers = JSON.parse(localStorage.getItem('chatKeyUsers'));
     if (localStorage.getItem("access-token") === null) {
@@ -383,10 +383,10 @@ function clickItemChat(id, senderId, receiverId, roomKeyId, proposalId) {
     loadJobDetails();
 }
 
-function reloadKeyChat(sender_id) {
+function reloadKeyChat(sender_id){
     $.ajax({
         type: "POST",
-        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" + sender_id,
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" +sender_id,
         contentType: "application/json; charset=utf-8",
         beforeSend: function (xhr) {
             xhr.setRequestHeader(
