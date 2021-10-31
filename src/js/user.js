@@ -36,7 +36,8 @@ $(document).ready(function () {
             const item = chatKeyUsers[index];
             var frontSender;
             if (frontSender != item.receiverId) {
-                html += `<a id='${item.receiverId}' class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}')">`;
+                console.log(item);
+                html += `<a id='${item.receiverId}' class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}', '${item.proposalId}')">`;
                 firebase.database().ref(item.chatRoomKey).limitToLast(1).on("child_added", function (snapshot) {
                     var status = snapshot.val().status;
                     console.log(status)
