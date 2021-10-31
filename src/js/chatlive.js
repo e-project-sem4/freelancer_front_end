@@ -21,8 +21,10 @@ var lastest_room_key;
 var chat_room_id;
 var fileAttachment;
 function reply(value) {
+    
     value_int = Number(value)
     star_rating = value_int
+    
 }
 $(document).ready(function () {
     const firebaseConfig = {
@@ -141,13 +143,9 @@ $(document).ready(function () {
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
-
-                        swal("Hooray! thanks for rating!", {
-                            icon: "success",
-                            buttons: false
-                        });
-
                         var param;
+                        proposal_idint = Number(proposal_id)
+                        status_int = Number(status)
                         if (status == 3 || status == 4) {
                             param = {
                                 clientComment: cmt_rate,
@@ -177,8 +175,8 @@ $(document).ready(function () {
                                 id: proposal_id
                             }
                         }
-                        console.log(param)
-                        $.ajax({
+                    
+                        $.ajax({    
                             type: 'PATCH',
                             url: url,
                             contentType: "application/json; charset=utf-8",
@@ -186,6 +184,10 @@ $(document).ready(function () {
                             dataType: "JSON",
                             async: false,
                             success: function (res) {
+                                swal("Hooray! thanks for rating!", {
+                                    icon: "success",
+                                    buttons: false
+                                });
                                 setTimeout(() => window.location.href = '/live-exch', 2000);
                             },
                             error() {
