@@ -38,16 +38,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
-
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
-    
-    
-    
-    
     <script src="js/selectize.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/header.js" ></script>
@@ -149,7 +142,7 @@
                                     <div class="form-group app-label mt-2">
                                         <label class="text-muted">Job Skill</label>
                                         <div class="form-button">
-                                            <select id="multipleSelect" class="js-example-basic-multiple skills"  multiple="multiple">
+                                            <select id="multipleSelect" class="js-example-basic-multiple multipleSelect skills"  multiple="multiple">
 
                                             </select>
                                         </div>
@@ -160,8 +153,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group app-label mt-2">
-                                        <label class="text-muted">Job Description</label>
-                                        <textarea id="description" rows="6" class="form-control resume" placeholder=""></textarea>
+                                        <label class="text-muted">Job Description</label><span>(
+                                            Please enter a length of more than 10 characters)</span>
+                                        <textarea id="descriptionJob" rows="6" class="form-control resume" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -255,8 +249,8 @@
 <!-- javascript -->
 <!--    <script src="js/jquery.min.js"></script>-->
 
-<script src="https://cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
 </script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
@@ -264,9 +258,6 @@
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-
 </body>
 <style>
     .btn-group {
