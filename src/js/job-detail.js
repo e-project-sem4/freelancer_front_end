@@ -1,12 +1,10 @@
 var url_string = window.location.href
 var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
+const url = baseUrl + `/api/v1/job/`+ c;
 
 $(document).ready(function () {
-    var url_string = window.location.href
-    var url123 = new URL(url_string);
-    var c = url123.searchParams.get("id");
-    const url = baseUrl + `/api/v1/job/`+ c;
+
     loadJobDetails();
 });
 
@@ -33,7 +31,7 @@ function loadJobDetails() {
             var d = new Date(jobDetails.createAt).toLocaleDateString();
 
             itemTempHtml +=
-                `<div class="row" id="job-description">
+                `
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
                     <div class="job-single-img mb-2">
