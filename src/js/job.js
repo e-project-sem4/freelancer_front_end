@@ -51,13 +51,13 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                                    <img src="images/logo-top-work2-ico.png" alt="" class="img-fluid mx-auto d-block">
                                                  </div>
                                                </div>                               
-                                                   <div class="col-lg-7 col-md-9">
+                                                   <div class="col-lg-8 col-md-9">
                                                            <div class="job-list-desc">
                                                                       <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
                                                                              <ul class="list-inline mb-0">  
                                                                              <div class="list-inline-item mr-3">
                                                                              <p  class="text-break limit"><i class="mdi mdi-animation mr-2" ></i>Description:</p>
-                                                                             <span style="max-width: 100px;
+                                                                             <span class="text-break" style="max-width: 100px;
                                                                              word-break: break-all;">${jobList[i].description}</span>
                                                                        </div>                                                                                
                                                                                    <div class="list-inline-item mr-3">
@@ -85,7 +85,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
                                             </div>
                                             </div>
             
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-2 col-md-3">
                     <div class="job-list-button-sm text-right">
                         <div class="candidates-listing-btn mt-4">
                            <a href="/job-details?id=${jobList[i].id}" class="btn btn-primary-outline btn-sm">Detail</a>

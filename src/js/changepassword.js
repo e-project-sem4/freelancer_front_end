@@ -1,10 +1,8 @@
 $(document).ready(function() {
     $('#change-pass').on("click", function(event) {
-
-        const name = $("#username").val();
-        const pass = $("#oldPassword").val();
-        const passNew = $("#newPassword").val();
-
+        const name =JSON.parse(localStorage.getItem('user-info')).username
+        const pass = $("#pass").val();
+        const passNew = $("#passNew").val();
         const url = baseUrl + `/api/v1/users/changepassword`;
         const token=  localStorage.getItem('access-token')
         const param = {
@@ -19,7 +17,6 @@ $(document).ready(function() {
             beforeSend: function (xhr){
                 xhr.setRequestHeader(
                     "Authorization", token
-
                 );
             },
             data:JSON.stringify(param),
@@ -28,18 +25,37 @@ $(document).ready(function() {
             success: function(res) {
                console.log(res.message)
             },
-
         });
         event.preventDefault()
     })
+    $(".passwordChange_form").validate({
+        rules: {
+            pass: {
+                required: true,
+                minlength: 8,
+                equalTo: "#pass"
+            },
+            
+            passNew: {
+                required: true,
+                minlength: 8,
+               
+            },
+           
+        },
+        messages: {
+            pass: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 8 characters long"
+            },
+            passNew: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 8 characters long",
+               
+            },
+           
+        },
+        
+    });
 
 })
-// $(document).ready(function() {
-//     $('#change-pass').on("click", function (e) {
-//         debugger
-//         var isValid = $(e.target).parents('form').isValid;
-//         if (!isValid) {
-//             e.preventDefault(); //prevent the default action
-//         }
-//     });
-// })
