@@ -60,6 +60,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
         async: false,
         success: function (res) {
             const freelancerList = res.result;
+            console.log(freelancerList);
             totalRow = res.total;
             let itemHtml = "";
             let itemTempHtml = "";
