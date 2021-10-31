@@ -79,6 +79,7 @@ function goToChat(id, sender_id, receiver_id, job_id, room_key, proposal_id) {
     localStorage.setItem('receiver_id', receiver_id);
     localStorage.setItem('job_id', job_id);
     localStorage.setItem('room_key', room_key);
+    localStorage.setItem('lastest_room_key', room_key);
     localStorage.setItem('proposal_id', proposal_id);
     updateStatusChat(room_key);
     setTimeout(function () {
