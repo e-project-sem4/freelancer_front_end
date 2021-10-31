@@ -2,7 +2,6 @@ var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var complexity = "";
-var suitableJob = "";
 var PaymentStatus = 1;
 var search = "";
 var sort = 1;

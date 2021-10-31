@@ -51,7 +51,15 @@ function loadJobDetails() {
 
                         <li class="list-inline-item">
                             <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i><strong>${jobDetails.paymentAmount}</strong></p>
-                        </li>
+                        </li>`;
+            if(jobDetails.isPaymentStatus != 1){
+                itemTempHtml+= `
+                                            <li class="list-inline-item" style="color:red">
+                                            <p class="">(This job is unpaid)</p>
+                                            </li>`;
+            }
+            itemTempHtml +=
+                `
                     </ul>
                 </div>
                     <div class="row">
@@ -114,7 +122,7 @@ function loadJobDetails() {
                     }
 
                 }
-                if (hiennutapply == 1) {
+                if (hiennutapply == 1 && jobDetails.isPaymentStatus == 1 ) {
                     itemTempHtml += `<div class="row d-flex justify-content-center">
                 <div class="job-detail border rounded mt-4">
                     <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal" id="apply-job">Apply For Job</button>
@@ -180,7 +188,7 @@ function loadJobDetails() {
                                 </div>
                                 <div class="col-lg-7 col-md-9">
                                     <div class="job-list-desc">
-                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
+                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].userAccountId}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
                                         <ul class="list-inline mb-0">
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
