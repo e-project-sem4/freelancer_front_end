@@ -293,6 +293,7 @@ function onLoadMessage(sizeOfPage) {
 }
 
 function sendmessage(mess) {
+    debugger
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
@@ -309,6 +310,7 @@ function sendmessage(mess) {
             "message": mess,
             "status": 0
         });
+        
         document.getElementById("input-message").value = '';
         var objDiv = document.getElementById("chat-content");
         objDiv.scrollTop = objDiv.scrollHeight;

@@ -40,7 +40,6 @@ $(document).ready(function () {
                 html += `<a id='${item.receiverId}' class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}', '${item.proposalId}')">`;
                 firebase.database().ref(item.chatRoomKey).limitToLast(1).on("child_added", function (snapshot) {
                     var status = snapshot.val().status;
-                    console.log(status)
                     var sender = snapshot.val().sender;
                     frontSender = item.receiverId;
                     if (status == 0) {
@@ -52,7 +51,7 @@ $(document).ready(function () {
                     if (localStorage.getItem('room_key') == item.chatRoomKey) {
                         updateStatusChat(item.chatRoomKey);
                     } else {
-                        if (countMess != 0) {
+                        if (!countMess) {
                             $('#dot-alert').html(`<span style="color: red">&bull;</span>`);
                         }
                     }
@@ -89,8 +88,10 @@ function goToChat(id, sender_id, receiver_id, job_id, room_key, proposal_id) {
 
 function updateStatusChat(room_key) {
     firebase.database().ref(room_key).on("child_added", function (snapshot) {
-        firebase.database().ref().child('/' + room_key + '/' + snapshot.key).update({
-            status: 1
-        });
+        if(snapshot.val().sender != localStorage.getItem('sender_id')){
+            firebase.database().ref().child('/' + room_key + '/' + snapshot.key).update({
+                status: 1
+            });
+        }
     });
 }
