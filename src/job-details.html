@@ -9,7 +9,7 @@
     <meta name="keywords" content=""/>
     <meta name="author" content="Themesdesign"/>
 
-    <link rel="shortcut icon" href="images/logo-small-f-ico.png">
+    <link rel="shortcut icon" href="images/favicon.ico">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -63,6 +63,7 @@
                     window.localStorage.setItem('receiver_id', res.result.chatKeyUser.receiverId);
                     window.localStorage.setItem('job_id', res.result.chatKeyUser.jobId);
                     window.localStorage.setItem('room_key', res.result.chatKeyUser.chatRoomKey);
+                    window.localStorage.setItem('proposal_id', res.result.chatKeyUser.proposalId);
                     window.location.href = "/live-exch";
 
                 },

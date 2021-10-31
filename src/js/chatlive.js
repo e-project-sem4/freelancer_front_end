@@ -41,6 +41,7 @@ $(document).ready(function () {
     person2 = localStorage.getItem('receiver_id');
     room_key = localStorage.getItem('room_key');
     chat_room_id = localStorage.getItem('chat_room_id');
+    proposal_id = localStorage.getItem("proposal_id");
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
@@ -54,8 +55,6 @@ $(document).ready(function () {
     var html = '';
     var itemHtmlButton = ``
     var itemHtmlChatTitle = ``
-    
-    proposal_id = localStorage.getItem("proposal_id");
     loadJobDetails();
     //if you're business
     const sender_id = Number(person)
