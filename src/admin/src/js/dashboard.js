@@ -318,3 +318,38 @@ function drawMultipleLineChart(formatteddata,category){
 
 	});
 }
+
+$('#change-load-day').on('click', function(){
+  loadLineCharts();
+})
+$('#change-load-month').on('click', function(){
+  loadLineChartsMonth();
+})
+
+function loadLineChartsMonth(){
+  const url =
+  baseUrl +
+  `/api/v1/admin/dashboard/month`;
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      var months = [];
+      var price = [];
+        for(var i = 0; i < res.length; i++){
+          months.push("Month " + res[i].month);
+          price.push(res[i].price);
+      }
+    drawLineChart(months,price);
+    },
+  });
+}
