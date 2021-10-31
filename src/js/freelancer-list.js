@@ -56,6 +56,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
         async: false,
         success: function (res) {
             const freelancerList = res.result;
+            console.log(freelancerList);
             totalRow = res.total;
             let itemHtml = "";
             let itemTempHtml = "";
@@ -84,7 +85,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                     itemTempHtml +=
                         `<div class="col-lg-7 col-md-9">
                         <div class="job-list-desc">
-                            <h4 class="mb-2"><a href="/candidate-details?id=${freelancerList[i].id}"
+                            <h4 class="mb-2"><a href="/candidate-details?id=${freelancerList[i].user.id}"
                                                 class="text-dark">${freelancerList[i].user.fullName}</a></h4>
                             <ul class="list-inline mb-0">
                                 <div class="list-inline-item mr-3">
@@ -120,7 +121,7 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                 <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">
                         <div class="candidates-listing-btn mt-4">
-                           <a href="/candidate-details?id=${freelancerList[i].id}" class="btn btn-primary-outline btn-sm" id="get-profile">View Profile</a>
+                           <a href="/candidate-details?id=${freelancerList[i].user.id}" class="btn btn-primary-outline btn-sm" id="get-profile">View Profile</a>
                         </div>
                     </div>
                 </div>
