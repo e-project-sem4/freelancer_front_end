@@ -23,7 +23,7 @@ var currentIdSelected = -1;
 
 $(document).ready(function () {
   loadAllJobJobmn();
-  toastr.options.timeOut=5000;
+  toastr.options.timeOut = 5000;
   toastr.options.fadeIn = 0;
   toastr.options.positionClass = "toast-top-left";
   $skillsControl = $(".skillsJobmn").select2();
@@ -135,13 +135,13 @@ function updateJob(index) {
   const expectedDurationId_job = $(".durationJobmn").val();
   const complexityId_job = $(".complexityJobmn").val();
   const payAmount = $(".payment_amountJobmn").val();
-  const otherSkill = $skillsControl.val().map(item =>{
+  const otherSkill = $skillsControl.val().map(item => {
     return {
       skill_id: item,
     };
   });
   const description_job = CKEDITOR.instances.descriptionJobmn.getData();
-  const param = {    
+  const param = {
     name: name_job,
     expected_duration_id: expectedDurationId_job,
     complexity_id: complexityId_job,
@@ -149,7 +149,7 @@ function updateJob(index) {
     otherSkills: otherSkill,
     description: description_job,
   };
-  
+
   const url = baseUrl + `/api/v1/job/${job_id}`;
   const token = localStorage.getItem('access-token')
   $.ajax({
@@ -165,26 +165,73 @@ function updateJob(index) {
     data: JSON.stringify(param),
     async: false,
     success: function (res) {
-      if(res && res.status == '0' ){
+      if (res && res.status == '0') {
         toastr.success('Edit Job Completed!');
-        setTimeout(loadAllJobJobmn(),1000)
+        setTimeout(loadAllJobJobmn(), 1000)
       }
-      if(res && res.status == '-1'){
+      if (res && res.status == '-1') {
         toastr.warning(res.message);
       }
     },
-    error: function (xhr){
-      if(xhr.status !== 200){
+    error: function (xhr) {
+      if (xhr.status !== 200) {
         toastr.error('Edit Job Failed!')
       }
     }
   })
 
 }
+function deleteJob(value) {
+  const url = baseUrl + `/api/v1/job/${value}`;
+  const token = localStorage.getItem('access-token')
+  swal({
+    title: "Are you sure?",
+    text: "Once click, you will not be able to recover this!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if (willDelete) {
+      swal("Hooray! thanks for rating!", {
+        icon: "success",
+        buttons: false
+      });
+      $.ajax({
+        type: 'DELETE',
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(
+            "Authorization", token
+          );
+        },
+        dataType: "JSON",
+        async: false,
+        success: function (res) {
+
+          if (res && res.status == '0') {
+            toastr.success('Edit Job Completed!');
+            setTimeout(loadAllJobJobmn(), 1000)
+          }
+          if (res && res.status == '-1') {
+            toastr.warning(res.message);
+          }
+        },
+        error: function (xhr) {
+          if (xhr.status !== 200) {
+            toastr.error('Edit Job Failed!')
+          }
+        }
+      })
+    }
+  })
+
+
+}
 var listSkills = [];
 var listSkillChild = [];
 var jobList = [];
- function  loadAllJobJobmn() {  
+function loadAllJobJobmn() {
   const url = baseUrl + `/api/v1/users/viewprofile`;
   const token = localStorage.getItem('access-token')
   $.ajax({
@@ -199,84 +246,123 @@ var jobList = [];
     dataType: "JSON",
     async: false,
     success: function (res) {
-     
+
       const ProfileList = res.result;
       jobList = ProfileList.business?.listJob;
       //   totalPage = res.total;
       let itemHtml = "";
       let itemTempHtml = "";
+      for (let i = 0; i < jobList.length; i++) {
+        if (jobList[i].status != 0) {
+          var d = new Date(jobList[i].createAt).toLocaleDateString();
+          itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
+                                      <div class="job-box bg-white overflow-hidden border rounded position-relative overflow-hidden">
+                                          <div class="p-3">                           
+                                              <div class="row align-items-center">                                 
+                                                  <div class="col-lg-2">
+                                                    <div class="company-logo-img">
+                                                      <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+                                                    </div>
+                                                  </div>                               
+                                                      <div class="col-lg-7 col-md-9">
+                                                              <div class="job-list-desc">
+                                                                          <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
+                                                                                <div class="list-inline mb-0">
+                                                                                <div class="row">
+                                                                                      <div class="col-12 pt-2">
+                                                                                                  <p class="text-muted mb-0 limit"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
+                                                                                            </div> 
+                                                                                            </div>
+  
+                                                                          
+                                                                          <div class="row">
+                                                                           <div class="col-12 pt-2">
+                                                                            <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
+                                                                                        </div>
+                                                                                        </div>`
+          if (jobList[i].isPaymentStatus == 1) {
+            itemTempHtml += `
+                                                                                          <div class= "row">
+                                                                                          <div class="col-12 pt-2">
+                                                                                          <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount} $</p>
+                                                                                    </div>
+                                                                                    </div>`
+          }
+          if (jobList[i].isPaymentStatus == 0) {
+            itemTempHtml += `
+                                                                                          <div class= "row">
+                                                                                          <div class="col-12 pt-2">
+                                                                                          <p class="text-danger text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment :(${jobList[i].paymentAmount} $) (*this job can't show if you not paid !)</p>
+                                                                                    </div>
+                                                                                    </div>`
+          }
+          itemTempHtml += `
+                                                                                      <div class="row">
+                                                                                        <div class="col-3 pt-2">
+                                                                                        <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
+                                                                            </div>
+                                                                            </div>`;
+          itemTempHtml += `
+          <div class="row" >
+          <div class="col-9 pt-2">
+                                                            <p class="text-break mb-0">
+                                                            <i class="mdi mdi-arrow-decision mr-2"></i>Skills Needed: `;
+          let listSkill = "";
+          for (let j = 0; j < jobList[i].otherSkills.length; j++) {
+            listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
+          }
 
-      for (let i = 0; i < jobList.length; i++) {        
-        var d = new Date(jobList[i].createAt).toLocaleDateString();
-        itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">
-                                    <div class="job-box bg-white overflow-hidden border rounded position-relative overflow-hidden">
-                                        <div class="p-3">                           
-                                            <div class="row align-items-center">                                 
-                                                <div class="col-lg-2">
-                                                  <div class="company-logo-img">
-                                                    <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
-                                                  </div>
-                                                </div>                               
-                                                    <div class="col-lg-7 col-md-9">
-                                                            <div class="job-list-desc">
-                                                                        <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}" class="text-dark">${jobList[i].name}</a></h4>
-                                                                              <ul class="list-inline mb-0">
-                                                                              
-                                                                                    <div class="list-inline-item mr-3">
-                                                                                                <p class="text-muted mb-0 limit"><i class="mdi mdi-animation mr-2"></i>Description: ${jobList[i].description}</p>
-                                                                                          </div> 
+          listSkill = listSkill.substring(0, listSkill.length - 2);
+          itemTempHtml += listSkill;
+          itemTempHtml += `</p>
+                                                        </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3">
+                                                <div class="job-list-button-sm ">                     
+                                                    `
+          if (jobList[i].isPaymentStatus == 0) {
+            itemTempHtml += `
+                                                      <div class="mt-3">
+                                                          <a href="/job-detail-payment?id=${jobList[i].id}" type="button" class="btn btn-sm btn-warning"style="
+                                                      width: 100px;">Payment !</a>
+                                                      </div>`
+          }
+          else if (jobList[i].isPaymentStatus == 1) {
+            itemTempHtml += `
+                                                      <div class="mt-3">
+                                                      <a href="/job-details?id=${jobList[i].id}" type="button" class="btn btn-sm btn-primary-outline"style="
+                                                      width: 100px;" id="detail-job">Detail </a>
+                                                                   </div>`
+          }
 
-                                                                                    <div class="list-inline-item mr-3">
-                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                                                      </div>
-                                                                                      <div class="list-inline-item mr-3">
-                                                                                                  <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment : ${jobList[i].paymentAmount}</p>
-                                                                                      </div>
-                                                                                      <div class="list-inline-item mr-3">
-                                                                                      <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
-                                                                          </div>`;
-        itemTempHtml += `<li class="list-inline-item mr-3">
-                                                          <p class="text-break mb-0">
-                                                          <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-        let listSkill = "";
-        for (let j = 0; j < jobList[i].otherSkills.length; j++) {
-          listSkill += jobList[i].otherSkills[j].skill?.skillName + ", ";
+
+          itemTempHtml += `                        <div class="mt-3">
+                                                    <button type="button"class="btn btn-sm btn-primary-outline" style="width: 100px;" onClick="handleOpenModal(${jobList[i].id}, ${i})" data-toggle="modal" data-target="#exampleModal_x">
+                                                    Edit 
+                                                    </button>              
+                                                </div>
+                                                <div class="mt-3">
+                                                <a  type="button" id="btndelete" onClick="deleteJob(${jobList[i].id})" class="btn btn-sm btn-danger-outline"style="
+                                                width: 100px;" id="detail-job">Delete</a>
+                                            </div>
+                                                </div>
+                                                </div>
+                        </div>
+                    </div>                                     
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+
+          itemHtml += itemTempHtml;
+          listSkills = jobList[i].otherSkills
         }
 
-        listSkill = listSkill.substring(0, listSkill.length - 2);
-        itemTempHtml += listSkill;
-        itemTempHtml += `</p>
-                                                      </li>
-                                                  </ul>
-                                                  
-                                              </div>
-                                              </div>
-                                              <div class="col-lg-3 col-md-3">
-                                              <div class="job-list-button-sm ">                     
-                                                  <div class="mt-3">
-                                                      <a href="/job-details?id=${jobList[i].id}" type="button" class="btn btn-sm btn-primary-outline"style="
-                                                      width: 100px;" id="detail-job">Detail</a>
-                                                  </div>
-                                                  <div class="mt-3">
-                                                  <button type="button"class="btn btn-sm btn-primary-outline" style="width: 100px;" onClick="handleOpenModal(${jobList[i].id}, ${i})" data-toggle="modal" data-target="#exampleModal_x">
-                                                  Edit 
-                                                  </button>              
-                                              </div>
-                                              <div class="mt-3">
-                                              <a href="/job-details?id=${jobList[i].id}" type="button" id="btndelete" class="btn btn-sm btn-danger-outline"style="
-                                              width: 100px;" id="detail-job">Delete</a>
-                                          </div>
-                                              </div>
-                                              </div>
-                      </div>
-                  </div>                                     
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>`;
-                          
-        itemHtml += itemTempHtml;
-        listSkills=jobList[i].otherSkills
       }
       $("#job-list").html(itemHtml);
     },
@@ -285,15 +371,15 @@ var jobList = [];
 
 
 
-function handleOpenModal(id, i){
-  currentIdSelected =id;
+function handleOpenModal(id, i) {
+  currentIdSelected = id;
   $('.job_nameJobmn').val(jobList[i].name);
   $('.expected_durationJobmn').val(jobList[i].expected_duration_id);
   $('.complexityJobmn').val(jobList[i].complexity_id);
   $('.payment_amountJobmn').val(jobList[i].paymentAmount);
-  let skills= jobList[i].otherSkills.map((e)=>{return e.skill_id + ''});
+  let skills = jobList[i].otherSkills.map((e) => { return e.skill_id + '' });
   $skillsControl.val(skills).trigger("change");
   $('.descriptionJobmn').val(jobList[i].description);
-  CKEDITOR.instances.descriptionJobmn.setData( jobList[i].description );
+  CKEDITOR.instances.descriptionJobmn.setData(jobList[i].description);
 }
 
