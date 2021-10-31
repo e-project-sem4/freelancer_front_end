@@ -1,4 +1,3 @@
-
 var jobId = JSON.parse(localStorage.job_id)
 var url = baseUrl + `/api/v1/job/` + jobId;
 //check_button
@@ -15,18 +14,17 @@ var star_rating;
 var proposal_id;
 var jobId = JSON.parse(localStorage.job_id)
 const urlJobDetail = baseUrl + `/api/v1/job/` + jobId;
+var lastest_room_key;
 // var person;
 // var person2;
 // var room_key;
 var chat_room_id;
 var fileAttachment;
 function reply(value) {
-    console.log(value);
     value_int = Number(value)
     star_rating = value_int
 }
 $(document).ready(function () {
-    
     const firebaseConfig = {
         apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
         authDomain: "august-list-328603.firebaseapp.com",
@@ -40,12 +38,15 @@ $(document).ready(function () {
     person = localStorage.getItem('sender_id');
     person2 = localStorage.getItem('receiver_id');
     room_key = localStorage.getItem('room_key');
+    lastest_room_key = localStorage.getItem('lastest_room_key');
+    if (room_key && lastest_room_key != null)
+        room_key = lastest_room_key;
     chat_room_id = localStorage.getItem('chat_room_id');
     proposal_id = localStorage.getItem("proposal_id");
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     onLoadPage();
-    if(person != null)
+    if (person != null)
         reloadKeyChat(person);
     var chatKeyUsers = JSON.parse(localStorage.getItem('chatKeyUsers'));
     if (localStorage.getItem("access-token") === null) {
@@ -58,14 +59,8 @@ $(document).ready(function () {
     loadJobDetails();
     //if you're business
     const sender_id = Number(person)
-    console.log('status: '+status_job);
-    console.log('user_business_id: '+user_freelancer_id);
-    console.log('person: '+person);
-    console.log('person: '+user_freelancer_id == sender_id);
-    
-    
     if (user_business_id == sender_id && status_job == 2) {
-        
+
         itemHtmlButton = `            
             <button class="btn btn-sm btn-success buttonStatus offset-md-4" href="#" data-abc="true"  value = 3 >Job done !</button>   
             <button class="btn btn-sm btn-danger buttonStatus" href="#" data-abc="true"  value = 4 >Layoff</button> `
@@ -207,7 +202,7 @@ $(document).ready(function () {
 
         });
     })
-    
+
     chatKeyUsers.forEach(item => {
         html += `<div class="chat-list-item" id="${item.id}"  onclick="clickItemChat('${item.id}','${item.senderId}', '${item.receiverId}', '${item.chatRoomKey}', '${item.proposalId}')"><p>${item.jobName}</p>  </div></a>`;
         //check user type   
@@ -240,7 +235,7 @@ function loadJobDetails() {
 
             for (let i = 0; i < listProposal.length; i++) {
                 if (listProposal[i].id == pid) {
-                    
+
                     user_freelancer_id = listProposal[i].user_freelancer_id;
                     userName_freelancer = listProposal[i].freeLancerName
                     cmt_freelancer = listProposal[i].freelancerComment
@@ -304,7 +299,7 @@ function sendmessage(mess) {
         if (!mess || mess == '')
             mess = document.getElementById("input-message").value;
         var sender = person;
-        if (mess == '')
+        if (mess == '' || sender == null)
             return;
         firebase.database().ref(room_key).push().set({
             "sender": sender,
@@ -373,15 +368,16 @@ function clickItemChat(id, senderId, receiverId, roomKeyId, proposalId) {
     localStorage.setItem('sender_id', senderId);
     localStorage.setItem('receiver_id', receiverId);
     localStorage.setItem('room_key', roomKeyId);
+    localStorage.setItem('lastest_room_key', lastest_room_key);
     localStorage.setItem('proposal_id', proposalId);
     sizeOfOnePageChat = 10;
     loadJobDetails();
 }
 
-function reloadKeyChat(sender_id){
+function reloadKeyChat(sender_id) {
     $.ajax({
         type: "POST",
-        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" +sender_id,
+        url: baseUrl + "/api/v1/chatkeyuser/getbysender?senderId=" + sender_id,
         contentType: "application/json; charset=utf-8",
         beforeSend: function (xhr) {
             xhr.setRequestHeader(
@@ -400,6 +396,7 @@ function reloadKeyChat(sender_id){
     })
 }
 window.onbeforeunload = function () {
+    lastest_room_key = room_key;
     localStorage.setItem('room_key', null);
 };
 var sizeOfOnePageChat = 10;
