@@ -4,11 +4,14 @@ var totalPage = 0;
 var search = "";
 var sort = 0;
 var skill = "";
-var totals = 0;
+var start = page * pageSize - pageSize + 1;
+var end = pageSize * page;
+var inviteUserId = 0;
+var jobList = [] ;
 $(document).ready(function () {
     loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
-    pagination(totalRow);
+    loadAllJob();
     $('#totalResult').html(`${start}-${end}`)
 });
 function loadAllSkill() {
@@ -21,6 +24,7 @@ function loadAllSkill() {
         async: false,
         success: function (res) {
             const SkillList = res.result;
+
             let itemHtml = "";
             let itemTempHtml = "";
             for (let i = 0; i < SkillList.length; i++) {
@@ -121,7 +125,10 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
                 <div class="col-lg-3 col-md-3">
                     <div class="job-list-button-sm text-right">
                         <div class="candidates-listing-btn mt-4">
-                           <a href="/candidate-details?id=${freelancerList[i].user.id}" class="btn btn-primary-outline btn-sm" id="get-profile">View Profile</a>
+                           <a href="/candidate-details?id=${freelancerList[i].user.id}" class="btn btn-sm btn-primary-outline m-2"style="
+                                                      width: 150px" id="get-profile">View Profile</a>
+                           <button class="btn btn-sm btn-primary-outline m-2"style="
+                                                      width: 150px"data-toggle="modal" data-target="#exampleModal" onclick="saveFreelancerId(${freelancerList[i].user.id})">Invite</button>                        
                         </div>
                     </div>
                 </div>
@@ -131,13 +138,21 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
 </div>
                 `;
 
+
                     itemHtml += itemTempHtml;
                 }
             }
             $("#freelancer-list").html(itemHtml);
+
         },
     });
 }
+
+$("#search-key").on("click", function (event) {
+    search = $("#exampleInputName1").val();
+    loadAllFreelancer(search, page, pageSize, sort,skill);
+    event.preventDefault();
+});
 function changeSkill(){
     const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
     loadAllFreelancer(search, page, pageSize, sort,arrSkill)
@@ -148,39 +163,89 @@ function changeSort(){
     loadAllFreelancer(search, page, pageSize, sort,skill);
 
 }
-$(".btn-prev").on("click", function () {
+function changePage() {
+    page = 1;
+    pageSize = $("#dropdown-page").val();
+    start = page * pageSize - pageSize + 1;
+    end = pageSize * page;
+    $('#totalResult').html(`${start}-${end}`)
+    loadAllFreelancer(search, page, pageSize, sort,skill);
+}
+$("#btn-prev").on("click", function () {
     if (page > 0) {
         page--;
         start = page * pageSize - pageSize + 1;
         end = pageSize * page;
         $('#totalResult').html(`${start}-${end}`)
-
         loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
     }
 });
-$(".btn-next").on("click", function () {
+$("#btn-next").on("click", function () {
     if (page * pageSize < totalPage) {
         page++;
         start = page * pageSize - pageSize + 1;
         end = pageSize * page;
         $('#totalResult').html(`${start}-${end}`)
-
         loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
     }
 });
-function pagination(totalRow){
-    var totals = Math.ceil(totalRow / pageSize);
-    $('#pagination-demo').twbsPagination({
-        totalPages: totals,
-        visiblePages: pageSize,
-        onPageClick: function (event, page) {
-            loadAllFreelancer(search, page, pageSize, sort, skill)
+function  loadAllJob() {
+    const url = baseUrl + `/api/v1/users/viewprofile`;
+    const token = localStorage.getItem('access-token')
+    $.ajax({
+
+        type: "GET",
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization", token
+            );
+        },
+        dataType: "JSON",
+        async: false,
+
+        success: function (res) {
+            jobList = res.result.business.listJob;
+        },
+
+
+    })
+    var jobListHtml = '<option selected>Select job for invite</option>';
+    for (let j = 0; j < jobList.length; j++) {
+        if (jobList[j].status == 1) {
+            jobListHtml += `<option value=${jobList[j].id}>${jobList[j].name}</option>`;
         }
-    });
+    }
+    $("#invite-to-job").html(jobListHtml);
 }
-function changePage() {
-    page = 1;
-    pageSize = $("#dropdown-page").val();
-    $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
-    pagination(totalRow);
+function saveFreelancerId (user_id){
+    inviteUserId = user_id;
+}
+function inviteFreelancer(){
+    var job_id = $('#invite-to-job').val()
+    const url = baseUrl + `/api/v1/freelancer/invite?userId=` + inviteUserId +`&jobId=`+job_id;
+    const token = localStorage.getItem('access-token')
+    console.log(url)
+    $.ajax({
+
+        type: "GET",
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                "Authorization", token
+            );
+        },
+        dataType: "JSON",
+        async: false,
+
+        success: function (res) {
+            swal("Success!", "Invite complete!", "success");
+           location.href = '/candidate-list';
+        },
+
+
+    })
+
 }
