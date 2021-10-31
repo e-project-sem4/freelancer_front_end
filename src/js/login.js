@@ -1,5 +1,7 @@
 $(document).ready(function() {
+    localStorage.clear();
     $('#login').on("click", function(event) {
+        
         const name = $("#username").val();
         const pass = $("#pass").val();
         const url = baseUrl + `/api/v1/users/login?username=${name}&password=${pass}`;
