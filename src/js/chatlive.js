@@ -21,11 +21,12 @@ var lastest_room_key;
 var chat_room_id;
 var fileAttachment;
 function reply(value) {
+    
     value_int = Number(value)
     star_rating = value_int
+    
 }
 $(document).ready(function () {
-
     const firebaseConfig = {
         apiKey: "AIzaSyAeLh4a8GTJk0SFmWlC4DuZsNYCYhs3D1Q",
         authDomain: "august-list-328603.firebaseapp.com",
@@ -96,19 +97,18 @@ $(document).ready(function () {
         const url = baseUrl + `/api/v1/proposals/` + proposal_id;
         let wrap = document.createElement('div');
         wrap.setAttribute('class', 'row rating pt-3');
-        wrap.innerHTML = `   
-                   
-                    <div class="col-md-5 mr-3 rate">
-                    <input onclick="reply(this.id)"  type="radio" id="5" name="rate" value=5 />
-                    <label for="5" title="text">5 stars</label>
-                    <input onclick="reply(this.id)"  type="radio" id="4" name="rate" value=4 />
-                    <label for="4" title="text">4 stars</label>
-                    <input onclick="reply(this.id)" type="radio" id="3" name="rate" value=3 />
-                    <label for="3" title="text">3 stars</label>
-                    <input onclick="reply(this.id)"  type="radio" id="2" name="rate" value=2 />
-                    <label for="2" title="text">2 stars</label>
-                    <input onclick="reply(this.id)"  type="radio" id="1" name="rate" value=1  />
-                    <label for="1" title="text">1 star</label>
+        wrap.innerHTML = `                  
+                 <div class="col-md-5 mr-3 rate">                  
+                 <input onclick="reply(this.value)" type="radio" id="star5" name="rate" value="5" />
+                 <label for="star5" title="text">5 stars</label>
+                 <input onclick="reply(this.value)" type="radio" id="star4" name="rate" value="4" />
+                 <label for="star4" title="text">4 stars</label>
+                 <input onclick="reply(this.value)" type="radio" id="star3" name="rate" value="3" />
+                 <label for="star3" title="text">3 stars</label>
+                 <input onclick="reply(this.value)" type="radio" id="star2" name="rate" value="2" />
+                 <label for="star2" title="text">2 stars</label>
+                 <input onclick="reply(this.value)" type="radio" id="star1" name="rate" value="1" />
+                 <label for="star1" title="text">1 star</label>
                    </div>  
                    <div class="pt-3 col-md-12">
                    <div class="row">
@@ -117,7 +117,6 @@ $(document).ready(function () {
                    </div>
                    </div>
                    <div class="alert alert-danger rounded" role="alert"  id="error" hidden>Empty name</div>`
-
         swal({
             title: "Rated Capacity",
             text: "Star rating with ? ",
@@ -144,33 +143,29 @@ $(document).ready(function () {
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
-
-                        swal("Hooray! thanks for rating!", {
-                            icon: "success",
-                            buttons: false
-                        });
-
                         var param;
+                        proposal_idint = Number(proposal_id)
+                        status_int = Number(status)
                         if (status == 3 || status == 4) {
                             param = {
                                 clientComment: cmt_rate,
                                 clientGrade: star_rating,
-                                id: proposal_id,
-                                proposal_status_catalog_id: status
+                                id: proposal_idint,
+                                proposal_status_catalog_id: status_int
                             }
                         } else if (status == 5) {
                             param = {
                                 freelancerComment: cmt_rate,
                                 freelancerGrade: star_rating,
-                                id: proposal_id,
-                                proposal_status_catalog_id: status
+                                id: proposal_idint,
+                                proposal_status_catalog_id: status_int
                             }
                         }
                         else if (status == 6) {
                             param = {
                                 freelancerComment: cmt_rate,
                                 freelancerGrade: star_rating,
-                                id: proposal_id
+                                id: proposal_idint
                             }
                         }
                         else if (status == 7) {
@@ -180,8 +175,8 @@ $(document).ready(function () {
                                 id: proposal_id
                             }
                         }
-                        console.log(param)
-                        $.ajax({
+                    
+                        $.ajax({    
                             type: 'PATCH',
                             url: url,
                             contentType: "application/json; charset=utf-8",
@@ -189,6 +184,10 @@ $(document).ready(function () {
                             dataType: "JSON",
                             async: false,
                             success: function (res) {
+                                swal("Hooray! thanks for rating!", {
+                                    icon: "success",
+                                    buttons: false
+                                });
                                 setTimeout(() => window.location.href = '/live-exch', 2000);
                             },
                             error() {
