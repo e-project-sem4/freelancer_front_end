@@ -1,23 +1,20 @@
+var $skillsControl;
 
-CKEDITOR.editorConfig = function( config ) {
-  config.language = 'en';  // Chọn ngôn ngữ
-  config.uiColor = '#F7B42C'; // màu giao diện
-  config.height = 300; 
-  config.width = 500; 
-  config.toolbarCanCollapse = true;
-};
-
-var editor = CKEDITOR.replace('description' );
-$(document).ready(function () {
+$(document).ready(function () { 
   $("#job_name").val("");
   $("#payment_amount").val("");
-  $("#multipleSelect").select2({
-    placeholder: "Choose event type",
-  });
+  $skillsControl = $(".multipleSelect").select2();
+  CKEDITOR.editorConfig = function(config) {
+    config.language = 'en';  // Chọn ngôn ngữ
+    config.uiColor = '#F7B42C'; // màu giao diện
+    config.height = 300; 
+    config.width = 500; 
+    config.toolbarCanCollapse = true;
+  };  
+  CKEDITOR.replace('descriptionJob');
   toastr.options.timeOut=1000;
   toastr.options.fadeIn = 0;
   toastr.options.positionClass = "toast-top-left";
-  // $('#multipleSelect').multiselect();
 })
 
   $("#post-job").on("click", function (event) {
@@ -26,13 +23,15 @@ $(document).ready(function () {
     const expectedDuration = $(".duration").val();
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
-    const otherSkill = $("#multipleSelect").val().map((item) => {
+    const otherSkill = $skillsControl.val().map((item) => {
       return {
         skill_id: item,
       };
     });
-    // const otherSkill = $("#multipleSelect option:selected").toArray().map(item => item.value).join();
-    const description = CKEDITOR.instances.description.getData();
+    const description = CKEDITOR.instances.descriptionJob.getData();
+    if(description.length < 10){
+      return
+    }
     const param = {
       name: jobName,
       expected_duration_id: expectedDuration,

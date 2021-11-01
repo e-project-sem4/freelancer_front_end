@@ -1,12 +1,10 @@
 var url_string = window.location.href
 var url123 = new URL(url_string);
 var c = url123.searchParams.get("id");
+const url = baseUrl + `/api/v1/job/`+ c;
 
 $(document).ready(function () {
-    var url_string = window.location.href
-    var url123 = new URL(url_string);
-    var c = url123.searchParams.get("id");
-    const url = baseUrl + `/api/v1/job/`+ c;
+
     loadJobDetails();
 });
 
@@ -33,7 +31,7 @@ function loadJobDetails() {
             var d = new Date(jobDetails.createAt).toLocaleDateString();
 
             itemTempHtml +=
-                `<div class="row" id="job-description">
+                `
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail text-center job-single border rounded p-4">
                     <div class="job-single-img mb-2">
@@ -51,9 +49,16 @@ function loadJobDetails() {
 
                         <li class="list-inline-item">
                             <p class="text-muted mb-2"><i class="mdi mdi-currency-usd mr-1"></i><strong>${jobDetails.paymentAmount}</strong></p>
-                        </li>
+                        </li>`;
+            if(jobDetails.isPaymentStatus != 1){
+                itemTempHtml+= `
+                                            <li class="list-inline-item" style="color:red">
+                                            <p class="">(This job is unpaid)</p>
+                                            </li>`;
+            }
+            itemTempHtml +=
+                `
                     </ul>
-                    <p class="text-muted mb-0">Suspendisse pulvinar augue ac venenatis condimentum at sem libero volutpat nibh that nec pellentesque velit pede quis nunc Fusce a quam etiam ut purus mattis mauris sodales aliquam curabitur site Quisque placerat namipsum risus rutrum vitaeeumolestie vel lacus sed augue</p>
                 </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -115,7 +120,7 @@ function loadJobDetails() {
                     }
 
                 }
-                if (hiennutapply == 1) {
+                if (hiennutapply == 1 && jobDetails.isPaymentStatus == 1 ) {
                     itemTempHtml += `<div class="row d-flex justify-content-center">
                 <div class="job-detail border rounded mt-4">
                     <button class="btn btn-primary btn-block"data-toggle="modal" data-target="#exampleModal" id="apply-job">Apply For Job</button>
@@ -181,7 +186,7 @@ function loadJobDetails() {
                                 </div>
                                 <div class="col-lg-7 col-md-9">
                                     <div class="job-list-desc">
-                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].id}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
+                                    <h4 class="mb-2"><a href="/candidate-details?id=${proposals[j].userAccountId}" class="text-dark">${proposals[j].freeLancerName}</a></h4>
                                         <ul class="list-inline mb-0">
                                             <div class="list-inline-item mr-3">
                                                 <p  class="text-break mb-0"><i
@@ -258,8 +263,8 @@ function loadJobDetails() {
                             <i class="mdi mdi-security text-muted mdi-24px"></i>
                         </div>
                         <div class="overview-details">
-                            <h6 class="text-muted mb-0">Experience</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">1 To 3 Years Exp.</h6>
+                            <h6 class="text-muted mb-0">Expected Duration</h6>
+                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.expectedDuration.durationText}</h6>
                         </div>
                     </div>
                     <div class="single-post-item mb-4">
@@ -299,26 +304,6 @@ function loadJobDetails() {
                         <div class="overview-details">
                             <h6 class="text-muted mb-0">Date Posted</h6>
                             <h6 class="text-black-50 pt-2 mb-0">${d}</h6>
-                        </div>
-                    </div>
-
-                    <div class="single-post-item mb-4">
-                        <div class="float-left mr-3">
-                            <i class="mdi mdi-email text-muted mdi-24px"></i>
-                        </div>
-                        <div class="overview-details">
-                            <h6 class="text-muted mb-0">Email</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">${jobDetails.userBusiness.user.email}</h6>
-                        </div>
-                    </div>
-
-                    <div class="single-post-item">
-                        <div class="float-left mr-3">
-                            <i class="mdi mdi-phone-classic text-muted mdi-24px"></i>
-                        </div>
-                        <div class="overview-details">
-                            <h6 class="text-muted mb-0">Contact No</h6>
-                            <h6 class="text-black-50 pt-2 mb-0">+${jobDetails.userBusiness.user.phone}</h6>
                         </div>
                     </div>
                 </div>

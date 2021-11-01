@@ -24,10 +24,7 @@ function loadHomePage() {
                             <div class="popu-category-icon mb-3">
                             <i class="mdi mdi-desktop-classic d-inline-block rounded-pill h3 text-primary"></i>
                             </div>
-                            <div class="popu-category-content">
-                                <h5 class="mb-2 text-dark title">Admin</h5>
-                                <p class="text-success mb-0 rounded">${res[1]}</p>
-                            </div>
+                           
                         </div>
                     </a>
                 </div>
@@ -40,7 +37,7 @@ function loadHomePage() {
                             
                             </div>
                             <div class="popu-category-content">
-                                <h5 class="mb-2 text-dark title">User</h5>
+                                <h5 class="mb-2 text-dark title">Freelancer</h5>
                                 <p class="text-success mb-0 rounded">${res[2]}</p>
                             </div>
                         </div>
@@ -54,7 +51,7 @@ function loadHomePage() {
                             <i  class="mdi mdi-account-card-details d-inline-block rounded-pill h3 text-primary"></i>
                             </div>
                             <div class="popu-category-content">
-                                <h5 class="mb-2 text-dark title">Freelancer</h5>
+                                <h5 class="mb-2 text-dark title">Business</h5>
                                 <p class="text-success mb-0 rounded">${res[3]}</p>
                             </div>
                         </div>
@@ -67,7 +64,7 @@ function loadHomePage() {
                             <i class="mdi mdi-bank d-inline-block rounded-pill h3 text-primary"></i>
                             </div>
                             <div class="popu-category-content">
-                                <h5 class="mb-2 text-dark title">Business</h5>
+                                <h5 class="mb-2 text-dark title">Job</h5>
                                 <p class="text-success mb-0 rounded">${res[4]}</p>
                             </div>
                         </div>
