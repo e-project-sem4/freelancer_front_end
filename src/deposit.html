@@ -146,15 +146,21 @@
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
     <script>
     var userInfo = localStorage.getItem("access-token");
-    var amount = $("#amount").val();
-    const urlCreate = baseUrl +`/api/v1/users/create-payment?amount=${amount}`
-    if(userInfo === null || userInfo =="" || userInfo === undefined){
+    var amount ;
+    var urlCreate 
+  
+  if(userInfo === null || userInfo =="" || userInfo === undefined){
         location.href = "/login"
     }else{    
       paypal.Button.render(
         {
+          onClick:function(){
+            debugger
+            amount = $("#amount").val()
+             urlCreate = baseUrl +`/api/v1/users/create-payment?amount=${amount}`
+          },
           env: "sandbox", 
-          payment: function (data, actions) {           
+          payment: function (data, actions) { 
             return actions.request.post(urlCreate).then(function (res) {
                 return res.id;
               });
@@ -179,6 +185,7 @@
         "#paypal-button"
       );
     }
+    
    
     </script>
   </body>
