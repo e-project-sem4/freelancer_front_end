@@ -65,8 +65,8 @@ function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
                                 <a class="list-item-heading mb-1 truncate w-20 w-xs-100" href="/admin/list-job/${lists[i].id}">
                                 ${lists[i].username}
                                 </a>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].fullName} </p>
-                                <p class="mb-1  w-15 w-xs-100">${lists[i].email} </p>
+                                <p class="mb-1  w-10 w-xs-100">${lists[i].fullName} </p>
+                                <p class="mb-1  w-20 w-xs-100">${lists[i].email} </p>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].phone} </p>
                                 <p class="mb-1  w-15 w-xs-100">${d}</p>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].balance} USD</p>
