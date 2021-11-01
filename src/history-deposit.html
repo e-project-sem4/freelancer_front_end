@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TOPWORK</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"
+    ></script>
+
+    <!--Material Icon -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/materialdesignicons.min.css"
+    />
+    <link rel="stylesheet" href="/admin/src/font/iconsmind/style.css" />
+    <link rel="stylesheet" href="/admin/src/font/simple-line-icons/css/simple-line-icons.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/jquery.contextMenu.min.css" />
+    <link rel="stylesheet" href="/admin/src/css/main.css" />
+    <link rel="stylesheet" href="/admin/src/css/vendor/bootstrap-datepicker3.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
+
+    <!-- selectize css -->
+    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script
+      src="https://widget.cloudinary.com/v2.0/global/all.js"
+      type="text/javascript"
+    ></script>
+    <script src="/admin/src/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/admin/src/js/vendor/perfect-scrollbar.min.js"></script>
+    <script src="/admin/src/js/vendor/mousetrap.min.js"></script>
+    <script src="/admin/src/js/vendor/jquery.contextMenu.min.js"></script>
+    <script src="/admin/src/js/dore.script.js"></script>
+    <script src="/admin/src/js/scripts.js"></script>
+    <script src="/admin/src/js/default.js"></script>
+    <script src="/admin/src/js/header.js"></script>
+
+  </head>
+
+  <body>
+    <!-- Loader -->
+    <div id="preloader">
+      <div id="status">
+        <div class="spinner">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Loader -->
+
+    <!-- Navigation Bar-->
+    <header id="header"></header>
+    <!-- Navbar End -->
+
+    <!-- Start home -->
+    <section class="bg-half page-next-level">
+        <div id="success" class="row justify-content-center">
+           
+        </div>
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">History Deposit</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="index.html" class="text-uppercase font-weight-bold">Home</a></li>
+                            
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">History Deposit</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+    <!-- CANDIDATES PROFILE START -->
+
+    <section class="section">
+      <div class="container">
+            <div class="container-fluid disable-text-selection">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-2">
+                            <a class="btn pt-0 pl-0 d-inline-block d-md-none" data-toggle="collapse" href="#displayOptions"
+                                role="button" aria-expanded="true" aria-controls="displayOptions">
+                                Display Options
+                                <i class="simple-icon-arrow-down align-middle"></i>
+                            </a>
+                            <div class="collapse d-md-block" id="displayOptions">
+                                
+                                <div class="d-block d-md-inline-block">                                    
+                                    <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                                        <input type="search" id="search-input" placeholder="Search transaction..."
+                                            onchange="changeSearch()">
+                                    </div>
+                                    <div class="float-left col-4 form-group mb-3">
+                                        <div class="input-daterange input-group" id="datepicker">
+                                            <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                                placeholder="Start" />
+                                            <span class="input-group-addon"></span>
+                                            <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                                placeholder="End" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-md-right">
+                                    <select id="dropdown-page" class="form-control select2-single" onchange="changePage()">
+                                        <option data-display="Size" value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                                <div class="float-md-right">
+                                    <select id="dropdown-sort" onchange="changeSort()" class="form-control select2-single">
+                                        <option data-display="Sort" value="0">All</option>
+                                        <option value="1"> Create Date ↑</option>
+                                        <option value="2"> Create Date ↓</option>
+                                        <option value="3"> Price ↑</option>
+                                        <option value="4"> Price ↓</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator mb-5"></div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class=" col-12 list" data-check-all="checkAll">
+    
+                        <div id="lists">
+                            <!-- call api -->
+                        </div>
+                        <nav id="pagination-api" class="mt-4 mb-3">
+                            <ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </section>
+    <!-- footer start -->
+    <footer id="footer"></footer>
+    <!-- footer end -->
+    <!--end footer-->
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top">
+      <i class="mdi mdi-chevron-up d-block"> </i>
+    </a>
+    <!-- Back to top -->
+
+    <!-- javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
+    <script src="js/default.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+    <script src="js/history-deposit.js"></script>
+    <script src="/admin/src/js/jquery.twbsPagination.js"></script>
+    <script src="/admin/src/js/vendor/bootstrap-datepicker.js"></script>    
+  </body>
+</html>
