@@ -191,6 +191,7 @@ function drawLineChart(category, series){
 	    },
 	
 	    series: [{
+        name : "Money",
 	        data: series
 	    }]
 	});
