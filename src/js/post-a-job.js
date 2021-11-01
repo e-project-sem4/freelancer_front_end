@@ -1,9 +1,9 @@
-var $skillsControl;
-
+var $skillsControls;
+var ck;
 $(document).ready(function () { 
   $("#job_name").val("");
   $("#payment_amount").val("");
-  $skillsControl = $(".multipleSelect").select2();
+  $skillsControls = $(".multipleSelect").select2();
   CKEDITOR.editorConfig = function(config) {
     config.language = 'en';  // Chọn ngôn ngữ
     config.uiColor = '#F7B42C'; // màu giao diện
@@ -23,7 +23,7 @@ $(document).ready(function () {
     const expectedDuration = $(".duration").val();
     const complexity = $(".complexity").val();
     const paymentAmount = $("#payment_amount").val();
-    const otherSkill = $skillsControl.val().map((item) => {
+    const otherSkill = $skillsControls.val().map((item) => {
       return {
         skill_id: item,
       };
