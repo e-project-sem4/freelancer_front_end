@@ -10,7 +10,7 @@ const firebaseConfig = {
 };
 var chat_room_id;
 $(document).ready(function () {
-    if(localStorage.getItem('user-info')){
+    if (localStorage.getItem('user-info')) {
         $('#signup_register').css("display", "none");
     }
 
@@ -36,22 +36,28 @@ $(document).ready(function () {
             const item = chatKeyUsers[index];
             var frontSender;
             if (frontSender != item.receiverId) {
-                html += `<a id='${item.receiverId}' class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}')">`;
+                html += `<a id='${item.chatRoomKey}' class="dropdown-item" href="#" onclick="goToChat('${item.id}', '${item.senderId}', '${item.receiverId}', '${item.jobId}', '${item.chatRoomKey}', '${item.proposalId}')">`;
                 firebase.database().ref(item.chatRoomKey).limitToLast(1).on("child_added", function (snapshot) {
                     var status = snapshot.val().status;
-                    console.log(status)
                     var sender = snapshot.val().sender;
                     frontSender = item.receiverId;
+                    console.log(snapshot.val().status);
                     if (status == 0) {
-                        if (!countMess)
+                        if (sender != item.senderId && localStorage.getItem('room_key') != item.chatRoomKey) {
                             var tempHtml = `<span style="color: red; font-size: 20px">&bull;</span>`;
+                            console.log('chatRoomKey: ' + item.chatRoomKey);
+                            console.log('sender: ' + sender);
+                            console.log('senderId: ' + item.senderId);
+                            $('#' + item.chatRoomKey).prepend(tempHtml);
+                        }
                         countMess = true;
-                        $('#' + sender).prepend(tempHtml);
+
                     }
-                    if (localStorage.getItem('room_key') == item.chatRoomKey) {
+                    if (localStorage.getItem('room_key') != null && localStorage.getItem('room_key') == item.chatRoomKey) {
                         updateStatusChat(item.chatRoomKey);
                     } else {
-                        if (countMess != 0) {
+
+                        if (countMess && sender != item.senderId) {
                             $('#dot-alert').html(`<span style="color: red">&bull;</span>`);
                         }
                     }
@@ -78,6 +84,7 @@ function goToChat(id, sender_id, receiver_id, job_id, room_key, proposal_id) {
     localStorage.setItem('receiver_id', receiver_id);
     localStorage.setItem('job_id', job_id);
     localStorage.setItem('room_key', room_key);
+    localStorage.setItem('lastest_room_key', room_key);
     localStorage.setItem('proposal_id', proposal_id);
     updateStatusChat(room_key);
     setTimeout(function () {
@@ -87,8 +94,10 @@ function goToChat(id, sender_id, receiver_id, job_id, room_key, proposal_id) {
 
 function updateStatusChat(room_key) {
     firebase.database().ref(room_key).on("child_added", function (snapshot) {
-        firebase.database().ref().child('/' + room_key + '/' + snapshot.key).update({
-            status: 1
-        });
+        if (snapshot.val().sender != localStorage.getItem('sender_id')) {
+            firebase.database().ref().child('/' + room_key + '/' + snapshot.key).update({
+                status: 1
+            });
+        }
     });
 }

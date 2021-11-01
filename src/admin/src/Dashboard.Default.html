@@ -222,7 +222,7 @@
                         <div class="card-body" style="padding-top: 10px;">
                             <div class="float-left float-none-xs">
                                 <div class="d-inline-block">
-                                    <div class="input-daterange input-group" id="datepicker">
+                                    <div class="input-daterange input-group" id="datepickerRevenue">
                                         <input id="startDay" type="text" class="input-sm form-control" name="start"
                                             placeholder="Start" />
                                         <span class="input-group-addon"></span>
@@ -232,13 +232,13 @@
                                 </div>
                             </div>
                             <div class="btn-group float-right float-none-xs mt-2">
-                                <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
+                                <button  class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    This Week
+                                    Last 30 days
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Last Week</a>
-                                    <a class="dropdown-item" href="#">This Month</a>
+                                    <button id="change-load-day" class="dropdown-item">Days</button>
+                                    <button id="change-load-month" class="dropdown-item">Month</button>
                                 </div>
                             </div>
                         </div>
@@ -254,11 +254,11 @@
                         <div class="card-body" style="padding-top: 10px;">
                             <div class="float-left float-none-xs">
                                 <div class="d-inline-block">
-                                    <div class="input-daterange input-group" id="datepicker">
-                                        <input id="startDay" type="text" class="input-sm form-control" name="start"
+                                    <div class="input-daterange input-group" id="datepickerTransaction">
+                                        <input id="startTransaction" type="text" class="input-sm form-control" name="start"
                                             placeholder="Start" />
                                         <span class="input-group-addon"></span>
-                                        <input id="endDay" type="text" class="input-sm form-control" name="end"
+                                        <input id="endTransaction" type="text" class="input-sm form-control" name="end"
                                             placeholder="End" />
                                     </div>
                                 </div>

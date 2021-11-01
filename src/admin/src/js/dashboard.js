@@ -1,21 +1,30 @@
 var start ='';
 var end ='';
+var startAt ="" ;
+var endAt ="";
 $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
   loadCountAccout();
   loadLineCharts();
-  loadMultipleLineChart();
+  loadMultipleLineChart(startAt,endAt);
 
 });
 
-$('#datepicker').on('changeDate', function() {
+$('#datepickerRevenue').on('changeDate', function() {
   start = document.getElementById("startDay").value;
   end = document.getElementById("endDay").value;
   loadLineCharts();
 });
 
+$('#datepickerTransaction').on('changeDate', function() {
+  startTransaction = new Date(document.getElementById("startTransaction").value);
+  endTransaction = new Date(document.getElementById("endTransaction").value + " 23:59:59")
+  startAt = startTransaction.getTime();
+  endAt = endTransaction.getTime();
+  loadMultipleLineChart(startAt,endAt);
+});
 function loadCountAccout() {
   const url =
   baseUrl +
@@ -94,11 +103,11 @@ function loadLineCharts(){
     },
   });
 }
-function loadMultipleLineChart(){
+function loadMultipleLineChart(startAt,endAt){
 
   const url =
   baseUrl +
-  '/api/v1/admin/dashboard/multiplelinechartdata';
+  `/api/v1/admin/dashboard/multiplelinechartdata?start=${startAt}&end=${endAt}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -112,18 +121,20 @@ function loadMultipleLineChart(){
     dataType: "JSON",
     async: false,
     success: function (res) {
-      
-      var Day = [];
-      for(var keys in res){
-        var single = {
-            data: []
-          }
-        for(var i = 0; i < res[keys].length; i++){
-          single.data.push(new Date(res[keys][i].createAt).toLocaleDateString());
-        }
-        Day.push(single);
-      }
-      console.log(Day)
+      var dayMultiple = [];
+      var sorted_nums = [];
+
+		for(var key in res){
+			var sgg = {
+					data: []
+				}
+			for(var i = 0; i < res[key].length; i++){
+				sgg.data.push("Day " + res[key][i].day);
+			}
+			dayMultiple.push(sgg);
+		}
+    sorted_nums = dayMultiple[0].data.concat(dayMultiple[1].data,dayMultiple[2].data);
+
     /* line chart multiple series starts here */
 		var formatteddata = [];
 		for(var key in res){
@@ -133,12 +144,24 @@ function loadMultipleLineChart(){
 				}
 			singleObject.name = key.toUpperCase();
 			for(var i = 0; i < res[key].length; i++){
+        if(res[key][i].type == 0){
+          singleObject.name="RECHARGE";
+        }
+        if(res[key][i].type == 1){
+          singleObject.name="WITHDRAW";
+        }
+        if(res[key][i].type == 2){
+          singleObject.name="PAYMENT";
+        }
+        if(res[key][i].type == 3){
+          singleObject.name="WAGE";
+        }
 				singleObject.data.push(res[key][i].price);
 			}
 			formatteddata.push(singleObject);
 		}
-		console.log(formatteddata);
-		drawMultipleLineChart(formatteddata,Day);
+
+		drawMultipleLineChart(formatteddata,sorted_nums);
     },
   });
 }
@@ -168,12 +191,14 @@ function drawLineChart(category, series){
 	    },
 	
 	    series: [{
+        name : "Money",
 	        data: series
 	    }]
 	});
 }
 /* for multiple line chart */
-function drawMultipleLineChart(formatteddata,category){
+function drawMultipleLineChart(formatteddata,dayMultiple){
+
 	Highcharts.chart('multipleLineChart', {
 
 	    title: {
@@ -186,103 +211,7 @@ function drawMultipleLineChart(formatteddata,category){
 	        }
 	    },
       xAxis: {
-        categories: [
-    "14/9/2021",
-    "15/9/2021",
-    "16/9/2021",
-    "17/9/2021",
-    "18/9/2021",
-    "19/9/2021",
-    "20/9/2021",
-    "21/9/2021",
-    "22/9/2021",
-    "23/9/2021",
-    "24/9/2021",
-    "25/9/2021",
-    "26/9/2021",
-    "27/9/2021",
-    "28/9/2021",
-    "29/9/2021",
-    "30/9/2021",
-    "1/10/2021",
-    "2/10/2021",
-    "3/10/2021",
-    "4/10/2021",
-    "5/10/2021",
-    "6/10/2021",
-    "7/10/2021",
-    "8/10/2021",
-    "9/10/2021",
-    "10/10/2021",
-    "11/10/2021",
-    "12/10/2021",
-    "13/10/2021",
-    "14/10/2021",
-    "15/10/2021",
-    "16/10/2021",
-    "17/10/2021",
-    "18/10/2021",
-    "19/10/2021",
-    "20/10/2021",
-    "21/10/2021",
-    "22/10/2021",
-    "23/10/2021",
-    "24/10/2021",
-    "14/9/2021",
-    "15/9/2021",
-    "16/9/2021",
-    "17/9/2021",
-    "18/9/2021",
-    "19/9/2021",
-    "20/9/2021",
-    "21/9/2021",
-    "22/9/2021",
-    "23/9/2021",
-    "24/9/2021",
-    "25/9/2021",
-    "26/9/2021",
-    "27/9/2021",
-    "28/9/2021",
-    "29/9/2021",
-    "30/9/2021",
-    "1/10/2021",
-    "2/10/2021",
-    "3/10/2021",
-    "4/10/2021",
-    "5/10/2021",
-    "6/10/2021",
-    "7/10/2021",
-    "8/10/2021",
-    "9/10/2021",
-    "10/10/2021",
-    "11/10/2021",
-    "12/10/2021",
-    "13/10/2021",
-    "14/10/2021",
-    "15/10/2021",
-    "16/10/2021",
-    "17/10/2021",
-    "18/10/2021",
-    "19/10/2021",
-    "20/10/2021",
-    "21/10/2021",
-    "22/10/2021",
-    "23/10/2021",
-    "24/10/2021",
-    "14/9/2021",
-    "15/9/2021",
-    "16/9/2021",
-    "17/9/2021",
-    "18/9/2021",
-    "19/9/2021",
-    "20/9/2021",
-    "21/9/2021",
-    "22/9/2021",
-    "23/9/2021",
-    "24/9/2021",
-    "25/9/2021",
-    "26/9/2021"
-]
+        categories: dayMultiple
     },
 	    legend: {
 	        layout: 'vertical',
@@ -317,4 +246,39 @@ function drawMultipleLineChart(formatteddata,category){
 	    }
 
 	});
+}
+
+$('#change-load-day').on('click', function(){
+  loadLineCharts();
+})
+$('#change-load-month').on('click', function(){
+  loadLineChartsMonth();
+})
+
+function loadLineChartsMonth(){
+  const url =
+  baseUrl +
+  `/api/v1/admin/dashboard/month`;
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+      var months = [];
+      var price = [];
+        for(var i = 0; i < res.length; i++){
+          months.push("Month " + res[i].month);
+          price.push(res[i].price);
+      }
+    drawLineChart(months,price);
+    },
+  });
 }
