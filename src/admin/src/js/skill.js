@@ -6,14 +6,71 @@ var sort = 1;
 var totals = 0;
 
 $(document).ready(function () {
+  toastr.options = {
+    "closeButton": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-bottom-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "300",
+    "timeOut": "1000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
   if (localStorage.getItem("access-token-admin") == null) {
     location.href = "/admin/login"
   }
+ 
   loadAll(search,status,page,pageSize,sort);
   pagination(totalRow);
   $('#error').hide();
 
 });
+
+
+
+function changeStatus(id,s){
+
+  const url =
+  baseUrl +
+  `/api/v1/skills/${id}`;
+
+  const param = {
+   status:s
+  };
+  $.ajax({
+    type: "PATCH",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(param),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+        toastr.success("Success!");
+      
+      if (localStorage.getItem("access-token-admin") == null) {
+        location.href = "/admin/login"
+      }
+      loadAll(search,status,page,pageSize,sort);
+      pagination(totalRow);
+      $('#error').hide();
+
+    },
+
+  
+})
+};
 
 function loadAll(search,status,page,pageSize,sort) {
   const url =
@@ -31,29 +88,52 @@ function loadAll(search,status,page,pageSize,sort) {
       let itemTempHtml = "";
       for (let i = 0; i < lists.length; i++) {
         if (lists[i].status == 1) {
-          str = '<span class="badge badge-pill badge-primary">Active</span>'
+          str = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-secondary">Active</button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${lists[i].id},2);" class="dropdown-item alert-warning" href="#">Deactivate</a>
+              <a onClick="changeStatus(${lists[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
         } else {
-          str = '<span class="badge badge-pill badge-danger">Deactivation</span>'
+          str = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-danger">Deactivate</button>
+          <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${lists[i].id},1);" class="dropdown-item alert-secondary" href="#">Active</a>
+              <a onClick="changeStatus(${lists[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
         }
         ;
-        itemTempHtml += `
-                    <div class="card d-flex flex-row mb-3">
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a style="padding-left: 210px;" class=" list-item-heading mb-1 truncate w-100 w-xs-100" href="Layouts.Details.html">
-                                ${lists[i].skillName}
-                                </a>
-                                <div  class="w-60 w-xs-100">`+ str + `</div>
-                            </div>
-                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                <label class="custom-control custom-checkbox mb-0">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-label"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-        `;
+        if(lists[i].status == 1||lists[i].status == 2){
+          itemTempHtml += `
+          <div class="card d-flex flex-row mb-3">
+              <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                      <a style="padding-left: 210px;" class=" list-item-heading mb-1 truncate w-100 w-xs-100" href="Layouts.Details.html">
+                      ${lists[i].skillName}
+                      </a>
+                       <div  class="w-60 w-xs-100">`+ str + `</div>
+            
+                      
+                  </div>
+                  <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
+                      <label class="custom-control custom-checkbox mb-0">
+                          <input type="checkbox" class="custom-control-input">
+                          <span class="custom-control-label"></span>
+                      </label>
+                  </div>
+              </div>
+          </div>
+                `;
+        }
+        
       }
       $("#skill-list").html(itemTempHtml);
     },

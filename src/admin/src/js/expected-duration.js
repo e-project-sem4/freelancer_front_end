@@ -9,11 +9,65 @@ $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
+  toastr.options = {
+    "closeButton": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-bottom-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "300",
+    "timeOut": "1000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
   loadAll(search,status,page,pageSize,sort)
   pagination(totalRow);
   $('#error').hide();
 
 });
+
+function changeStatus(id,s){
+
+  const url =
+  baseUrl +
+  `/api/v1/durations/${id}`;
+
+  const param = {
+   status:s
+  };
+  $.ajax({
+    type: "PATCH",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(param),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+        toastr.success("Success!");
+      
+      if (localStorage.getItem("access-token-admin") == null) {
+        location.href = "/admin/login"
+      }
+      loadAll(search,status,page,pageSize,sort);
+      pagination(totalRow);
+      $('#error').hide();
+
+    },
+
+  
+})
+};
 
 function loadAll(search,status,page,pageSize,sort) {
   const url =
@@ -31,11 +85,30 @@ function loadAll(search,status,page,pageSize,sort) {
       let itemTempHtml = "";
       for (let i = 0; i < durations.length; i++) {
         if(durations[i].status ==1){
-          str = '<span class="badge badge-pill badge-primary">Active</span>'
-        }else{
-          str = '<span class="badge badge-pill badge-danger">Deactivation</span>'
+          str = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-secondary">Active</button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${durations[i].id},2);" class="dropdown-item alert-warning" href="#">Deactivate</a>
+              <a onClick="changeStatus(${durations[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
+        } else {
+          str = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-danger">Deactivate</button>
+          <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${durations[i].id},1);" class="dropdown-item alert-secondary" href="#">Active</a>
+              <a onClick="changeStatus(${durations[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
         }
         ;
+        if(durations[i].status == 1||durations[i].status == 2){
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">
@@ -54,6 +127,7 @@ function loadAll(search,status,page,pageSize,sort) {
                         </div>
                     </div>
         `;
+        }
       }
       $("#durations-list").html(itemTempHtml);
     },
@@ -140,7 +214,7 @@ $("#create-data").on('click', function (event) {
   })
 })
 function changeOrder() {
-  type = $("#dropdown-order").val();
+  status = $("#dropdown-order").val();
   loadAll(search,status,page,pageSize,sort);
   $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
   pagination(totalRow);
