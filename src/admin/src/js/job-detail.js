@@ -36,7 +36,7 @@ function loadJobDetails() {
              <div  class="card mb-4">
             <div class="card-body">
             <p class="text-muted mb-2">Account: ${jobDetails.userBusiness.user.username} </p>
-            <div>
+            <div style="display: flex;justify-content: center;">
                 <a href="#">
                    <img alt="Profile Picture" src="${jobDetails.userBusiness.user.thumbnail}" class="img-thumbnail border-1 rounded-circle list-thumbnail align-self-center" />
                 </a>
