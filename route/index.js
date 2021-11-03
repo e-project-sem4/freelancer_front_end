@@ -221,6 +221,11 @@ router.get("/admin/transaction-management", (req, res) => {
         res.send(data);
     });
 });
-
+router.get("/admin/revenue-management", (req, res) => {
+    fs.readFile("./src/admin/src/revenue-management.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 
 module.exports = router;
