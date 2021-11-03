@@ -149,17 +149,6 @@
                             <i class="simple-icon-picture"></i> List User
                         </a>
                     </li>
-                    <li>
-                        <a href="list-freelancer">
-                            <i class="simple-icon-check"></i> List Freelancer
-                        </a>
-                    </li>
-                    <li>
-                        <a href="list-business">
-                            <i class="simple-icon-calculator"></i> List Business
-                        </a>
-                    </li>
-
                 </ul>
                 <ul class="list-unstyled" data-link="ui">
                     <li>
@@ -218,206 +207,11 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="first" role="tabpanel" aria-labelledby="first-tab">
-                            <div class="row">
-                                <div class="col-lg-6 col-12 mb-4">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <p class="text-muted text-small mb-2">Name</p>
-                                            <div>
-                                                <p class="mb-3">
-                                                    Tên job
-                                                </p>
-                                            </div>
-                                            <p class="text-muted text-small mb-2">Description</p>
-                                            <div>
-                                                <p class="mb-3">
-                                                    nội dung description
-                                                </p>
-                                            </div>
-                                            
-                                            <p class="text-muted text-small mb-2">Rating</p>
-                                            <div class="form-group mb-3">
-                                                <select class="rating" data-current-rating="5" data-readonly="true">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                            </div>
-
-                                            <p class="text-muted text-small mb-2">Price</p>
-                                            <p class="mb-3">$8,14</p>
-
-                                            <p class="text-muted text-small mb-2">Skill</p>
-                                            <p class="mb-3">
-                                                <a href="#">
-                                                    <span class="badge badge-pill badge-outline-theme-2 mb-1">Flour</span>
-                                                </a>
-                                                <a href="#">
-                                                    <span class="badge badge-pill badge-outline-theme-2 mb-1">Chocolate</span>
-                                                </a>
-                                            </p>
-                                            <p class="text-muted text-small mb-2">Complexity </p>
-                                            <p class="mb-3">Độ khó</p>
-                                            <p class="text-muted text-small mb-2">Experience </p>
-                                            <p class="mb-3">Kinh nghiệm</p>
-                                        </div>
-                                    </div>
+                            <div id="job-detail" class="row">
+                                
+                                        <!-- api -->
                                     
-                                </div>
-
-                                <div class="col-12 col-lg-6">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Proposal</h5>
-                                            <div>
-                                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">Very tasty, thank you.
-                                                            </p>
-                                                            <p class="text-muted mb-1 text-small">Mayra Sibley |
-                                                                17.09.2018 - 04:45</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="5"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l-7.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">This cake was delightful
-                                                                to eat. Please keep them coming.</p>
-                                                            <p class="text-muted mb-1 text-small">Barbera Castiglia |
-                                                                15.08.2018 - 01:18</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="5"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l-2.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">Your cake is bad and you
-                                                                should feel bad.</p>
-                                                            <p class="text-muted mb-1 text-small">Bao Hathaway |
-                                                                26.07.2018 - 11:14</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="2"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l-3.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">Very original recipe!</p>
-                                                            <p class="text-muted mb-1 text-small">Lenna Majeed |
-                                                                17.06.2018 - 09:20</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="5"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l-5.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">This cake was delightful
-                                                                to eat. Please keep them coming.</p>
-                                                            <p class="text-muted mb-1 text-small">Esperanza Lodge |
-                                                                16.06.2018 - 16:45</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="5"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="d-flex flex-row">
-                                                    <a href="#">
-                                                        <img alt="Profile Picture" src="/admin/src/img/profile-pic-l-4.jpg" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                                    </a>
-                                                    <div class="pl-3 pr-2">
-                                                        <a href="#">
-                                                            <p class="font-weight-medium mb-0">Nah, did not like it
-                                                                much.</p>
-                                                            <p class="text-muted mb-1 text-small">Brynn Bragg |
-                                                                12.04.2018 - 12:45</p>
-                                                        </a>
-                                                        <div class="form-group mb-0">
-                                                            <select class="rating" data-current-rating="3"
-                                                                data-readonly="true">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -442,6 +236,8 @@
     <script src="/admin/src/js/dore.script.js"></script>
     <script src="/admin/src/js/scripts.js"></script>
     <script src="/admin/src/js/header.js"></script>
+    <script src="/admin/src/js/job-detail.js"></script>
+    <script src="/admin/src/js/default.js"></script>
 
 </body>
 

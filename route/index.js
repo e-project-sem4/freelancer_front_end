@@ -141,6 +141,18 @@ router.get("/live-exch", (req, res) => {
     });
 });
 
+router.get("/deposit", (req, res) => {
+    fs.readFile("./src/deposit.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+router.get("/history-deposit", (req, res) => {
+    fs.readFile("./src/history-deposit.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 
 //router admin
 router.get("/admin/login", (req, res) => {

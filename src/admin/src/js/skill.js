@@ -2,7 +2,7 @@ var status;
 var pageSize = 5;
 var page = 1;
 var search = "";
-var sort = 0;
+var sort = 1;
 var totals = 0;
 
 $(document).ready(function () {
@@ -40,10 +40,10 @@ function loadAll(search,status,page,pageSize,sort) {
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class="list-item-heading mb-1 truncate w-40 w-xs-100" href="Layouts.Details.html">
+                                <a style="padding-left: 210px;" class=" list-item-heading mb-1 truncate w-100 w-xs-100" href="Layouts.Details.html">
                                 ${lists[i].skillName}
                                 </a>
-                                <div class="w-15 w-xs-100">`+ str + `</div>
+                                <div style="padding-left: 60px;" class="w-60 w-xs-100">`+ str + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">

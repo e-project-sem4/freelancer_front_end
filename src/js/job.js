@@ -277,9 +277,10 @@ function changeSkill() {
   loadAllJob(search, page, pageSize, sort, complexity,arrSkill,PaymentStatus)
 }
 $(".btn-prev").on("click", function () {
-  if (page > 0) {
-    page--;
-    start = page * pageSize - pageSize + 1;
+  
+  if (page > 1) {
+    page--;    
+    start =  page * pageSize - pageSize + 1;
     end = pageSize * page;
     $('#totalResult').html(`${start}-${end}`)
     loadAllJob($("#exampleInputName1").val(), page, pageSize, sort, complexity,skill,PaymentStatus);
