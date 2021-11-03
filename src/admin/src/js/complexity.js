@@ -30,9 +30,9 @@ function loadAll(search,status,page,pageSize,sort) {
       let itemTempHtml = "";
       for (let i = 0; i < complexity.length; i++) {
         if(complexity[i].status ==1){
-          str = '<span class="badge badge-pill badge-primary">Open</span>'
+          str = '<span class="badge badge-pill badge-primary">Active</span>'
         }else{
-          str = '<span class="badge badge-pill badge-danger">Closed</span>'
+          str = '<span class="badge badge-pill badge-danger">Deactivation</span>'
         }
         ;
         itemTempHtml += `
@@ -63,6 +63,8 @@ function loadAll(search,status,page,pageSize,sort) {
 $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAll(search,status,page,pageSize,sort);
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
 });
 
 
@@ -136,3 +138,9 @@ $("#create-data").on('click', function (event) {
     }
   })
 })
+function changeOrder() {
+  status = $("#dropdown-order").val();
+  loadAll(search,status,page,pageSize,sort);
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
+}

@@ -50,9 +50,9 @@ function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
           rolesUser = '<span class="badge badge-pill badge-primary">ROLE_USER</span>'
         }
         if (lists[i].status == 1) {
-          statusUser = '<span class="badge badge-pill badge-secondary ">Open</span>'
+          statusUser = '<span class="badge badge-pill badge-secondary ">Active</span>'
         } else {
-          statusUser = '<span class="badge badge-pill badge-danger">Closed</span>'
+          statusUser = '<span class="badge badge-pill badge-danger">Deactivation</span>'
         }
         ;
         itemTempHtml += `
@@ -112,6 +112,8 @@ function changeSort() {
 $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAll(search, page, pageSize, sort, startAt, endAt,status);
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
 });
 $('#datepicker').on('changeDate', function() {
   
@@ -122,4 +124,9 @@ $('#datepicker').on('changeDate', function() {
   
   loadAll(search, page, pageSize, sort, startAt, endAt,status);
 });
-
+function changeOrder() {
+  status = $("#dropdown-order").val();
+  loadAll(search, page, pageSize, sort, startAt, endAt,status);
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
+}
