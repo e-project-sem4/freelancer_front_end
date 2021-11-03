@@ -110,6 +110,8 @@ function changeSort() {
 $("#search-input").change(function () {
   search = $("#search-input").val();
   loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
 });
 $('#datepicker').on('changeDate', function() {
   
@@ -120,3 +122,10 @@ $('#datepicker').on('changeDate', function() {
   loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
 
 });
+
+function changeOrder() {
+  type = $("#dropdown-order").val();
+  loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
+  $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+  pagination(totalRow);
+}

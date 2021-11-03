@@ -269,14 +269,11 @@
                             </span>
                             <div class="d-block d-md-inline-block">
                                 <div class="btn-group float-md-left mr-1 mb-1">
-                                    <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Order By
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </div>
+                                    <select id="dropdown-order" class="form-control select2-single" onchange="changeOrder()">
+                                        <option data-display="ALL" value="">All</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Deactivation</option>
+                                    </select>
                                 </div>
                                 <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
                                     <input type="search" id="search-input" placeholder="Search Skill name..." onchange="changeSearch()">

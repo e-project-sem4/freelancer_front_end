@@ -5,18 +5,19 @@ var search = "";
 var sort = 1;
 var skill = "";
 var totals = 0;
+var isPaymentStatus="";
 $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
-  loadAll(search, page, pageSize, sort, complexity, skill);
+  loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus);
   pagination(totalRow);
 });
 
-function loadAll(search, page, pageSize, sort, complexity, skill) {
+function loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus) {
   const url =
     baseUrl +
-    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${search}&complexity_id=${complexity}&skill_id=${skill}`;
+    `/api/v1/job/search?page=${page}&size=${pageSize}&sort=${sort}&keySearch=${search}&complexity_id=${complexity}&skill_id=${skill}&isPaymentStatus=${isPaymentStatus}`;
   $.ajax({
     type: "GET",
     url: url,
@@ -80,8 +81,7 @@ function pagination(totalRow) {
     totalPages: totals,
     visiblePages: pageSize,
     onPageClick: function (event, page) {
-      loadAll(search, page, pageSize, sort, complexity, skill)
-    }
+      loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus);    }
   });
 }
 function changePage() {
@@ -93,23 +93,17 @@ function changePage() {
 function changeSort() {
   page = 1;
   sort = $("#dropdown-sort").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
-}
-$("#search-input").change(function () {
-  search = $("#search-input").val();
-  loadAll(search, page, pageSize, sort, complexity, skill);
-});
+  loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus);}
 
-// function changeComplexity(data) {
-//   complexity = data;
-//   if (data === null) {
-//     complexity = "";
-//   }
-//   loadAll(search, page, pageSize, sort, complexity, skill);
-// }
-// function changeSkill() {
-//   const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-//   loadAll(search, page, pageSize, sort, complexity, arrSkill)
-// }
-
-
+  function changeOrder() {
+    isPaymentStatus = $("#dropdown-order").val();
+    loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus);
+    $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+    pagination(totalRow);
+  }
+  $("#search-input").change(function () {
+    search = $("#search-input").val();
+    loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatus);
+    $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
+    pagination(totalRow);
+  });
