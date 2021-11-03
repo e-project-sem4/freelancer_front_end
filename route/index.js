@@ -227,5 +227,10 @@ router.get("/admin/revenue-management", (req, res) => {
         res.send(data);
     });
 });
-
+router.get("/admin/user-details", (req, res) => {
+    fs.readFile("./src/admin/src/user-details.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
 module.exports = router;

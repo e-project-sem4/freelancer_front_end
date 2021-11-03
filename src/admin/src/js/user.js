@@ -57,12 +57,12 @@ function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
         ;
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
-                        <a class="d-flex w-10" href="/admin/list-job/${lists[i].id}">
+                        <a class="d-flex w-10" href="/admin/user-details?id=${lists[i].id}">
                           <img src="${avatar}" alt="Fat Rascal" class="list-thumbnail responsive border-0" />
                         </a>
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div style="text-align: center;" class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <a class=" w-15 w-xs-100" href="/admin/list-job/${lists[i].id}">
+                                <a class=" w-15 w-xs-100" href="/admin/user-details?id=${lists[i].id}">
                                 ${lists[i].username}
                                 </a>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].fullName} </p>
