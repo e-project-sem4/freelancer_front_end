@@ -43,7 +43,7 @@ function loadAll(search,status,page,pageSize,sort) {
                                 <a style="padding-left: 210px;" class=" list-item-heading mb-1 truncate w-100 w-xs-100" href="Layouts.Details.html">
                                 ${lists[i].skillName}
                                 </a>
-                                <div style="padding-left: 60px;" class="w-60 w-xs-100">`+ str + `</div>
+                                <div  class="w-60 w-xs-100">`+ str + `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
