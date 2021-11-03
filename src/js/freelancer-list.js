@@ -1,4 +1,4 @@
-var pageSize = 5;
+var pageSize = 10;
 var page = 1;
 var totalPage = 0;
 var search = "";
@@ -9,8 +9,8 @@ var end = pageSize * page;
 var inviteUserId = 0;
 var jobList = [] ;
 $(document).ready(function () {
-    loadAllSkill();
     loadAllFreelancer(search, page, pageSize, sort,skill);
+    loadAllSkill();
     loadAllJob();
     $('#totalResult').html(`${start}-${end}`)
 });
@@ -60,32 +60,23 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
         async: false,
         success: function (res) {
             const freelancerList = res.result;
-            console.log(freelancerList);
             totalRow = res.total;
             let itemHtml = "";
             let itemTempHtml = "";
             for (let i = 0; i < freelancerList.length; i++) {
                 if(current_user_id != freelancerList[i].user_account_id){
-                    var thumbnail = freelancerList[i].user.thumbnail
+                    console.log(freelancerList[i].user.thumbnail)
                     itemTempHtml = `
     <div class="col-lg-12 mt-4 pt-2">
         <div class="job-list-box border rounded">
             <div class="p-3">
                 <div class="row align-items-center">`
-                    if(thumbnail =! null){
                         itemTempHtml+=
                             `<div class="col-lg-2">
                         <div class="company-logo-img">
-                            <img src="${thumbnail}" alt="" class="img-fluid mx-auto d-block">
+                            <img src="${freelancerList[i].user.thumbnail}" alt="" class="d-block mx-auto shadow rounded-pill mb-4" id="thumbnails" style="border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;width: 100px"/>
                         </div>
                     </div>`
-                    }else {
-                        itemTempHtml+= `  <div class="col-lg-2">
-                        <div class="company-logo-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" class="img-fluid mx-auto d-block">
-                        </div>
-                    </div>`
-                    }
                     itemTempHtml +=
                         `<div class="col-lg-7 col-md-9">
                         <div class="job-list-desc">
@@ -137,13 +128,10 @@ function loadAllFreelancer(searchKey, page, pageSize, sort ,skill) {
     </div>
 </div>
                 `;
-
-
                     itemHtml += itemTempHtml;
                 }
             }
             $("#freelancer-list").html(itemHtml);
-
         },
     });
 }
@@ -153,16 +141,6 @@ $("#search-key").on("click", function (event) {
     loadAllFreelancer(search, page, pageSize, sort,skill);
     event.preventDefault();
 });
-function changeSkill(){
-    const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
-    loadAllFreelancer(search, page, pageSize, sort,arrSkill)
-}
-function changeSort(){
-    page =1;
-    sort = $('#dropdown-sort').val();
-    loadAllFreelancer(search, page, pageSize, sort,skill);
-
-}
 function changePage() {
     page = 1;
     pageSize = $("#dropdown-page").val();
@@ -171,10 +149,19 @@ function changePage() {
     $('#totalResult').html(`${start}-${end}`)
     loadAllFreelancer(search, page, pageSize, sort,skill);
 }
+function changeSort(){
+    page =1;
+    sort = $('#dropdown-sort').val();
+    loadAllFreelancer(search, page, pageSize, sort,skill);
+}
+function changeSkill(){
+    const arrSkill = [...document.querySelectorAll(".checkbox-d")].filter(x => x.checked === true).map(e => +e.value).join(",");
+    loadAllFreelancer(search, page, pageSize, sort,arrSkill)
+}
 $("#btn-prev").on("click", function () {
-    if (page > 0) {
+    if (page > 1) {
         page--;
-        start = page * pageSize - pageSize + 1;
+        start =  page * pageSize - pageSize + 1;
         end = pageSize * page;
         $('#totalResult').html(`${start}-${end}`)
         loadAllFreelancer($("#exampleInputName1").val(), page, pageSize, sort,skill);
@@ -193,7 +180,6 @@ function  loadAllJob() {
     const url = baseUrl + `/api/v1/users/viewprofile`;
     const token = localStorage.getItem('access-token')
     $.ajax({
-
         type: "GET",
         url: url,
         contentType: "application/json; charset=utf-8",
@@ -208,8 +194,6 @@ function  loadAllJob() {
         success: function (res) {
             jobList = res.result.business.listJob;
         },
-
-
     })
     var jobListHtml = '<option selected>Select job for invite</option>';
     for (let j = 0; j < jobList.length; j++) {
@@ -226,9 +210,7 @@ function inviteFreelancer(){
     var job_id = $('#invite-to-job').val()
     const url = baseUrl + `/api/v1/freelancer/invite?userId=` + inviteUserId +`&jobId=`+job_id;
     const token = localStorage.getItem('access-token')
-    console.log(url)
     $.ajax({
-
         type: "GET",
         url: url,
         contentType: "application/json; charset=utf-8",
@@ -239,13 +221,10 @@ function inviteFreelancer(){
         },
         dataType: "JSON",
         async: false,
-
         success: function (res) {
             swal("Success!", "Invite complete!", "success");
            location.href = '/candidate-list';
         },
-
-
     })
 
 }

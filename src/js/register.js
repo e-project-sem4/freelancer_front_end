@@ -60,8 +60,34 @@ function registerAccount(){
         var email = $("#email").val();
         var phone = $("#phone").val();
         var password = $("#password").val();
+        var confirm_password = $("#confirm_password").val();
+
+        if (username.length < 4) {
+            swal("Error!", "Your username must be at least 4 characters long!", "warning");
+            return;
+        }
+        if (!fullName) {
+            swal("Error!", "Your fullname must not be null!", "warning");
+            return;
+        }
+        if (!email) {
+            swal("Error!", "Your fullname must not be null!", "warning");
+            return;
+        }
+        if (phone.length < 10) {
+            swal("Error!", "Your phone must be at least 10 characters long!", "warning");
+            return;
+        }
+        if (password.length < 8) {
+            swal("Error!", "Your password must be at least 8 characters long!", "warning");
+            return;
+        }
+        if ( password != confirm_password ) {
+            swal("Error!", "Your confirm password is wrong!", "warning");
+            return;
+        }
         if(!$('#customCheck1').is(":checked")){
-            alert('chưa đồng ý điều khoản');
+            swal("Error!", "You're not accept terms and condition!", "warning");
             return;
         }
         const registerForm = {
@@ -79,11 +105,9 @@ function registerAccount(){
             data:JSON.stringify(registerForm),
             dataType:"JSON",
             async:false,
-
             success: function (res) {
-                if(res){
-
-                    // location.href="/login"
+                if(res) {
+                    location.href = "/login"
                 }
             },
             error(){
