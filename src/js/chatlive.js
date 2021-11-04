@@ -296,7 +296,7 @@ function onLoadMessage(sizeOfPage) {
 }
 
 function sendmessage(mess) {
-    debugger
+    
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
