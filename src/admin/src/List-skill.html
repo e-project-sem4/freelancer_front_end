@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="/admin/src/css/vendor/jquery.contextMenu.min.css" />
     <link rel="stylesheet" href="/admin/src/css/main.css" />
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+    
+
 
 </head>
 
@@ -181,7 +184,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-2">
-                        <h1>Layout Skill</h1>
+                        <h1>Skills</h1>
                         <div class="float-md-right text-zero">
 
                             <button type="button" class="btn btn-outline-primary btn-lg top-right-button  mr-1"
@@ -218,7 +221,7 @@
                                     <div class="modal-body">
                                         <form>
                                             <div class="form-group">
-                                                <label>Title</label>
+                                                <label>Name</label>
                                                 <div class="alert alert-danger rounded" role="alert" id="error">
                                                     Empty name
                                                 </div>
@@ -229,7 +232,7 @@
                                                 <label>Status</label>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">Completed</label>
+                                                    <label class="custom-control-label" for="customCheck1">Active</label>
                                                 </div>
                                             </div>
                                         </form>
@@ -272,11 +275,11 @@
                                     <select id="dropdown-order" class="form-control select2-single" onchange="changeOrder()">
                                         <option data-display="ALL" value="">All</option>
                                         <option value="1">Active</option>
-                                        <option value="0">Deactivation</option>
+                                        <option value="2">Deactivate</option>
                                     </select>
                                 </div>
                                 <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                                    <input type="search" id="search-input" placeholder="Search Skill name..." onchange="changeSearch()">
+                                    <input style="height:2.4rem" type="search" id="search-input" placeholder="Search Skill name..." onchange="changeSearch()">
                                 </div>
                             </div>
                             <div class="float-md-right">
@@ -292,8 +295,7 @@
                                     <option data-display="Sort"  value="0">All</option>
                                     <option value="1"> Create Date ↑</option>
                                     <option value="2"> Create Date ↓</option>
-                                    <option value="3"> Price ↑</option>
-                                    <option value="4"> Price ↓</option>
+                                   
                                 </select>
                             </div>
                         </div>
@@ -304,12 +306,16 @@
 
             <div class="row">
                 <div class=" col-12 list" data-check-all="checkAll">
-                    <div class="card d-flex flex-row mb-3 table-heading badge-primary" >
+                    <div class="card d-flex flex-row mb-3 table-heading badge-primary">
                         <div class="d-flex flex-grow-1 min-width-zero">
                             <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                <p class="mb-1  w-60 w-xs-100 text-center" >SKILL NAME</p>
-                                <p class="mb-1  w-60 w-xs-100 text-center">STATUS</p>
-                                <p class="mb-1  w-10 w-xs-100 text-center"></p>    
+                                <div style="padding-left: 210px;" class=" list-item-heading mb-1 truncate w-100 w-xs-100" >
+                                SKILL NAME
+                                </div>
+                                <div  class="w-60 w-xs-100" style="margin-right:1%;">STATUS</div>
+                            </div>
+                            <div class="  pl-1  pr-4">
+                                
                             </div>
                         </div>
                     </div>
@@ -335,6 +341,7 @@
     <script src="/admin/src/js/skill.js"></script>
     <script src="/admin/src/js/header.js"></script>
     <script src="/admin/src/js/jquery.twbsPagination.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 </body>
 
