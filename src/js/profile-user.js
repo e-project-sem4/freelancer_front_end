@@ -585,7 +585,13 @@ $(document).ready(function () {
             async: false,
             success: function (res) {
                 window.location.href = '/profile'
-
+                if (res && res.status == '0') {
+                    toastr.success('Edit Profile Completed!');
+                    setTimeout(2000)
+                }
+                if (res && res.status == '-1') {
+                    toastr.warning(res.message);
+                }
             },
         });
 
@@ -607,7 +613,7 @@ $(document).ready(function () {
             certifications: certifications,
             hasSkills: otherSkill
         };
-        console.log(param)
+       
         $.ajax({
             type: 'POST',
             url: url,
@@ -625,7 +631,7 @@ $(document).ready(function () {
                 window.location.href = '/profile'
                 if (res && res.status == '0') {
                     toastr.success('Edit Freelancer Completed!');
-                    setTimeout(loadAllJobJobmn(), 2000)
+                    setTimeout(2000)
                 }
                 if (res && res.status == '-1') {
                     toastr.warning(res.message);
@@ -656,7 +662,7 @@ $(document).ready(function () {
             certifications: certifications,
             hasSkills: otherSkill
         };
-        console.log(param)
+        
         $.ajax({
             type: 'POST',
             url: url,
