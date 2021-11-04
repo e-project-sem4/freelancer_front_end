@@ -71,7 +71,7 @@ $(function load() {
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 `
             }
-            else if (rate_business > 0){
+             if (rate_business > 0){
                 itemhtmlRateBN = `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
@@ -84,7 +84,7 @@ $(function load() {
                 itemhtmlRateFR = `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
                
             }
-            else if (rate_business == 0){       
+            if (rate_business == 0){       
                 itemhtmlRateBN += `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
             }	
            
