@@ -184,11 +184,15 @@ $(document).ready(function () {
                             dataType: "JSON",
                             async: false,
                             success: function (res) {
-                                swal("Hooray! thanks for rating!", {
-                                    icon: "success",
-                                    buttons: false
-                                });
-                                setTimeout(() => window.location.href = '/live-exch', 2000);
+                                setTimeout(() => window.location.href = '/live-exch', 800);
+                                if (res && res.status == '0') {
+                                    toastr.success('Edit Profile Completed!');
+                                    setTimeout(2000)
+                                }
+                                if (res && res.status == '-1') {
+                                    toastr.warning(res.message);
+                                }
+                                
                             },
                             error() {
                                 swal("Something was wrong !", {
