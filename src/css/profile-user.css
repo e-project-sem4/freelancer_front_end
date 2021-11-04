@@ -1,4 +1,34 @@
 
+.skillsPr{
+    width: 465%  ;
+}
+.skillsPr1{
+    width: 465%  ;
+}
+.select2-selection{
+    width: 100%;
+    height: auto;
+    min-height: 39px !important;
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered{
+    display: block;
+}
+
+.select2-search--inline{
+    display: none;
+}
+
+.select2-container--default .select2-selection--multiple{
+    padding-bottom: 0px;
+    border: solid 1px #e6eaf4;
+    border-radius: 8px;
+    outline: none;
+}
+
+#toast-container>div{
+    opacity: 1 !important;
+}
 .emp-profile{
     padding: 3%;
     margin-top: 3%;

@@ -1,7 +1,11 @@
 var status = ``;
 var id_freelancer = 0;
 var id_business = 0;
+var $skillsControl;
+var $skillsControl2;
 var thumbnailsUrl = ''
+var rate_freelancer;
+var rate_business
 var myWidget = cloudinary.createUploadWidget(
     {
         cloudName: 'hoadaica',
@@ -12,8 +16,8 @@ var myWidget = cloudinary.createUploadWidget(
         thumbnails: '.thumbnails'
     }, function (error, result) {
         if (!error && result && result.event === "success") {
-            console.log('Done! Here is the image info: ', result.info.url); 
-            thumbnailsUrl = result.info.url; 
+            console.log('Done! Here is the image info: ', result.info.url);
+            thumbnailsUrl = result.info.url;
             console.log(thumbnailsUrl);
             var arrayThumnailInputs = document.querySelectorAll('input[name="thumbnails"]');
             for (let i = 0; i < arrayThumnailInputs.length; i++) {
@@ -23,6 +27,17 @@ var myWidget = cloudinary.createUploadWidget(
     }
 );
 
+// xử lý js trên dynamic content.
+$('body').on('click', '.cloudinary-delete', function () {
+    var splittedImg = $(this).parent().find('img').attr('src').split('/');
+    var imgName = splittedImg[splittedImg.length - 1];
+    imgName = imgName.replace('.jpg', '');
+    $('input[data-cloudinary-public-id="' + imgName + '"]').remove();
+    $(this).parent().remove();
+
+});
+var Skills = [];
+var Profile_freelancer = [];
 $(function load() {
     const url = baseUrl + `/api/v1/users/viewprofile`;
     const token = localStorage.getItem('access-token')
@@ -30,29 +45,38 @@ $(function load() {
         type: 'GET',
         url: url,
         contentType: "application/json; charset=utf-8",
-        beforeSend: function (xhr){
+        beforeSend: function (xhr) {
             xhr.setRequestHeader(
                 "Authorization", token
             );
         },
         dataType: "JSON",
-        async: false,    
-        success: function (res) {               
-            const ProfileList = res.result; 
+        async: false,
+        success: function (res) {
+            ProfileList = res.result;
             id_freelancer = ProfileList.freelancer.id;
-            id_business = ProfileList.business.id;            
+
+            id_business = ProfileList.business.id;
+            rate_freelancer = res.result.freelancer.averageGrade;
+            rate_business = res.result.freelancer.averageGrade;
             let itemHtmlInfo = `<img src="${ProfileList.user.thumbnail}" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
-            <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>              
+            <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>`
+
+
+            if (ProfileList.freelancer != null) {
+                itemHtmlInfo += `              
             <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.overview}</p>
-            <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.location}</p>
-            <ul class="candidates-profile-icons list-inline mb-3">
-                <li class="list-inline-item"><a href="#" class="text-warning"><i class="mdi mdi-star"></i></a></li>
-                <li class="list-inline-item"><a href="#" class="text-warning"><i class="mdi mdi-star"></i></a></li>
-                <li class="list-inline-item"><a href="#" class="text-warning"><i class="mdi mdi-star"></i></a></li>
-                <li class="list-inline-item"><a href="#" class="text-warning"><i class="mdi mdi-star"></i></a></li>
-                <li class="list-inline-item"><a href="#" class="text-warning"><i class="mdi mdi-star"></i></a></li>
-            </ul>`;
-        $('#InfoProfileList').html(itemHtmlInfo) 
+            <p class="text-white-50 h5 mb-2">${ProfileList.freelancer.location}</p>`
+            }
+            else {
+                itemHtmlInfo +=
+                    `              
+            <p class="text-white-50 h5 mb-2">Haven't info yet</p>
+            <p class="text-white-50 h5 mb-2">Haven't info yet</p>`
+            }
+
+
+            $('#InfoProfileList').html(itemHtmlInfo)
             let itemHtmlProfile = `<div class="container emp-profile">
             <form method="post">
                 <div class="row">
@@ -63,14 +87,24 @@ $(function load() {
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
+                 
                                     <h5>
                                         ${ProfileList.user.fullName}
-                                    </h5>
-                                    <h6>
-                                    ${ProfileList.freelancer.overview}
-                                    </h6>
-                                    
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    </h5>`
+            if (ProfileList.freelancer != null) {
+                itemHtmlProfile += `
+                                        <h6>
+                                        ${ProfileList.freelancer.overview}
+                                        </h6>`
+            }
+            else {
+                itemHtmlProfile += `
+                                        <h6>
+                                        Haven't info yet
+                                        </h6>`
+            }
+
+            itemHtmlProfile += `     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                 </li>
@@ -169,9 +203,17 @@ $(function load() {
                                             <div class="col-md-6">
                                                 <label>Address :</label>
                                             </div>
-                                            <div class="col-md-6 ">
-                                                <p>${ProfileList.freelancer.location}</p>
-                                            </div>
+                                            <div class="col-md-6 ">`
+            if (ProfileList.freelancer != null) {
+                itemHtmlProfile += `<p>${ProfileList.freelancer.location}</p>`
+            }
+            else {
+                itemHtmlProfile += `<p>Haven't info yet</p>`
+            }
+
+
+
+            itemHtmlProfile += `</div>
                                         </div>
                                         <div class="row border-bottom mt-3" >
                                             <div class="col-md-6">
@@ -196,81 +238,66 @@ $(function load() {
                 </div>
             </form>           
         </div>  `;
-        
-        $('#profile').html(itemHtmlProfile) 
-           let itemHtmlFreelancer ="";
-           let itemHtmltempFreelancer ="";
-            itemHtmltempFreelancer =`
+
+            $('#profile').html(itemHtmlProfile)
+
+            let itemHtmlFreelancer = "";
+            let itemHtmltempFreelancer = "";
+
+
+            if (ProfileList.freelancer == null) {
+
+                itemHtmltempFreelancer = `
+          
+            <div class="col-lg-12 mt-4 pt-2 pb-4 ">
+            <div id="modal-freelancer" class="row" >
+              <div class="col-md-9 ">
+               <h4>haven't info yet</h4>
+              </div>
+            <div class="col-md-3 ">
+            <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#EditFreelancerModal1">
+                Update freelancer
+            </button>
+        </div>
+                            </div>
+                            </div>
+                            </div>
+                                </div>
+                </div>
+            
+            `
+
+
+            } else {
+                id_freelancer = ProfileList.freelancer.id;
+                Profile_freelancer = ProfileList.freelancer
+                itemHtmltempFreelancer = `
             <div class="col-lg-12 mt-4 pt-2 pb-4 ">
             <div id="modal-freelancer" class="row" >
               <div class="col-md-9 ">
                <h4 class="font-weight-normal">Status Search Job `;
-               if (ProfileList.freelancer.statusSearchJob == 1 ){
-                itemHtmltempFreelancer += `<Button  type="button" class="btn btn-sm btn-success status"   >Active</Button>`;
-                
-            }
-              else {
-                itemHtmltempFreelancer +=`<Button  type="button" class="btn btn-sm btn-danger status"  >Not Active</Button>`; 
-              }
+                if (ProfileList.freelancer.statusSearchJob == 1) {
+                    itemHtmltempFreelancer += `<Button  type="button" class="btn btn-sm btn-success status"   >Active</Button>`;
+                }
+                else {
+                    itemHtmltempFreelancer += `<Button  type="button" class="btn btn-sm btn-danger status"  >Not Active</Button>`;
+                }
 
-              itemHtmltempFreelancer +=   
-             `       
+
+                itemHtmltempFreelancer +=
+                    `       
+             
                 </h4>
               </div>
             <div class="col-md-3 ">
             <button type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#EditFreelancerModal">
+                data-target="#EditFreelancerModal" onClick="handleOpenModalPr()">
                 Edit freelancer
             </button>
        
        
-            <div class="modal fade" id="EditFreelancerModal" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5  class="modal-title " id="exampleModalLabel">Edit Freelancer</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="needs-validation" novalidate>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Location</label>
-                                    <input type="text" class="form-control" id="location"
-                                        aria-describedby="emailHelp"
-                                        placeholder="${ProfileList.freelancer.location}">
-                                    <div class="invalid-feedback">
-       
-                                    </div>
-                                    <small id="emailHelp" class="form-text text-muted"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Overview</label>
-                                    <input type="text" class="form-control" id="overview"
-                                        placeholder="${ProfileList.freelancer.overview}">
-                                    <div class="invalid-feedback">
-       
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Certifications</label>
-                                    <input type="text" class="form-control" id="certifications"
-                                        placeholder="${ProfileList.freelancer.certifications}">
-                                    <div class="invalid-feedback">
-       
-                                    </div>
-                                </div>
-       
-                                <button id="updateFreelancer" type="button"
-                                    class="btn btn-primary">Update</button>
-                            </form>
-                        </div>
-       
-                    </div>
-                </div>
-            </div>
+           
         </div>
         
                             </div>
@@ -295,15 +322,15 @@ $(function load() {
                             <div class="col-lg-12 mt-4 pt-2">
                                 <h4 class="text-dark">Skills :</h4>
                                 <div  class=" p-4">`;
-                                let Listskill =""
-                                Skills = ProfileList.freelancer?.hasSkills
-                                for (let i = 0; i < Skills?.length; i++) {
-                                   Listskill  += `
+                let Listskill = ""
+                Skills = ProfileList.freelancer?.hasSkills
+                for (let i = 0; i < Skills?.length; i++) {
+                    Listskill += `
                                    <Button class="btn btn-light"># ${Skills[i].skill.skillName}</Button>
-                                    `;                                                        
-                                }  
-                                itemHtmltempFreelancer += Listskill;
-                                itemHtmltempFreelancer +=` 
+                                    `;
+                }
+                itemHtmltempFreelancer += Listskill;
+                itemHtmltempFreelancer += ` 
                           </div>
                           
                           
@@ -313,12 +340,13 @@ $(function load() {
                             <div class="col-lg-12 mt-4 pt-2">
                                 <h4 class="text-dark">Rate Freelancer :</h4>
                                 <div class="row">`
-                                let ListProposals =""
-                                proposals = ProfileList.freelancer.proposals
-                                
-                                for (let i = 0; i < proposals?.length; i++) {     
-                                    if(proposals[i].proposal_status_catalog_id == 2 || proposals[i].proposal_status_catalog_id == 3 ){
-                                        ListProposals+=`<div class="col-md-6 mt-3 mt-md-0 pt-3">
+                let ListProposals = ""
+                proposals = ProfileList.freelancer.proposals
+
+                if (proposals != null && proposals != "") {
+                    for (let i = 0; i < proposals?.length; i++) {
+                        if (proposals[i].proposal_status_catalog_id == 2 || proposals[i].proposal_status_catalog_id == 3) {
+                            ListProposals += `<div class="col-md-6 mt-3 mt-md-0 pt-3">
                                                             
                                         <div class="border rounded job-list-box p-4">
                                             <div class="row">
@@ -336,145 +364,179 @@ $(function load() {
                                                         <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-message-processing"></i> Comment: ${proposals[i].clientComment}</h6>
                                                         <h6 class="text-dark mb-0 f-16"><i class="mdi mdi-star-circle"></i> Rate: ${proposals[i].clientGrade}</h6>
                                                         
-                                                        ${proposals[i].proposal_status_catalog_id == 2 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status: InProgress' : proposals[i].proposal_status_catalog_id == 3 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:Done':'<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:null'}
+                                                        ${proposals[i].proposal_status_catalog_id == 2 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status: InProgress' : proposals[i].proposal_status_catalog_id == 3 ? '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:Done' : '<h6 class="text-dark mb-0 f-16"><i class="mdi mdi-alert"></i> Status:null'}
     
                                                     </div>
                                                 </div>
                                             </div>                                       
                                         </div>                                 
                                     </div>`;
-                                    }
-                                    
-                                
-                                }      
-                            itemHtmltempFreelancer += ListProposals;
-                             itemHtmltempFreelancer+=`
+                        }
+
+
+                    }
+                }
+                else {
+                    ListProposals += `
+                               <h3 class="pl-3">  not rated yet!  <h3>`
+                }
+
+                itemHtmltempFreelancer += ListProposals;
+                itemHtmltempFreelancer += `
                                 </div>
-                </div>`;         
-           
-                            itemHtmlFreelancer +=itemHtmltempFreelancer
-                $('#Freelancer').html(itemHtmlFreelancer)
-
-
-
-       let itemHtmlBussiness = ""
-       let itemtempHtmlBussiness = ""
-       itemtempHtmlBussiness=`
-       <div class="col-lg-12 mt-4 pt-2">
-                                <div id="modal-Business" class="row">
-                                    <div class="col-md-3 offset-md-9">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#EditBusinessModal">
-                                            Edit Business
-                                        </button>
-                                        <div class="modal fade" id="EditBusinessModal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title " id="exampleModalLabel">Edit Business
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="needs-validation" novalidate>
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Location</label>
-                                                                <input type="text" class="form-control" id="location-Business"
-                                                                    aria-describedby="emailHelp"
-                                                                    placeholder="${ProfileList.business.location}">
-                                                                <div class="invalid-feedback">
-
-                                                                </div>
-                                                                <small id="emailHelp"
-                                                                    class="form-text text-muted"></small>
-                                                            </div>
-                                                            
-                                                            <button id="updateBusiness" type="button"
-                                                                class="btn btn-primary">Update</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 class="text-dark">Completed Job :</h4>
-
-                                <div id="JoblistBusinness" class="row">`;
-                                job=``;
-                                jobList = ProfileList.business?.listJob
-                                for (let i = 0; i < jobList?.length; i++) {
-                                    if(jobList[i].status == 3){                                     
-                                        job+= `<div class="col-lg-12 mt-4 pt-2">
-                                    <div class="job-list-box border rounded">
-                                        <div class="p-3">                           
-                                            <div class="row align-items-center">                                 
-                                               <div class="col-lg-2">
-                                                  <div class="company-logo-img">
-                                                    <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
-                                                  </div>
-                                                </div>                               
-                                                    <div class="col-lg-7 col-md-9">
-                                                            <div class="job-list-desc">
-                                                                       <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
-                                                                              <ul class="list-inline mb-0">
-                                                                                   <li class="list-inline-item mr-3">
-                                                                                   <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
-                                                                                  
-                                                                                         </li>
-                        
-                                                                                    `;
-                                                                                      job += `<li class="list-inline-item mr-3">
-                                                         
-                                                       `;
-        let Proposals = "";
-        for (let j = 0; j < jobList[i].proposals.length; j++) {
-            if (jobList[i].proposals[j]?.proposal_status_catalog_id == 3 ){
-                Proposals += `<div class="list-inline-item mr-3">
-                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerComment :${jobList[i].proposals[j]?.freelancerComment} </p>
                 </div>`;
-                Proposals +=`<div class="list-inline-item mr-3">
-                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerGrade :${jobList[i].proposals[j]?.freelancerGrade} </p>
-                </div>`;             
+
             }
-           
-           
-        }
-        Proposals = Proposals.substring(0, Proposals.length - 2);
-        job += Proposals;
-        job  +=`           </p>    
-                                                     </li>
-                                                 </ul>
-                                                 
+
+
+            itemHtmlFreelancer += itemHtmltempFreelancer
+            $('#Freelancer').html(itemHtmlFreelancer)
+
+
+
+            let itemHtmlBussiness = ""
+            let itemtempHtmlBussiness = ""
+            console.log(ProfileList.business)
+            if (ProfileList.business == null && ProfileList.business == "") {
+                itemtempHtmlBussiness = `<h4> haven't info yet</h4>`
+            }
+            else {
+                itemtempHtmlBussiness = `
+
+        <div class="col-lg-12 mt-4 pt-2">
+                                 <div id="modal-Business" class="row">
+                                     <div class="col-md-3 offset-md-9">
+                                         <button type="button" class="btn btn-primary" data-toggle="modal"
+                                             data-target="#EditBusinessModal">
+                                             Edit Business
+                                         </button>
+                                         <div class="modal fade" id="EditBusinessModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog" role="document">
+                                                 <div class="modal-content">
+                                                     <div class="modal-header">
+                                                         <h5 class="modal-title " id="exampleModalLabel">Edit Business
+                                                         </h5>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                             aria-label="Close">
+                                                             <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                     </div>
+                                                     <div class="modal-body">
+                                                         <form class="needs-validation" novalidate>
+                                                             <div class="form-group">
+                                                                 <label for="exampleInputEmail1">Location</label>
+                                                                 <input type="text" class="form-control" id="location-Business"
+                                                                     aria-describedby="emailHelp"
+                                                                     placeholder="${ProfileList.business.location}">
+                                                                 <div class="invalid-feedback">
+ 
+                                                                 </div>
+                                                                 <small id="emailHelp"
+                                                                     class="form-text text-muted"></small>
+                                                             </div>
+                                                             
+                                                             <button id="" type="button"
+                                                                 class="btn btn-primary updateBusiness">Update</button>
+                                                         </form>
+                                                     </div>
+                                                 </div>
                                              </div>
-                                             
-                                             </div>
-                                                  
+                                         </div>
                                      </div>
                                  </div>
-                             </div>
-                         </div>`;             
-                                  
-                                }
-                                
-                                    }                                     
-                                itemtempHtmlBussiness += job;  
-        itemtempHtmlBussiness+=`</div>
-                            </div>`;
-                            itemHtmlBussiness += itemtempHtmlBussiness
-                           
-                            $('#Bussiness').html(itemHtmlBussiness)
+                                 <h4 class="text-dark">Completed Job :</h4>
+ 
+                                 <div id="JoblistBusinness" class="row">`;
+                job = ``;
+                jobList = ProfileList.business?.listJob
+                for (let i = 0; i < jobList?.length; i++) {
+                    if (jobList[i].status == 3) {
+                        job += `<div class="col-lg-12 mt-4 pt-2">
+                                     <div class="job-list-box border rounded">
+                                         <div class="p-3">                           
+                                             <div class="row align-items-center">                                 
+                                                <div class="col-lg-2">
+                                                   <div class="company-logo-img">
+                                                     <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
+                                                   </div>
+                                                 </div>                               
+                                                     <div class="col-lg-7 col-md-9">
+                                                             <div class="job-list-desc">
+                                                                        <h4 class="mb-2"><a href="#" class="text-dark">${jobList[i].name}</a></h4>
+                                                                               <ul class="list-inline mb-0">
+                                                                                    <li class="list-inline-item mr-3">
+                                                                                    <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity : ${jobList[i].complexity.complexityText}</p>
+                                                                                   
+                                                                                          </li>
+                         
+                                                                                     `;
+                        job += `<li class="list-inline-item mr-3">
+                                                          
+                                                        `;
+                        let Proposals = "";
+                        for (let j = 0; j < jobList[i].proposals.length; j++) {
+                            if (jobList[i].proposals[j]?.proposal_status_catalog_id == 3) {
+                                Proposals += `<div class="list-inline-item mr-3">
+                 <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerComment :${jobList[i].proposals[j]?.freelancerComment} </p>
+                 </div>`;
+                                Proposals += `<div class="list-inline-item mr-3">
+                 <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>FrelancerGrade :${jobList[i].proposals[j]?.freelancerGrade} </p>
+                 </div>`;
+                            }
+
+
+                        }
+                        Proposals = Proposals.substring(0, Proposals.length - 2);
+                        job += Proposals;
+                        job += `           </p>    
+                                                      </li>
+                                                  </ul>
+                                                  
+                                              </div>
+                                              
+                                              </div>
+                                                   
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>`;
+
+                    }
+
+                }
+                itemtempHtmlBussiness += job;
+                itemtempHtmlBussiness += `</div>
+                             </div>`;
+            }
+
+            itemHtmlBussiness += itemtempHtmlBussiness
+
+            $('#Bussiness').html(itemHtmlBussiness)
         }
 
     })
 });
+function handleOpenModalPr() {
+    $('.location').val(Profile_freelancer.location);
+    $('.overview').val(Profile_freelancer.overview);
+    $('.certifications').val(Profile_freelancer.certifications);
+    let skillsPr = Skills.map((e) => { return e.skill_id + '' });
+    $skillsControl.val(skillsPr).trigger("change");
+}
 $(document).ready(function () {
-    $('#updateProfile').on("click", function(event) {  
-        const fullName = $("#fullName").val();       
+    if (rate_freelancer > 0 || rate_business > 0) {
+        $('#unrateFreelancer').hide();
+        $('#unrateBusiness').hide();
+    }
+    else if (rate_freelancer == 0 || rate_business == 0) {
+        $('#rateFreelancer').hide();
+        $('#rateBusiness').hide();
+    }
+    $skillsControl = $(".skillsPr").select2();
+    $skillsControl2 = $(".skillsPr1").select2();
+    $('#updateProfile').on("click", function (event) {
+        const fullName = $("#fullName").val();
         const email = $("#email").val();
         const phone = $("#phone").val();
         const url = baseUrl + `/api/v1/users/editprofile`;
@@ -486,138 +548,230 @@ $(document).ready(function () {
         };
         $.ajax({
             type: 'PUT',
-            url: url,      
+            url: url,
             contentType: "application/json; charset=utf-8",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "Authorization",
                     String(localStorage.getItem("access-token"))
                 );
-              },
-              data:JSON.stringify(param),
-            dataType:"JSON",
+            },
+            data: JSON.stringify(param),
+            dataType: "JSON",
             async: false,
-            success: function(res) {
-                window.location.href='/profile'
-                
+            success: function (res) {
+                window.location.href = '/profile'
+
             },
         });
-        
+
     })
-    $('#updateFreelancer').on("click", function(event) {  
-        console.log("id_freelancer 2 : ",id_freelancer)
-        const location = $("#location").val();       
-        const overview = $("#overview").val();
-        const certifications = $("#certifications").val();
+    $('.updateFreelancer').on("click", function (event) {
+        const location = $(".location").val();
+        const overview = $(".overview").val();
+        const certifications = $(".certifications").val();
+        const otherSkill = $skillsControl.val().map(item => {
+            return {
+                skill_id: item,
+            };
+        });
         const url = baseUrl + `/api/v1/users/editprofilefreelancer`;
-     
         const param = {
-            id : id_freelancer,
+            id: id_freelancer,
             location: location,
             overview: overview,
             certifications: certifications,
+            hasSkills: otherSkill
         };
-      
+        console.log(param)
         $.ajax({
             type: 'POST',
-            url: url,      
+            url: url,
             contentType: "application/json; charset=utf-8",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "Authorization",
                     String(localStorage.getItem("access-token"))
                 );
-              },
-            data:JSON.stringify(param),
-            dataType:"JSON",
+            },
+            data: JSON.stringify(param),
+            dataType: "JSON",
             async: false,
-            success: function(res) {
-                window.location.href='/profile'
-                
+            success: function (res) {
+                window.location.href = '/profile'
+                if (res && res.status == '0') {
+                    toastr.success('Edit Freelancer Completed!');
+                    setTimeout(loadAllJobJobmn(), 2000)
+                }
+                if (res && res.status == '-1') {
+                    toastr.warning(res.message);
+                }
             },
             error() {
                 console.log("sai");
-              },
+            },
         });
-        
     })
-    $('#updateBusiness').on("click", function(event) {  
-       
-        const location = $("#location-Business").val();       
-        console.log(location);
-        const url = baseUrl + `/api/v1/users/editprofilebusiness`;
-        console.log(id_business);
+    $('.updateFreelancer1').on("click", function (event) {
+        if (id_freelancer == 0) {
+            id_freelancer = null
+        }
+        const location = $(".location1").val();
+        const overview = $(".overview1").val();
+        const certifications = $(".certifications1").val();
+        const otherSkill = $skillsControl2.val().map(item => {
+            return {
+                skill_id: item,
+            };
+        });
+        const url = baseUrl + `/api/v1/users/editprofilefreelancer`;
         const param = {
-            id : id_business,
+            id: id_freelancer,
             location: location,
-            
+            overview: overview,
+            certifications: certifications,
+            hasSkills: otherSkill
         };
-      
+        console.log(param)
         $.ajax({
             type: 'POST',
-            url: url,      
+            url: url,
             contentType: "application/json; charset=utf-8",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "Authorization",
                     String(localStorage.getItem("access-token"))
                 );
-              },
-            data:JSON.stringify(param),
-            dataType:"JSON",
+            },
+            data: JSON.stringify(param),
+            dataType: "JSON",
             async: false,
-            success: function(res) {
-                window.location.href='/profile'
-                
+            success: function (res) {
+                window.location.href = '/profile'
+                if (res && res.status == '0') {
+                    toastr.success('Edit Freelancer Completed!');
+                    setTimeout(2000)
+                }
+                if (res && res.status == '-1') {
+                    toastr.warning(res.message);
+                }
             },
             error() {
                 console.log("sai");
-              },
+            },
         });
-        
+    })
+    $('.updateBusiness').on("click", function (event) {
+        if (id_freelancer == 0) {
+            id_freelancer = null
+        }
+        const location = $("#location-Business").val();
+
+        const url = baseUrl + `/api/v1/users/editprofilebusiness`;
+
+        const param = {
+            id: id_business,
+            location: location,
+        };
+        console.log(param)
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+            },
+            data: JSON.stringify(param),
+            dataType: "JSON",
+            async: false,
+            success: function (res) {
+                window.location.href = '/profile'
+                if (res && res.status == '0') {
+                    toastr.success('Edit Business Completed!');
+                    setTimeout(2000)
+                }
+                if (res && res.status == '-1') {
+                    toastr.warning(res.message);
+                }
+            },
+            error() {
+                console.log("sai");
+            },
+        });
+
     })
 
 
-    $(".status").on("click", function () { 
+    $(".status").on("click", function () {
         const url = baseUrl + `/api/v1/freelancer/changeStatus`;
         $.ajax({
             type: 'PATCH',
-            url: url,      
+            url: url,
             contentType: "application/json; charset=utf-8",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "Authorization",
                     String(localStorage.getItem("access-token"))
                 );
-              },
-            dataType:"JSON",
+            },
+            dataType: "JSON",
             async: false,
-            success: function(res) {
-                window.location.href='/profile'
-                
+            success: function (res) {
+                window.location.href = '/profile'
+
             },
             error() {
                 console.log("sai");
-              },
+            },
         });
-       
-      })
 
-  });
-
-  function changeAvatar(){
-    myWidget.open();
-  }
- 
-// xử lý js trên dynamic content.
-$('body').on('click', '.cloudinary-delete', function () {
-    var splittedImg = $(this).parent().find('img').attr('src').split('/');
-    var imgName = splittedImg[splittedImg.length - 1];
-    imgName = imgName.replace('.jpg', '');
-    $('input[data-cloudinary-public-id="' + imgName + '"]').remove();
-    $(this).parent().remove();
+    })
+    function getJobskillsPr() {
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "/api/v1/skills/search?status=1",
+            contentType: "application/json; charset=utf-8",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Authorization",
+                    String(localStorage.getItem("access-token"))
+                );
+            },
+            dataType: "JSON",
+            async: false,
+            success: function (res) {
+                let dropdownListSkill = res.result;
+                let tempHtml = "";
+                let tempHtmlDropdown = "";
+                if (res) {
+                    for (let i = 0; i < dropdownListSkill.length; i++) {
+                        tempHtml = `<option value=${dropdownListSkill[i].id}>${dropdownListSkill[i].skillName}</option>`;
+                        tempHtmlDropdown += tempHtml;
+                    }
+                    $(".skillsPr").html(tempHtmlDropdown);
+                    $(".skillsPr1").html(tempHtmlDropdown);
+                }
+            },
+            error() {
+                console.log("sai");
+            },
+        });
+    }
+    getJobskillsPr()
 });
 
 
-    
-  
+function changeAvatar() {
+    myWidget.open();
+}
+
+
+
+
+
+
+

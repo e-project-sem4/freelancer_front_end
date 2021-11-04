@@ -19,7 +19,6 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
 
@@ -27,14 +26,14 @@
 
     <!-- selectize css -->
     <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+    <link rel="stylesheet" type="text/css" href="css/star-rating.css" />
 
     <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/profile-user.css" />
-    <script src="js/jquery.min.js"> </script>
-    <script src="js/header.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>   
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -91,28 +90,41 @@
             <div class="row">
                 <div class="container emp-freelancer">
                     <div class="col-lg-12 pl-5 ">
-                        <h4 class="text-center "> FREELANCER</h4>
-
-
+                        <h4 class="text-center "> FREELANCER 
+                        
+                    </h4>
+                    <div class=" text-center candidates-profile-icons list-inline mb-3 text-center" id="rateFreelancer" >
+                        <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                        <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                        <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                        <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                        <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                    </div>
+                
+                    <ul class=" text-center  candidates-profile-icons list-inline mb-3" id="unrateFreelancer" >
+                        <h3 class = "text-danger h5 mb-2">not rated yet</h3>
+                    </ul>
                         <div id="Freelancer" class="row">
                             <h1>Not Found</h1>
-
-
-
-
                         </div>
                     </div>
-
                 </div>
-
-
-
-
             </div>
             <div class="row mt-5 ">
                 <div class="container emp-bussiness">
                     <div class="col-lg-12 pl-5 ">
-                        <h4 class="text-center"> BUSINNESS</h4>
+                        <h4 class="text-center"> BUSINESS</h4>
+                        <div class=" text-center candidates-profile-icons list-inline mb-3 text-center" id="rateBusiness" >
+                            <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                            <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                            <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                            <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                            <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                        </div>
+                    
+                        <ul class=" text-center  candidates-profile-icons list-inline mb-3" id="unrateBusiness" >
+                            <h3 class = "text-danger h5 mb-2">not rated yet</h3>
+                        </ul>
                         <div id="Bussiness" class="row">
                             <h1>Not Found</h1>
 
@@ -141,6 +153,131 @@
     <footer id="footer"></footer>
     <!-- footer end -->
     <!--end footer-->
+     <div class="modal fade" id="EditFreelancerModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5  class="modal-title " id="exampleModalLabel">Edit Freelancer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Location</label>
+                                    <input type="text" class="form-control location"
+                                        aria-describedby="emailHelp"
+                                        placeholder="${ProfileList.freelancer.location}">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                    <small id="emailHelp" class="form-text text-muted"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Overview</label>
+                                    <input type="text" class="form-control overview" 
+                                        placeholder="${ProfileList.freelancer.overview}">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Certifications</label>
+                                    <input type="text" class="form-control certifications" 
+                                        placeholder="${ProfileList.freelancer.certifications}">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                <div class="row">
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group app-label mt-2">
+                                        <label class="text-muted">Job Skill</label>
+                                        <div class="form-button">
+                                            <select id="multipleSelect" class="js-example-basic-multiple multipleSelect skillsPr" name="states[]" multiple="multiple">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                                <button type="button"
+                                    class="btn btn-primary updateFreelancer">Update</button>
+                            </form>
+                        </div>
+       
+                    </div>
+                </div>
+     </div>
+
+     
+             <div class="modal fade" id="EditFreelancerModal1" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5  class="modal-title " id="exampleModalLabel1">Edit Freelancer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Location</label>
+                                    <input type="text" class="form-control location1" 
+                                        aria-describedby="emailHelp"
+                                        placeholder="">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                    <small id="emailHelp" class="form-text text-muted"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Overview</label>
+                                    <input type="text" class="form-control overview1" 
+                                        placeholder="">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Certifications</label>
+                                    <input type="text" class="form-control certifications1" 
+                                        placeholder="">
+                                    <div class="invalid-feedback">
+       
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                <div class="row">
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group app-label mt-2">
+                                        <label class="text-muted">Job Skill</label>
+                                        <div class="form-button">
+                                            <select id="multipleSelect1" class="js-example-basic-multiple multipleSelect skillsPr1" name="states[]" multiple="multiple">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+       
+                                <button id="" type="button"
+                                    class="btn btn-primary updateFreelancer1">Update</button>
+                            </form>
+                        </div>
+       
+                    </div>
+                </div>
+            </div>
     <!-- Footer End -->
 
     <!-- Back to top -->
@@ -150,19 +287,24 @@
     <!-- Back to top -->
 
     <!-- javascript -->
-    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
     <script src="js/plugins.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 
     <!-- selectize js -->
     <script src="js/selectize.min.js"></script>
-    <script src="js/default.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
-
+    <script src="js/header.js" ></script>
     <script src="js/app.js"></script>
+    <script src="js/default.js"></script>
     <script src="js/footer.js"></script>
-    <script src="js/profile-user.js"></script>
-    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+     <script src="js/profile-user.js"></script>
 </body>
 
 </html>
