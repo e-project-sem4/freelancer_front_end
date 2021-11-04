@@ -5,7 +5,7 @@ var $skillsControl;
 var $skillsControl2;
 var thumbnailsUrl = ''
 var rate_freelancer;
-var rate_business
+var rate_business;
 var myWidget = cloudinary.createUploadWidget(
     {
         cloudName: 'hoadaica',
@@ -26,8 +26,8 @@ var myWidget = cloudinary.createUploadWidget(
         }
     }
 );
-
 // xử lý js trên dynamic content.
+
 $('body').on('click', '.cloudinary-delete', function () {
     var splittedImg = $(this).parent().find('img').attr('src').split('/');
     var imgName = splittedImg[splittedImg.length - 1];
@@ -55,10 +55,42 @@ $(function load() {
         success: function (res) {
             ProfileList = res.result;
             id_freelancer = ProfileList.freelancer.id;
-
             id_business = ProfileList.business.id;
             rate_freelancer = res.result.freelancer.averageGrade;
-            rate_business = res.result.freelancer.averageGrade;
+            rate_business = res.result.business.averageGrade;
+            console.log(rate_business, rate_freelancer)
+            let itemhtmlRateBN = ``;
+            let itemhtmlRateFR = ``;
+            
+             if (rate_freelancer > 0) {
+                 itemhtmlRateFR = 
+                 `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                `
+            }
+            else if (rate_business > 0){
+                itemhtmlRateBN = `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+                `
+                
+            }
+            if (rate_freelancer == 0 ) {
+                itemhtmlRateFR = `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
+               
+            }
+            else if (rate_business == 0){       
+                itemhtmlRateBN += `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
+            }	
+           
+            
+            $('#rateFreelancer').html(itemhtmlRateFR)
+            $('#rateBusiness').html(itemhtmlRateBN)
             let itemHtmlInfo = `<img src="${ProfileList.user.thumbnail}" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
             <h2 class="text-white mb-2">${ProfileList.user.fullName}</h5>`
 
@@ -129,8 +161,7 @@ $(function load() {
                         </div>
                         <div class="modal-body">
                           <form class="needs-validation" novalidate>
-                            <div class="form-group">
-                              
+                            <div class="form-group">                         
                               <label for="exampleInputEmail1">Email address</label>
                               <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="${ProfileList.user.email}" >
                               <div class="invalid-feedback">
@@ -524,15 +555,8 @@ function handleOpenModalPr() {
     let skillsPr = Skills.map((e) => { return e.skill_id + '' });
     $skillsControl.val(skillsPr).trigger("change");
 }
+
 $(document).ready(function () {
-    if (rate_freelancer > 0 || rate_business > 0) {
-        $('#unrateFreelancer').hide();
-        $('#unrateBusiness').hide();
-    }
-    else if (rate_freelancer == 0 || rate_business == 0) {
-        $('#rateFreelancer').hide();
-        $('#rateBusiness').hide();
-    }
     $skillsControl = $(".skillsPr").select2();
     $skillsControl2 = $(".skillsPr1").select2();
     $('#updateProfile').on("click", function (event) {
