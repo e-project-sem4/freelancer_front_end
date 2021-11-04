@@ -145,9 +145,9 @@ function loadDetails() {
                                             <table class="data-table responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
                                             <thead>
                                              <tr>
-                                                <th>ID</th>
-                                                <th>NAME</th>
-                                                <th>Price</th>
+                                                <th style="width: 10%;">ID</th>
+                                                <th style="width: 70%;">NAME</th>
+                                                <th style="width: 20%;">Price</th>
                                              </tr>
                                              </thead>
                                              <tbody>`
@@ -155,11 +155,11 @@ function loadDetails() {
                                                  for (i = 0; i < obj.business.listJob.length; i++){
                                                     itemDetail+= ` 
                                                 <tr>
-                                                <td>
+                                                <td >
                                                     <a class="text-muted" href="/admin/job-details?id=${obj.business.listJob[i].id}">${obj.business.listJob[i].id}</a>
                                                 </td>
-                                                <td>
-                                                    <a class="list-item-heading" href="/admin/job-details?id=${obj.business.listJob[i].id}">${obj.business.listJob[i].name}</a>
+                                                <td class ="truncate" style="max-width: 50px;">
+                                                    <a class=" list-item-heading" href="/admin/job-details?id=${obj.business.listJob[i].id}">${obj.business.listJob[i].name}</a>
                                                 </td>
                                                 <td>
                                                     <p class="text-muted">${obj.business.listJob[i].paymentAmount}</p>
@@ -245,10 +245,10 @@ function loadDetails() {
                                             <table class="data-table responsive nowrap" data-order="[[ 1, &quot;desc&quot; ]]">
                                             <thead>
                                              <tr>
-                                                <th>ID</th>
-                                                <th>JOB NAME</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
+                                                <th style="width: 10%;">ID</th>
+                                                <th style="width: 70%;">JOB NAME</th>
+                                                <th style="width: 10%;">Price</th>
+                                                <th style="width: 10%;">Status</th>
                                              </tr>
                                              </thead>
                                              <tbody>`
@@ -257,10 +257,10 @@ function loadDetails() {
                                                     itemDetail+= ` 
                                                 <tr>
                                                 <td>
-                                                    <a class="text-muted" href="/admin/job-details?id=${obj.freelancer.proposals[j].id}">${obj.freelancer.proposals[j].id}</a>
+                                                    <a class="text-muted" href="/admin/job-details?id=${obj.freelancer.proposals[j].job_id}">${obj.freelancer.proposals[j].id}</a>
                                                 </td>
-                                                <td>
-                                                    <a class="list-item-heading" href="/admin/job-details?id=${obj.freelancer.proposals[j].id}">${obj.freelancer.proposals[j].jobName}</a>
+                                                <td class ="truncate" style="max-width: 50px;">
+                                                    <a class="list-item-heading" href="/admin/job-details?id=${obj.freelancer.proposals[j].job_id}">${obj.freelancer.proposals[j].jobName}</a>
                                                 </td>
                                                 <td>
                                                     <p class="text-muted">${obj.freelancer.proposals[j].paymentAmount}</p>
