@@ -156,6 +156,10 @@ function loadMultipleLineChart(startAt,endAt){
         if(res[key][i].type == 3){
           singleObject.name="WAGE";
         }
+        if(res[key][i].type == 4){
+          singleObject.name="REFUND";
+        }
+        
 				singleObject.data.push(res[key][i].price);
 			}
 			formatteddata.push(singleObject);
