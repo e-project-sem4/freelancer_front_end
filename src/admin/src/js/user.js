@@ -10,9 +10,66 @@ $(document).ready(function () {
   if(localStorage.getItem("access-token-admin")==null){
     location.href="/admin/login"
   }
+  toastr.options = {
+    "closeButton": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-bottom-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "300",
+    "timeOut": "1000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
   loadAll(search, page, pageSize, sort, startAt, endAt,status);
   pagination(totalRow);
 });
+
+
+
+function changeStatus(id,s){
+
+  const url =
+  baseUrl +
+  `/api/v1/users/admin/${id}`;
+
+  const param = {
+   status:s
+  };
+  $.ajax({
+    type: "PATCH",
+    url: url,
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(param),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        String(localStorage.getItem("access-token-admin"))
+      );
+    },
+    dataType: "JSON",
+    async: false,
+    success: function (res) {
+        toastr.success("Success!");
+      
+      if (localStorage.getItem("access-token-admin") == null) {
+        location.href = "/admin/login"
+      }
+      loadAll(search, page, pageSize, sort, startAt, endAt,status);
+      pagination(totalRow);
+      $('#error').hide();
+
+    },
+
+  
+})
+};
+
 
 function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
   const url =
@@ -50,9 +107,27 @@ function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
           rolesUser = '<span class="badge badge-pill badge-primary">ROLE_USER</span>'
         }
         if (lists[i].status == 1) {
-          statusUser = '<span class="badge badge-pill badge-secondary ">Active</span>'
+          statusUser = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-secondary">Active</button>
+          <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${lists[i].id},2);" class="dropdown-item alert-warning" href="#">Deactivate</a>
+              <a onClick="changeStatus(${lists[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
         } else {
-          statusUser = '<span class="badge badge-pill badge-danger">Deactivation</span>'
+          statusUser = `<div class="btn-group mb-1">
+          <button type="button" class="btn btn-danger">Deactivate</button>
+          <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(79px, 42px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a onClick="changeStatus(${lists[i].id},1);" class="dropdown-item alert-secondary" href="#">Active</a>
+              <a onClick="changeStatus(${lists[i].id},0);" class="dropdown-item alert-danger" href="#">Delete</a>
+          </div>
+      </div>`
         }
         ;
         itemTempHtml += `
