@@ -3,7 +3,7 @@ var totals = 0;
 var totalPage = 0;
 var pageSize = 5;
 var page = 1;
-var sort = 0;
+var sort = 1;
 
 var username = "";
 var jobName = "";
