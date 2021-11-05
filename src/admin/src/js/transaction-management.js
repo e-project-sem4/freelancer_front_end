@@ -121,3 +121,18 @@ function changeOrder() {
   $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
   pagination(totalRow);
 }
+$("#expost-excel").on('click', function(event){
+  
+  const url =
+    baseUrl +
+    `/api/v1/transactions/export/excel/transaction/admin`;
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/octet-stream",
+    async: false,
+    success: function (res) {
+      window.location = url;
+    } 
+  })
+})
