@@ -328,8 +328,8 @@ function loadAllJobJobmn() {
           if (jobList[i].isPaymentStatus == 0) {
             itemTempHtml += `
                                                       <div class="mt-3">
-                                                          <a href="/job-detail-payment?id=${jobList[i].id}" type="button" class="btn btn-sm btn-warning"style="
-                                                      width: 100px;">Payment !</a>
+                                                          <button onclick="paymentJob(${jobList[i].id})"  type="button" class="btn btn-sm btn-warning"style="
+                                                      width: 100px;">Payment !</button>
                                                       </div>`
           }
           else if (jobList[i].isPaymentStatus == 1) {
@@ -383,3 +383,7 @@ function handleOpenModal(id, i) {
   CKEDITOR.instances.descriptionJobmn.setData(jobList[i].description);
 }
 
+function paymentJob(id){
+  localStorage.setItem("id_job",id);
+  window.location = `/job-detail-payment?id=${id}`
+}
