@@ -31,9 +31,9 @@ function loadJobDetails() {
             <div class="col-lg-6 col-12 mb-4">
              <div  class="card mb-4">
             <div class="card-body">
-            <p class="text-muted mb-2">Account: ${jobDetails.userBusiness.user.username} </p>
+            <p class="text-muted mb-2">Account: <a href="/admin/user-details?id=${jobDetails.userBusiness.user.id}">${jobDetails.userBusiness.user.username}</a></p>
             <div style="display: flex;justify-content: center;">
-                <a href="#">
+                <a href="/admin/user-details?id=${jobDetails.userBusiness.user.id}">
                    <img alt="Profile Picture" src="${jobDetails.userBusiness.user.thumbnail}" class="img-thumbnail border-1 rounded-circle list-thumbnail align-self-center" />
                 </a>
             </div>
@@ -127,7 +127,7 @@ function loadJobDetails() {
                                     <a href="#">
                                         <p class="font-weight-medium mb-0">${jobDetails.proposals[h].description}.
                                         </p>
-                                        <p class="text-muted mb-1 text-small">${jobDetails.proposals[h].freeLancerName} |
+                                        <p class="text-muted mb-1 text-small"><a <a href="/admin/user-details?id=${jobDetails.proposals[h].userAccountId}">${jobDetails.proposals[h].freeLancerName} <a/>|
                                         ${new Date(jobDetails.proposals[h].createAt).toLocaleDateString()}</p>
                                     </a>                                   
                                      `;
