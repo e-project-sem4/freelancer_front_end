@@ -25,11 +25,7 @@ function loadJobDetails() {
             const jobDetails = res.result;
             console.log(jobDetails)
 
-            var proposals = jobDetails.proposals;
-            const job_user_id = jobDetails.userBusiness.user.id;
             var itemHtml = "";
-            let itemTempHtml = "";
-            var d = new Date(jobDetails.createAt).toLocaleDateString();
 
             itemHtml += `
             <div class="col-lg-6 col-12 mb-4">
@@ -54,10 +50,16 @@ function loadJobDetails() {
                 <span class="badge badge-pill badge-secondary ">Open</span>
                 `;
             }
-            else {
+            else if (jobDetails.status == -1) {
                 itemHtml +=
                 `
-                <span class="badge badge-pill badge-danger">Close</span>
+                <span class="badge badge-pill badge-secondary">Close</span>
+                `;
+            }
+            else if (jobDetails.status == 0) {
+                itemHtml +=
+                `
+                <span class="badge badge-pill badge-danger">DELETED</span>
                 `;
             }
             itemHtml +=
@@ -118,7 +120,7 @@ function loadJobDetails() {
                             pro = `
                             <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                 <a href="#">
-                                    <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg"
+                                    <img alt="Profile Picture" src="/admin/src/img/logo-top-work2-ico.png"
                                         class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
                                 </a>
                                 <div class="pl-3 pr-2">

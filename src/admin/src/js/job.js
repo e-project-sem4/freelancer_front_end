@@ -39,9 +39,12 @@ function loadAll(search, page, pageSize, sort, complexity, skill, isPaymentStatu
           statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
         } else if (lists[i].status == 3){
           statusJob = '<span class="badge badge-pill badge-danger">Complete</span>'
-        } else
+        } else if (lists[i].status == -1)
         {
-          statusJob = '<span class="badge badge-pill badge-danger">Close</span>'
+          statusJob = '<span class="badge badge-pill badge-secondary">Close</span>'
+        }else if (lists[i].status == 0)
+        {
+          statusJob = '<span class="badge badge-pill badge-dark">DELETE</span>'
         }
 
         ;
