@@ -47,17 +47,9 @@ function loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt) {
         else if(lists[i].type == "WAGE"){ // thanh toán tiền sau khi hoàn thành job
           payment = '<span class="badge badge-pill badge-success">WAGE</span>'
         }
-    
-        // if (lists[i].status == 1 || lists[i].status == 2) {
-        //   statusJob = '<span class="badge badge-pill badge-secondary ">Open</span>'
-        // } else if (lists[i].status == 3){
-        //   statusJob = '<span class="badge badge-pill badge-danger">Complete</span>'
-        // } else
-        // {
-        //   statusJob = '<span class="badge badge-pill badge-danger">Close</span>'
-        // }
-
-        // ;
+        else if(lists[i].type == "REFUND"){ // thanh toán tiền sau khi hoàn thành job
+          payment = '<span class="badge badge-pill badge-dark">REFUND</span>'
+        }
         itemTempHtml += `
                     <div class="card d-flex flex-row mb-3">
                         <div class="d-flex flex-grow-1 min-width-zero">

@@ -25,19 +25,15 @@ function loadJobDetails() {
             const jobDetails = res.result;
             console.log(jobDetails)
 
-            var proposals = jobDetails.proposals;
-            const job_user_id = jobDetails.userBusiness.user.id;
             var itemHtml = "";
-            let itemTempHtml = "";
-            var d = new Date(jobDetails.createAt).toLocaleDateString();
 
             itemHtml += `
             <div class="col-lg-6 col-12 mb-4">
              <div  class="card mb-4">
             <div class="card-body">
-            <p class="text-muted mb-2">Account: ${jobDetails.userBusiness.user.username} </p>
-            <div>
-                <a href="#">
+            <p class="text-muted mb-2">Account: <a href="/admin/user-details?id=${jobDetails.userBusiness.user.id}">${jobDetails.userBusiness.user.username}</a></p>
+            <div style="display: flex;justify-content: center;">
+                <a href="/admin/user-details?id=${jobDetails.userBusiness.user.id}">
                    <img alt="Profile Picture" src="${jobDetails.userBusiness.user.thumbnail}" class="img-thumbnail border-1 rounded-circle list-thumbnail align-self-center" />
                 </a>
             </div>
@@ -54,10 +50,16 @@ function loadJobDetails() {
                 <span class="badge badge-pill badge-secondary ">Open</span>
                 `;
             }
-            else {
+            else if (jobDetails.status == -1) {
                 itemHtml +=
                 `
-                <span class="badge badge-pill badge-danger">Close</span>
+                <span class="badge badge-pill badge-secondary">Close</span>
+                `;
+            }
+            else if (jobDetails.status == 0) {
+                itemHtml +=
+                `
+                <span class="badge badge-pill badge-danger">DELETED</span>
                 `;
             }
             itemHtml +=
@@ -118,14 +120,14 @@ function loadJobDetails() {
                             pro = `
                             <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                 <a href="#">
-                                    <img alt="Profile Picture" src="/admin/src/img/profile-pic-l.jpg"
+                                    <img alt="Profile Picture" src="/admin/src/img/logo-top-work2-ico.png"
                                         class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
                                 </a>
                                 <div class="pl-3 pr-2">
                                     <a href="#">
                                         <p class="font-weight-medium mb-0">${jobDetails.proposals[h].description}.
                                         </p>
-                                        <p class="text-muted mb-1 text-small">${jobDetails.proposals[h].freeLancerName} |
+                                        <p class="text-muted mb-1 text-small"><a <a href="/admin/user-details?id=${jobDetails.proposals[h].userAccountId}">${jobDetails.proposals[h].freeLancerName} <a/>|
                                         ${new Date(jobDetails.proposals[h].createAt).toLocaleDateString()}</p>
                                     </a>                                   
                                      `;
