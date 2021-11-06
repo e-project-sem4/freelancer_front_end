@@ -146,7 +146,13 @@ function loadAll(search, page, pageSize, sort, startAt, endAt,status) {
                                 <p class="mb-1  w-15 w-xs-100">${d}</p>
                                 <p class="mb-1  w-15 w-xs-100">${lists[i].balance} USD</p>
                                 <div class="w-15 w-xs-100">`+ rolesUser + `</div>
-                                <div class="w-15 w-xs-100">`+ statusUser + `</div>
+                                <div class="w-15 w-xs-100">`
+                                if(lists[i].roles == "ROLE_CLIENT"){
+                                  itemTempHtml +=
+                                  statusUser
+                                }
+                                itemTempHtml+=
+                               `</div>
                             </div>
                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                 <label class="custom-control custom-checkbox mb-0">
