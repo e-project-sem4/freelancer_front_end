@@ -129,3 +129,17 @@ function changeOrder() {
   $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
   pagination(totalRow);
 }
+$("#export-excel").on('click', function(even){
+  const url =
+    baseUrl +
+    `/api/v1/transactions/export/excel/revenue/admin`;
+  $.ajax({
+    type: "GET",
+    url: url,
+    contentType: "application/octet-stream",
+    async: false,
+    success: function (res) {
+      window.location = url;
+    } 
+  })
+})

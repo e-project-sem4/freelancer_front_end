@@ -121,7 +121,7 @@ function changeOrder() {
   $("#pagination-api").html(`<ul id="pagination-demo" class="pagination justify-content-center mb-0"></ul>`);
   pagination(totalRow);
 }
-$("#expost-excel").on('click', function(event){
+$("#export-excel").on('click', function(event){
   
   const url =
     baseUrl +
