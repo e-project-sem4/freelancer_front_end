@@ -154,6 +154,13 @@ router.get("/history-deposit", (req, res) => {
     });
 });
 
+router.get("/withdraw", (req, res) => {
+    fs.readFile("./src/withdraw.html", "utf-8", (err, data) => {
+        res.type("text/html");
+        res.send(data);
+    });
+});
+
 //router admin
 router.get("/admin/login", (req, res) => {
     fs.readFile("./src/admin/src/LandingPage.Auth.Login.html", "utf-8", (err, data) => {

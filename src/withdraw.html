@@ -50,6 +50,8 @@
 
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
     <script src="js/jquery.min.js"></script>
     <script src="js/header.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -58,7 +60,14 @@
       type="text/javascript"
     ></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
   </head>
+  <style>
+      .form-control{
+          font-size: 16px !important;
+      }
+  </style>
 
   <body>
     <!-- Loader -->
@@ -76,26 +85,27 @@
     <header id="header"></header>
     <!-- Navbar End -->
 
-    <!-- Start home -->
-    <section class="bg-half page-next-level"> 
-      <div class="bg-overlay"></div>
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-md-6">
-                  <div class="text-center text-white">
-                      <h4 class="text-uppercase title mb-4">Contact Us</h4>
-                      <ul class="page-next d-inline-block mb-0">
-                          <li><a href="/home" class="text-uppercase font-weight-bold">Home</a></li>
-                          <li>
-                              <span class="text-uppercase text-white font-weight-bold">Deposit</span> 
-                          </li> 
-                      </ul>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-    <!-- end home -->
+     <!-- Start home -->
+     <section class="bg-half page-next-level"> 
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">Contact Us</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="/home" class="text-uppercase font-weight-bold">Home</a></li>
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">Withdraw</span> 
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- end home -->
+  
 
     <!-- CANDIDATES PROFILE START -->
 
@@ -104,12 +114,45 @@
         <div class="row">
           <div class="container emp-freelancer">
             <div class="col-lg-12 pl-5">
-              <h4 class="text-center">DEPOSIT</h4>
+              <h4 class="text-center">WITHDRAW</h4>             
+              <div id="Freelancer" class="row">
+                <div class="col-12">
+                  <div class="form-group app-label">
+                    <label class="text-muted">User Name</label>
+                    <span
+                      id="user-name"                      
+                      class="form-control resume"                     
+                    ></span>
+                  </div>
+                </div>
+              </div>
+              <div id="Freelancer" class="row">
+                <div class="col-12">
+                  <div class="form-group app-label">
+                    <label class="text-muted">Name</label>
+                    <span
+                      id="full-name"                      
+                      class="form-control resume"                     
+                    ></span>
+                  </div>
+                </div>
+              </div>
+              <div id="Freelancer" class="row">
+                <div class="col-12">
+                  <div class="form-group app-label">
+                    <label class="text-muted">Email</label>
+                    <span
+                      id="email-user"                      
+                      class="form-control resume"                     
+                    ></span>
+                  </div>
+                </div>
+              </div>
               <div id="Freelancer" class="row">
                 <div class="col-12">
                   <div class="form-group app-label">
                     <label class="text-muted">Amount</label>
-                    <input
+                    <input                    
                       id="amount"
                       type="text"
                       class="form-control resume"
@@ -118,7 +161,11 @@
                   </div>
                 </div>
               </div>
-              <div id="paypal-button" class="text-center"></div>
+              <div class="row">
+                <div class="col-md-12 mt-2">
+                    <button type="button" onclick="drawMoney()" class="btn btn-primary" id="post-job">Submit</button>
+                </div>
+            </div>
             </div>
           </div>
         </div>
@@ -147,64 +194,6 @@
     <script src="js/jquery.nice-select.min.js"></script>
 
     <script src="js/app.js"></script>
+    <script src="js/withdraw.js"></script>
     <script src="js/footer.js"></script>
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-    <script>
-    var userInfo = localStorage.getItem("access-token");
-    var amount ;
-    var urlCreate 
-  
-  if(userInfo === null || userInfo =="" || userInfo === undefined){
-        location.href = "/login"
-    }else{    
-      paypal.Button.render(
-        {
-          onClick:function(){
-            debugger
-            amount = $("#amount").val()
-             urlCreate = baseUrl +`/api/v1/users/create-payment?amount=${amount}`
-          },
-          env: "sandbox", 
-          payment: function (data, actions) { 
-            return actions.request.post(urlCreate).then(function (res) {
-                return res.id;
-              });
-          },
-          onAuthorize: function (data, actions) {
-            return actions.request
-              .get(
-                baseUrl +`/api/v1/users/execute-payment?paymentId=` + data.paymentID + '&PayerID='+ data.payerID,
-                {
-                  method: "GET",
-                  headers: {
-                    "content-type": "application/json",
-                    Authorization: String(userInfo),
-                  },
-                }
-              )
-              .then(function (res) {
-                window.location = "/history-deposit"
-              });
-          },
-        },
-        "#paypal-button"
-      );
-    }
-    
-   
-    </script>
-    <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/618647e06885f60a50ba960e/1fjq8hhm7';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-  </script>
-  <!--End of Tawk.to Script-->
-  </body>
-</html>
