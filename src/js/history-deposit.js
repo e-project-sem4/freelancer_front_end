@@ -89,3 +89,18 @@ $('#datepicker').on('changeDate', function() {
   loadAll(page, pageSize, sort,username, jobName, type,startAt,endAt)
 
 });
+$("#export-excel").on('click', function(event){
+  
+  const url =
+    baseUrl +
+    `/api/v1/transactions/export/excel/transaction/user/${username}`;
+  $.ajax({
+    url: url,
+    type: "GET",
+    contentType: "application/octet-stream",
+    async: false,
+    success: function (res) {
+      window.location  = url;
+    } 
+  })
+})
