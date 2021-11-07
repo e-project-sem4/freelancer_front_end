@@ -12,9 +12,8 @@ $(document).ready(function () {
     config.toolbarCanCollapse = true;
   };  
   CKEDITOR.replace('descriptionJob');
-  toastr.options.timeOut=1000;
+
   toastr.options.fadeIn = 0;
-  toastr.options.positionClass = "toast-top-left";
 })
 
   $("#post-job").on("click", function (event) {
@@ -56,11 +55,12 @@ $(document).ready(function () {
       success:  function (res,xhr) {
         if (res.status === "0") {
           localStorage.setItem('id_job',res.result.id)         
-          toastr.success('Post job successfull!')
           if(res.result.isPaymentStatus === 1){
-            setInterval((location.href = `/job-details?id=${res.result.id}`),30000);
+            toastr.success('Post job successfull!');
+            setTimeout(() =>  { window.location.href = `/job-details?id=${res.result.id}`}, 1200);
          }else if(res.result.isPaymentStatus === 0){
-          setInterval((location.href = "/job-detail-payment"), 30000);
+          toastr.success('Post job successfull!(payment by paypal');
+          setTimeout(() =>  { window.location.href = `/job-detail-payment`}, 1200);
          }
         }
       },

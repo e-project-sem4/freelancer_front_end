@@ -37,8 +37,7 @@ function loadAllJob(searchKey, page, pageSize, sort, complexity,skill,PaymentSta
       let itemHtml = "";
       let itemTempHtml = "";
       for (let i = 0; i < jobList.length; i++) {
-        
-        if( jobList[i].status == 1 || jobList[i].status == 2 ) {
+        if( jobList[i].status == 1  ) {
           var d = new Date(jobList[i].createAt).toLocaleDateString();
         
         itemTempHtml = `<div class="col-lg-12 mt-4 pt-2">

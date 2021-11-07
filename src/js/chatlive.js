@@ -184,10 +184,9 @@ $(document).ready(function () {
                             dataType: "JSON",
                             async: false,
                             success: function (res) {
-                                setTimeout(() => window.location.href = '/live-exch', 800);
                                 if (res && res.status == '0') {
-                                    toastr.success('Edit Profile Completed!');
-                                    setTimeout(2000)
+                                    toastr.success('job is done!');
+                                    setTimeout(() =>  { window.location.href = '/live-exch'}, 1200);    
                                 }
                                 if (res && res.status == '-1') {
                                     toastr.warning(res.message);
