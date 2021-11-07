@@ -61,34 +61,34 @@ $(function load() {
             console.log(rate_business, rate_freelancer)
             let itemhtmlRateBN = ``;
             let itemhtmlRateFR = ``;
-            
-             if (rate_freelancer > 0) {
-                 itemhtmlRateFR = 
-                 `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
+
+            if (rate_freelancer > 0) {
+                itemhtmlRateFR =
+                    `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 `
             }
-             if (rate_business > 0){
+            if (rate_business > 0) {
                 itemhtmlRateBN = `  <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 <div class="list-inline-item"><i class="mdi mdi-star text-danger"></i></div>
                 `
-                
+
             }
-            if (rate_freelancer == 0 ) {
-                itemhtmlRateFR = `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
-               
+            if (rate_freelancer == 0) {
+                itemhtmlRateFR = `<h3 class = "text-danger h5 mb-2">Not rated yet</h3>`
+
             }
-            if (rate_business == 0){       
-                itemhtmlRateBN += `<h3 class = "text-danger h5 mb-2">not rated yet</h3>`
-            }	
-           
-            
+            if (rate_business == 0) {
+                itemhtmlRateBN += `<h3 class = "text-danger h5 mb-2">Not rated yet</h3>`
+            }
+
+
             $('#rateFreelancer').html(itemhtmlRateFR)
             $('#rateBusiness').html(itemhtmlRateBN)
             let itemHtmlInfo = `<img src="${ProfileList.user.thumbnail}" height="150" alt="" class="d-block mx-auto shadow rounded-pill mb-4">
@@ -163,25 +163,29 @@ $(function load() {
                           <form class="needs-validation" novalidate>
                             <div class="form-group">                         
                               <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="${ProfileList.user.email}" >
+                              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" value="${ProfileList.user.email}" >
                               <div class="invalid-feedback">
 
                               </div>
                               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                              <div class="error1"></div>
                             </div>
+
                             <div class="form-group">
                               <label for="exampleInputPassword1">FullName</label>
-                              <input type="text" class="form-control" id="fullName" placeholder="${ProfileList.user.fullName}" >
+                              <input type="text" class="form-control" id="fullName" value="${ProfileList.user.fullName}" >
                               <div class="invalid-feedback">
                                 
                               </div>
+                              <div class="error2"></div>
                             </div>
                             <div class="form-group">
                               <label for="exampleInputPassword1">Phone</label>
-                              <input type="tel" class="form-control" id="phone" placeholder="${ProfileList.user.phone}" >
+                              <input type="tel" class="form-control" id="phone" value="${ProfileList.user.phone}" >
                               <div class="invalid-feedback">
                                 
                               </div>
+                              <div class="error3"></div>
                             </div>                            
                             <div class="form-group">
                                 <button type="button" id="upload_widget" onclick="changeAvatar()" class="btn btn-primary">Thêm ảnh
@@ -555,47 +559,74 @@ function handleOpenModalPr() {
     let skillsPr = Skills.map((e) => { return e.skill_id + '' });
     $skillsControl.val(skillsPr).trigger("change");
 }
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
 
 $(document).ready(function () {
     $skillsControl = $(".skillsPr").select2();
     $skillsControl2 = $(".skillsPr1").select2();
     $('#updateProfile').on("click", function (event) {
-        const fullName = $("#fullName").val();
+        const $email_vali = $(".error1");
+        const $fullname_vali = $(".error2");
+        const $phone_vali = $(".error3");
         const email = $("#email").val();
+        const fullName = $("#fullName").val();
         const phone = $("#phone").val();
-        const url = baseUrl + `/api/v1/users/editprofile`;
-        const param = {
-            fullName: fullName,
-            email: email,
-            phone: phone,
-            thumbnail: thumbnailsUrl
-        };
-        $.ajax({
-            type: 'PUT',
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "Authorization",
-                    String(localStorage.getItem("access-token"))
-                );
-            },
-            data: JSON.stringify(param),
-            dataType: "JSON",
-            async: false,
-            success: function (res) {
-                window.location.href = '/profile'
-                if (res && res.status == '0') {
-                    toastr.success('Edit Profile Completed!');
-                    setTimeout(2000)
-                }
-                if (res && res.status == '-1') {
-                    toastr.warning(res.message);
-                }
-            },
-        });
+        $email_vali.text("");
+        $fullname_vali.text("");
+        $phone_vali.text("");
+        if (!validateEmail(email)) {
+            $email_vali.text(email + " is not valid :(");
+            $email_vali.css("color", "red");
+        }
+        if (fullName.length == null || fullName.length == "") {
+            $fullname_vali.text("Please enter your Fullname")
+            $fullname_vali.css("color", "red");
+        }
+        phone_number = Number(phone)
+        if (isNaN(phone_number) == true || phone.length > 10 || phone.length < 10) {
+            $phone_vali.text("Please enter your Phone (10 number)")
+            $phone_vali.css("color", "red");
+        }
+        else {
+            const url = baseUrl + `/api/v1/users/editprofile`;
+            const param = {
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                thumbnail: thumbnailsUrl
+            };
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        String(localStorage.getItem("access-token"))
+                    );
+                },
+                data: JSON.stringify(param),
+                dataType: "JSON",
+                async: false,
+                success: function (res) {
+                    window.location.href = '/profile'
+                    if (res && res.status == '0') {
+                        toastr.success('Edit Profile Completed!');
+                        setTimeout(2000)
+                    }
+                    if (res && res.status == '-1') {
+                        toastr.warning(res.message);
+                    }
+                },
+            });
 
+        }
+        return false;
     })
+
     $('.updateFreelancer').on("click", function (event) {
         const location = $(".location").val();
         const overview = $(".overview").val();
@@ -613,7 +644,7 @@ $(document).ready(function () {
             certifications: certifications,
             hasSkills: otherSkill
         };
-       
+
         $.ajax({
             type: 'POST',
             url: url,
@@ -662,7 +693,7 @@ $(document).ready(function () {
             certifications: certifications,
             hasSkills: otherSkill
         };
-        
+
         $.ajax({
             type: 'POST',
             url: url,
