@@ -37,12 +37,8 @@ $(document).ready(function () {
                         });
                     }
                     else {
-                        swal("Hooray!", {
-                            icon: "success",
-                            buttons: false,
-                           
-                        });
-                        setTimeout(() => window.location.href = '/login', 2000);
+                        toastr.success('Change Completed!');
+                    setTimeout(() =>  { window.location.href = '/login'}, 1200);
                     }
 
                 },

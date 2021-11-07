@@ -1,225 +1,55 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Job Management</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="Themesdesign" />
+<div class="col-md-3 ">
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#EditFreelancerModal">
+        Edit freelancer
+    </button>
 
-    <link rel="shortcut icon" href="images/favicon.ico">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-
-    <!--Material Icon -->
-    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
-
-    <!-- selectize css -->
-    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
-
-    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- Custom  Css -->
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="css/post-a-job.css" />
-    <script src="js/jquery.min.js" > </script>
-    <script src="js/header.js" ></script>
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-      </button>
-      
-      <!-- Modal -->
-     
-<di v class="col-lg-12 mt-4 pt-2">
-    <div class="job-box bg-white overflow-hidden border rounded position-relative overflow-hidden ">
-        <div class="lable text-center pt-2 pb-2">
-            <ul class="list-unstyled best text-white mb-0 text-uppercase">
-                <li class="list-inline-item"><i class="mdi mdi-account-circle"></i></li>
-            </ul>
-        </div>
-        <div class="p-3">
-            <div class="row align-items-center">
-                <div class="col-lg-2">
-                    <div class="company-logo-img">
-                        <img src="images/featured-job/img-1.png" alt="" class="img-fluid mx-auto d-block">
-                    </div>
+    <div class="modal fade" id="EditFreelancerModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5  class="modal-title " id="exampleModalLabel">Edit Freelancer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="col-lg-7 col-md-9">
-                    <div class="job-list-desc">
-                        <h4 class="mb-2"><a href="/job-details?id=${jobList[i].id}"
-                                class="text-dark">${jobList[i].name}</a></h4>
-                        <ul class="list-inline mb-0">
-                            <div class="list-inline-item mr-3">
-                                <p id="limit" class="text-muted mb-0"><i class="mdi mdi-animation mr-2"></i>Description:
-                                    ${jobList[i].description}</p>
-                            </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Location</label>
+                            <input type="text" class="form-control" id="location"
+                                aria-describedby="emailHelp"
+                                placeholder="${ProfileList.freelancer.location}">
+                            <div class="invalid-feedback">
 
-                            <div class="list-inline-item mr-3">
-                                <p class="text-break mb-0"><i class="mdi mdi-alarm-light mr-2"></i>Complexity :
-                                    ${jobList[i].complexity.complexityText}</p>
                             </div>
-                            <div class="list-inline-item mr-3">
-                                <p class="text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment :
-                                    ${jobList[i].paymentAmount}</p>
-                            </div>
-                            <div class="list-inline-item mr-3">
-                                <p class="text-break mb-0"><i class="mdi mdi-calendar-text mr-2"></i>Date : ${d}</p>
-                            </div>
-                            <li class="list-inline-item mr-3">
-                                <p class="text-break mb-0">
-                                    <i class="mdi mdi-arrow-decision mr-2"></i>Skill main:`;
-                                </p>
-                            </li>
-                        </ul>
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Overview</label>
+                            <input type="text" class="form-control" id="overview"
+                                placeholder="${ProfileList.freelancer.overview}">
+                            <div class="invalid-feedback">
 
-                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Certifications</label>
+                            <input type="text" class="form-control" id="certifications"
+                                placeholder="${ProfileList.freelancer.certifications}">
+                            <div class="invalid-feedback">
+
+                            </div>
+                        </div>
+
+                        <button id="updateFreelancer" type="button"
+                            class="btn btn-primary">Update</button>
+                    </form>
                 </div>
-                <div class="col-lg-3 col-md-3">
-                    <div class="job-list-button-sm ">
-                        <div class="mt-3">
-                            <a href="/job-details?id=${jobList[i].id}" type="button"
-                                class="btn btn-sm btn-outline-primary" style="width: 100px;" id="detail-job">Detail</a>
-                        </div>
-                        <div class="mt-3">
-                            <button type="button" class="btn btn-sm btn-outline-primary" style="width: 100px;"
-                                data-toggle="modal" data-target="#exampleModal">
-                                Edit
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content" style="margin-left: -270px; width: 200%">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Edit Job</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row justify-content-center">
-                                            <div class="col-lg-10">
-                                                
-                                                    <div class="custom-form">
-                                                        <div id="message3"></div>
-                                                        <form method="post" action="php/contact.php" name="contact-form" id="contact-form3">
-                                                            
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Job name</label>
-                                                                        <input id="job_name" type="text" class="form-control resume" placeholder="">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Job Expected Duration</label>
-                                                                        <div class="form-button">
-                                                                            <select class="duration" onchange="durationSelect()" id="expected_duration">
-                                
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Job Complexity</label>
-                                                                        <div class="form-button">
-                                                                            <select class="complexity" onchange="complexitySelect()" id="complexity">
-                                
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Payment Amount</label>
-                                                                        <input id="payment_amount" type="text" class="form-control resume" placeholder="$8000">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Job Skill</label>
-                                                                        <div class="form-button">
-                                                                            <select  class="js-example-basic-multiple skills" name="states[]" multiple="multiple">
-                                
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group app-label mt-2">
-                                                                        <label class="text-muted">Job Description</label>
-                                                                        <textarea id="description" rows="6" class="form-control resume" placeholder=""></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           
-                                                        </form>
-                                                    </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                    
-                        </div>
-                        <div class="mt-3">
-                            <a href="/job-details?id=${jobList[i].id}" type="button"
-                                class="btn btn-sm btn-outline-danger" style="width: 100px" id=" detail-job">Delete</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </div>
-<input id="job_name" type="text" class="form-control resume" placeholder="" value="asdasdasdasdasdasdas">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-
-selectize js
-<script src="js/selectize.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/default.js"></script>
-
-
-
-</body>
-<style>
-    .btn-group {
-        width: 100%;
-    }
-    .dropdown-toggle {
-        width: 100%;
-    }
-    .caret {
-        display: none;
-    }
-    .checkbox{
-        width: 430px;
-    }
-    .btn-group open show{
-        height: 40px;
-    }
-</style>

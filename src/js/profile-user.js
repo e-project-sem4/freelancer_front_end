@@ -461,9 +461,10 @@ $(function load() {
                                                          <form class="needs-validation" novalidate>
                                                              <div class="form-group">
                                                                  <label for="exampleInputEmail1">Location</label>
+                                                                 
                                                                  <input type="text" class="form-control" id="location-Business"
-                                                                     aria-describedby="emailHelp"
-                                                                     placeholder="${ProfileList.business.location}">
+
+                                                                     value = "${ProfileList.business.location}" >
                                                                  <div class="invalid-feedback">
  
                                                                  </div>
@@ -612,15 +613,17 @@ $(document).ready(function () {
                 dataType: "JSON",
                 async: false,
                 success: function (res) {
-                    window.location.href = '/profile'
+                    console.log(res)
                     if (res && res.status == '0') {
                         toastr.success('Edit Profile Completed!');
-                        setTimeout(2000)
+                        setTimeout(() =>  { window.location.href = '/profile'}, 1200);
                     }
                     if (res && res.status == '-1') {
                         toastr.warning(res.message);
                     }
                 },
+
+
             });
 
         }
@@ -659,10 +662,10 @@ $(document).ready(function () {
             dataType: "JSON",
             async: false,
             success: function (res) {
-                window.location.href = '/profile'
+               
                 if (res && res.status == '0') {
                     toastr.success('Edit Freelancer Completed!');
-                    setTimeout(2000)
+                    setTimeout(() =>  { window.location.href = '/profile'}, 1200);
                 }
                 if (res && res.status == '-1') {
                     toastr.warning(res.message);
@@ -708,10 +711,10 @@ $(document).ready(function () {
             dataType: "JSON",
             async: false,
             success: function (res) {
-                window.location.href = '/profile'
+            
                 if (res && res.status == '0') {
                     toastr.success('Edit Freelancer Completed!');
-                    setTimeout(2000)
+                        setTimeout(() =>  { window.location.href = '/profile'}, 1200);
                 }
                 if (res && res.status == '-1') {
                     toastr.warning(res.message);
@@ -750,10 +753,10 @@ $(document).ready(function () {
             dataType: "JSON",
             async: false,
             success: function (res) {
-                window.location.href = '/profile'
+               
                 if (res && res.status == '0') {
                     toastr.success('Edit Business Completed!');
-                    setTimeout(2000)
+                    setTimeout(() =>  { window.location.href = '/profile'}, 1200);
                 }
                 if (res && res.status == '-1') {
                     toastr.warning(res.message);
