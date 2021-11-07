@@ -292,7 +292,7 @@ function loadAllJobJobmn() {
             itemTempHtml += `
                                                                                           <div class= "row">
                                                                                           <div class="col-12 pt-2">
-                                                                                          <p class="text-danger text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment :(${jobList[i].paymentAmount} $) not pay!</p>
+                                                                                          <p class="text-danger text-break mb-0"><i class="mdi mdi-currency-usd mr-2"></i>Payment :(${jobList[i].paymentAmount} $) Unpay!</p>
                                                                                     </div>
                                                                                     </div>`
           }
